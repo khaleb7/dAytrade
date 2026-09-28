@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import fs from "node:fs";
+import * as fs from "node:fs";
 import {
   bookPortfolioPath,
   readJson,

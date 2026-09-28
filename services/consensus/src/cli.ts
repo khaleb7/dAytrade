@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import path from "node:path";
+import * as path from "node:path";
 import {
   bookPortfolioPath,
   fixturesDir,

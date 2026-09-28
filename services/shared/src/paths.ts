@@ -1,12 +1,12 @@
-import fs from "node:fs";
-import path from "node:path";
+import * as fs from "node:fs";
+import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /** Store root: DAYTRADE_STORE or two levels up from services/shared */
 export function storeRoot(): string {
-  const env = process.env.DAYTRADE_STORE;
+  const env = process.env["DAYTRADE_STORE"];
   if (env && fs.existsSync(env)) return path.resolve(env);
   // services/shared/src -> store
   return path.resolve(__dirname, "../../..");

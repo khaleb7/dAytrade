@@ -1,11 +1,11 @@
-import fs from "node:fs";
-import path from "node:path";
+import * as fs from "node:fs";
+import * as path from "node:path";
 import { storeRoot } from "./paths.js";
 
 const DEFAULT_CANDIDATES = (): string[] => {
-  const home = process.env.USERPROFILE || process.env.HOME || "";
+  const home = process.env["USERPROFILE"] || process.env["HOME"] || "";
   return [
-    process.env.DAYTRADE_ENV_FILE || "",
+    process.env["DAYTRADE_ENV_FILE"] || "",
     path.join(home, ".daytrade", "alpaca.env"),
     path.join(home, ".daytrade", "daytrade.env"),
     path.join(home, "daytrade", "alpaca.env"),
