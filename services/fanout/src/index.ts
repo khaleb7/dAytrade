@@ -89,7 +89,6 @@ type SDKRun = {
 type SDKAgent = {
   agentId: string;
   send: (msg: string) => Promise<SDKRun>;
-  [Symbol.asyncDispose]?: () => void | Promise<void>;
   close?: () => void | Promise<void>;
 };
 
@@ -169,9 +168,6 @@ export async function fanoutLocalSdk(
       } finally {
         try {
           if (agent && typeof agent.close === "function") await agent.close();
-          else if (agent && typeof agent[Symbol.asyncDispose] === "function") {
-            await agent[Symbol.asyncDispose]!();
-          }
         } catch {
           /* ignore dispose errors */
         }

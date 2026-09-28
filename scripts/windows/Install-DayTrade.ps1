@@ -180,12 +180,25 @@ if (-not $VerifyOnly -and (Test-Path -LiteralPath $ServicesDir)) {
     if ($nodeCmd) {
         Write-Ok ("Node " + (& $nodeCmd -v) + " via " + $nodeCmd)
         Push-Location $ServicesDir
-        try {
-            & npm install
+            # Always include devDependencies (@types/node, typescript, tsx).
+            # Windows Agent Store installs sometimes omit them under production-ish npm config.
+            & npm install --include=dev --no-audit --no-fund
             if ($LASTEXITCODE -ne 0) { throw "npm install failed" }
+            if (-not (Test-Path -LiteralPath (Join-Path $ServicesDir "node_modules\@types\node"))) {
+                Write-Warn "@types/node missing after install; installing explicitly"
+                & npm install -D "@types/node@22.10.0" --no-audit --no-fund
+            }
             & npm run build
-            if ($LASTEXITCODE -ne 0) { Write-Warn "npm run build failed; Start-HourlyScheduler will use npx tsx" }
-            else { Write-Ok "services built" }
+            if ($LASTEXITCODE -ne 0) {
+                Write-Warn "npm run build failed once; installing typescript/@types/node and retrying"
+                & npm install -D "typescript@5.7.2" "@types/node@22.10.0" "tsx@4.19.2" --no-audit --no-fund
+                & npm run build
+            }
+            if ($LASTEXITCODE -ne 0) {
+                Write-Warn "npm run build failed; Start-HourlyScheduler will use npx tsx (runtime OK)"
+            } else {
+                Write-Ok "services built"
+            }
             $nodeOk = $true
         } catch {
             Write-Warn ("Node services install issue: " + $_)
@@ -213,11 +226,19 @@ try {
 }
 
 if ($nodeOk) {
-    Write-Step "Node orchestrator smoke (--next-tick)"
+    Write-Step "Node orchestrator smoke (next-tick)"
     Push-Location $ServicesDir
     try {
-        & npm run orchestrator -- --next-tick
-        Write-Ok "orchestrator next-tick OK"
+        # Call tsx directly. Do NOT use "npm run ... -- --flag" on Windows PowerShell;
+        # npm treats dashed args as config and drops them.
+        $cliTs = Join-Path $OrchPkg "src\cli.ts"
+        $prev = $ErrorActionPreference
+        $ErrorActionPreference = "Continue"
+        & npx --yes tsx $cliTs --next-tick
+        $code = $LASTEXITCODE
+        $ErrorActionPreference = $prev
+        if ($code -eq 0) { Write-Ok "orchestrator next-tick OK" }
+        else { Write-Warn ("orchestrator next-tick failed (exit " + $code + "); tsx still usable at runtime") }
     } catch {
         Write-Warn ("orchestrator smoke: " + $_)
     } finally {

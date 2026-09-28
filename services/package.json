@@ -19,7 +19,9 @@
     "smoke:consensus": "npm run smoke -w @daytrade/consensus --",
     "smoke:book": "npm run start -w @daytrade/book -- sizing --demo-100k",
     "smoke:fanout": "npm run start -w @daytrade/fanout -- 2026-09-25T14 --from-fixtures",
-    "smoke:prep": "npm run start -w @daytrade/orchestrator -- --hour 2026-09-25T14 --phase prep --from-fixtures --allow-non-rth --skip-ingest"
+    "smoke:prep": "npm run start -w @daytrade/orchestrator -- --hour 2026-09-25T14 --phase prep --from-fixtures --allow-non-rth --skip-ingest",
+    "next-tick": "npm run next-tick -w @daytrade/orchestrator",
+    "smoke:next-tick": "npm run next-tick -w @daytrade/orchestrator"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",

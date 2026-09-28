@@ -45,6 +45,33 @@ Useful flags:
 .\Uninstall-DayTrade.ps1 -RemoveEnv          # also delete alpaca.env
 ```
 
+After install / if `npm run build` failed earlier:
+
+```powershell
+cd $env:DAYTRADE_STORE\services
+npm install
+npm run build
+npm run next-tick
+cd ..\scripts\windows
+.\Install-DayTrade.ps1 -VerifyOnly
+```
+
+## If `npm run build` fails on Windows
+
+The installer now vendors Node types under `services/types/` and runs `npm install --include=dev`. Re-run:
+
+```powershell
+cd $env:DAYTRADE_STORE\scripts\windows
+.\Install-DayTrade.ps1 -VerifyOnly
+# or force rebuild:
+cd $env:DAYTRADE_STORE\services
+npm install --include=dev
+npm run build
+npx tsx .\orchestrator\src\cli.ts --next-tick
+```
+
+Do not use `npm run orchestrator -- --next-tick` in PowerShell — npm eats dashed flags. Use `npx tsx orchestrator\src\cli.ts --next-tick` or `npm run next-tick`.
+
 ## After install
 
 1. Confirm keys in `%USERPROFILE%\.daytrade\alpaca.env` (`APCA_*` + `CURSOR_API_KEY`)

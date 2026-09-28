@@ -15,7 +15,8 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "start": "tsx src/cli.ts"
+    "start": "tsx src/cli.ts",
+    "next-tick": "tsx src/cli.ts --next-tick"
   },
   "dependencies": {
     "@daytrade/book": "*",
