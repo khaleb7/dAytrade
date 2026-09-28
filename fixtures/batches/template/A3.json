@@ -1,0 +1,9 @@
+{
+  "agent_id": "A3",
+  "as_of": "2026-06-01",
+  "orders": [
+    {"side": "buy", "symbol": "VTI", "notional_usd": 20.0},
+    {"side": "buy", "symbol": "BND", "notional_usd": 10.0}
+  ],
+  "thesis": "Fixture: balanced stock/bond mix."
+}

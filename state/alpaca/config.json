@@ -1,0 +1,7 @@
+{
+  "paper": true,
+  "base_url": "https://paper-api.alpaca.markets",
+  "target_equity_usd": 1000,
+  "equity_offset_usd": -99000,
+  "note": "Secrets live in APCA_API_KEY_ID / APCA_API_SECRET_KEY env vars only. Never commit keys. equity_offset_usd maps Alpaca's $100k paper default onto a $1000 sizing book (cash/equity + offset) for proposals and cap checks; broker fills still use real notionals."
+}

@@ -1,0 +1,57 @@
+# JS control plane smoke 2026-09-28T03:36Z
+
+## book sizing (100k + offset -99000 => 1000)
+{
+  "broker_equity_usd": 100000,
+  "sizing_equity_usd": 1000,
+  "equity_offset_usd": -99000,
+  "cash_usd": 1000
+}
+
+## consensus --from-fixtures (majority VTI)
+{
+  "orders": [
+    {
+      "side": "buy",
+      "symbol": "VTI",
+      "notional_usd": 50,
+      "votes": 3,
+      "agents": [
+        "A2",
+        "A3",
+        "A4"
+      ]
+    }
+  ],
+  "no_consensus": false,
+  "min_votes": 3
+}
+
+## orchestrator --next-tick
+{
+  "bucket": "2026-09-28T10",
+  "when": "2026-09-28T14:00:00.000Z",
+  "day": "2026-09-28",
+  "hour": 10
+}
+
+## orchestrator full fixtures settle
+{
+  "phase": "settle",
+  "finished_at": "2026-09-28T03:36:53Z",
+  "consensus_orders": [
+    {
+      "side": "buy",
+      "symbol": "VTI",
+      "notional_usd": 50,
+      "votes": 3,
+      "agents": [
+        "A2",
+        "A3",
+        "A4"
+      ]
+    }
+  ],
+  "validate_ok": true,
+  "submit": true
+}

@@ -1,0 +1,2 @@
+- [ ] [Alpaca hourly consensus](/cursor/stores/self/docs/alpaca-hourly-plan.md) — JS rewrite turn aborted by user; Windows scheduler still the live path; [Build Alpaca hourly stack](bc-a59dc171-4d66-5b1a-a0c8-c2eb15644d45) idle/cancelled
+- [ ] [DayTrade daily backfill](/cursor/stores/self/docs/daytrade-simulator-plan.md) — paused; settled through 2026-09-16

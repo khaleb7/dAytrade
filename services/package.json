@@ -1,0 +1,29 @@
+{
+  "name": "daytrade-services",
+  "private": true,
+  "workspaces": [
+    "shared",
+    "news-bridge",
+    "book",
+    "consensus",
+    "packs",
+    "fanout",
+    "orchestrator"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "npm run build -w @daytrade/shared && npm run build -w @daytrade/news-bridge && npm run build -w @daytrade/book && npm run build -w @daytrade/consensus && npm run build -w @daytrade/packs && npm run build -w @daytrade/fanout && npm run build -w @daytrade/orchestrator",
+    "orchestrator": "npm run start -w @daytrade/orchestrator --",
+    "smoke:consensus": "npm run smoke -w @daytrade/consensus --",
+    "smoke:book": "npm run start -w @daytrade/book -- sizing --demo-100k",
+    "smoke:fanout": "npm run start -w @daytrade/fanout -- 2026-09-25T14 --from-fixtures",
+    "smoke:prep": "npm run start -w @daytrade/orchestrator -- --hour 2026-09-25T14 --phase prep --from-fixtures --allow-non-rth --skip-ingest"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

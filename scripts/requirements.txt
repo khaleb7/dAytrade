@@ -1,0 +1,10 @@
+tzdata>=2024.1
+yfinance>=0.2.40
+pandas>=2.0.0
+numpy>=1.26.0
+requests>=2.31.0
+feedparser>=6.0.11
+exchange-calendars>=4.5.0
+# Alpaca: urllib REST client in alpaca_client.py (no required SDK).
+# Optional: alpaca-py>=0.33.0
+# tzdata: required on Windows for zoneinfo America/New_York in hourly_scheduler.py

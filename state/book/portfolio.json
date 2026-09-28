@@ -1,0 +1,15 @@
+{
+  "broker": "alpaca_paper",
+  "account_id": "b0a28e30-3250-4a98-80e8-230b818ae7fc",
+  "cash_usd": 100000.0,
+  "equity_usd": 100000.0,
+  "buying_power": 400000.0,
+  "positions": [],
+  "reconciled_at": "2026-09-28T02:08:56.172881Z",
+  "status": "ACTIVE",
+  "currency": "USD",
+  "target_equity_usd": 1000,
+  "equity_offset_usd": -99000.0,
+  "sizing_cash_usd": 1000.0,
+  "sizing_equity_usd": 1000.0
+}

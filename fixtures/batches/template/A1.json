@@ -1,0 +1,8 @@
+{
+  "agent_id": "A1",
+  "as_of": "2026-06-01",
+  "orders": [
+    {"side": "buy", "symbol": "BND", "notional_usd": 10.0}
+  ],
+  "thesis": "Fixture: allocate 10% to BND; preserve cash floor."
+}

@@ -1,0 +1,42 @@
+{
+  "date": "2026-06-01",
+  "cutoff_utc": "2026-06-01T13:30:00Z",
+  "mode": "fixture",
+  "fetched_at": "2026-09-27T22:58:06.041956Z",
+  "source_counts": {
+    "reuters": 1,
+    "yahoo_finance": 1,
+    "marketwatch": 1,
+    "sec_edgar": 1
+  },
+  "items": [
+    {
+      "source": "reuters",
+      "title": "Futures steady ahead of open",
+      "url": "https://example.com/reuters/1",
+      "published": "2026-06-01T10:00:00Z",
+      "summary": "US equity futures little changed pre-market."
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "ETF flows favor broad market",
+      "url": "https://example.com/yahoo/1",
+      "published": "2026-06-01T09:00:00Z",
+      "summary": "VTI and SPY see inflows."
+    },
+    {
+      "source": "marketwatch",
+      "title": "Bond yields ease overnight",
+      "url": "https://example.com/mw/1",
+      "published": "2026-06-01T08:30:00Z",
+      "summary": "Treasuries bid; risk assets calm."
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K: sample issuer announces routine update",
+      "url": "https://www.sec.gov/example",
+      "published": "2026-06-01T07:00:00Z",
+      "summary": "Material event filing (fixture)."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+
+# Secrets / local machine (never commit)
+.env
+*.env
+!.env.example
+alpaca.env
+**/alpaca.env
+.daytrade/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Runtime noise (regenerated)
+scripts/**/*.log
+state/scheduler/status.json
+
+# Node (services workspaces)
+services/**/node_modules/
+services/node_modules/
+services/**/dist/
+
+# Large append-only cache (optional local; rebuild via ingest)
+state/news_cache/items.jsonl
+state/news_cache/*.jsonl

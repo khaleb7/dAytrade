@@ -1,0 +1,8 @@
+{
+  "agent_id": "A4",
+  "as_of": "2026-06-01",
+  "orders": [
+    {"side": "buy", "symbol": "QQQ", "notional_usd": 35.0}
+  ],
+  "thesis": "Fixture: growth tilt via QQQ within 50% cap."
+}

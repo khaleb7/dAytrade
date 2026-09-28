@@ -1,0 +1,8 @@
+{
+  "broker": "alpaca_paper",
+  "cash_usd": 1000.0,
+  "equity_usd": 1000.0,
+  "positions": [],
+  "currency": "USD",
+  "target_equity_usd": 1000
+}
