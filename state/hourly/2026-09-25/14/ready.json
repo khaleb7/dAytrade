@@ -1,0 +1,14 @@
+{
+  "as_of": "2026-09-25T14:00:00-04:00",
+  "day": "2026-09-25",
+  "hour_et": "14",
+  "packs": [
+    "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-25/14/A1.md",
+    "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-25/14/A2.md",
+    "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-25/14/A3.md",
+    "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-25/14/A4.md",
+    "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-25/14/A5.md"
+  ],
+  "ready_at": "2026-09-28T03:36:08Z",
+  "next": "fanout then settle"
+}

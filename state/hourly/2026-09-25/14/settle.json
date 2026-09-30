@@ -1,0 +1,69 @@
+{
+  "as_of": "2026-09-25T14:00:00-04:00",
+  "day": "2026-09-25",
+  "hour_et": "14",
+  "phase": "settle",
+  "started_at": "2026-09-28T03:36:53Z",
+  "dry_run": true,
+  "steps": {
+    "consensus": {
+      "wrote": "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-25/14/consensus.json",
+      "orders": [
+        {
+          "side": "buy",
+          "symbol": "VTI",
+          "notional_usd": 50,
+          "votes": 3,
+          "agents": [
+            "A2",
+            "A3",
+            "A4"
+          ]
+        }
+      ],
+      "no_consensus": false
+    },
+    "validate": {
+      "ok": true,
+      "errors": [],
+      "post_trade": {
+        "cash_usd": 950,
+        "positions": [
+          {
+            "symbol": "VTI",
+            "qty": 0.2,
+            "avg_cost": 250,
+            "mark_price": 250
+          }
+        ],
+        "equity_usd": 1000
+      },
+      "sizing_view": true,
+      "equity_offset_usd": -99000,
+      "broker_cash_usd": 100000,
+      "broker_equity_usd": 100000
+    },
+    "submit": {
+      "dry_run": true,
+      "orders": [
+        {
+          "order": {
+            "side": "buy",
+            "symbol": "VTI",
+            "notional_usd": 50,
+            "votes": 3,
+            "agents": [
+              "A2",
+              "A3",
+              "A4"
+            ]
+          },
+          "dry_run": true,
+          "status": "dry_run_skip"
+        }
+      ],
+      "note": "Pass --submit to place Alpaca paper market orders"
+    }
+  },
+  "finished_at": "2026-09-28T03:36:53Z"
+}

@@ -1,0 +1,141 @@
+{
+  "as_of": "2026-09-29T14:00:00-04:00",
+  "day": "2026-09-29",
+  "hour_et": "14",
+  "minute_et": "00",
+  "slot": "1400",
+  "phase": "prep-then-settle",
+  "started_at": "2026-09-29T18:22:41Z",
+  "dry_run": false,
+  "steps": {
+    "news": {
+      "wrote": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1400\\news.json",
+      "as_of": "2026-09-29T14:00:00-04:00",
+      "items": 46,
+      "mode": "cache",
+      "source_counts": {
+        "sec_edgar": 36,
+        "marketwatch": 10
+      },
+      "cache_items_scanned": 99,
+      "cutoff_utc": "2026-09-29T18:00:00Z",
+      "signals": {
+        "wrote": {
+          "latest": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\signals\\latest.json",
+          "hourly": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1400\\signals.json"
+        },
+        "fetched_at": "2026-09-29T18:22:52Z",
+        "ok_count": 6,
+        "errors": {}
+      }
+    },
+    "reconcile": {
+      "equity_usd": 99999.36,
+      "sizing_equity_usd": 999.3600000000006,
+      "positions": 1
+    },
+    "packs": {
+      "wrote": [
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1400\\A1.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1400\\A2.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1400\\A3.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1400\\A4.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1400\\A5.md"
+      ]
+    },
+    "ready": {
+      "as_of": "2026-09-29T14:00:00-04:00",
+      "day": "2026-09-29",
+      "slot": "1400",
+      "packs": [
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1400\\A1.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1400\\A2.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1400\\A3.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1400\\A4.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1400\\A5.md"
+      ],
+      "ready_at": "2026-09-29T18:22:53Z",
+      "next": "fanout then settle"
+    },
+    "fanout": {
+      "as_of": "2026-09-29T14:00:00-04:00",
+      "mode": "sdk_local",
+      "started_at": "2026-09-29T18:22:53Z",
+      "timeout_ms": 1200000,
+      "agents": [
+        {
+          "agent_id": "A1",
+          "model_id": "grok-4.7",
+          "status": "wrote",
+          "agentId": "agent-257a9cda-4b1f-42fb-8746-838113f250db",
+          "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1400\\A1.json",
+          "duration_ms": 378372
+        },
+        {
+          "agent_id": "A2",
+          "model_id": "?",
+          "status": "no_model",
+          "duration_ms": 0
+        },
+        {
+          "agent_id": "A3",
+          "model_id": "?",
+          "status": "no_model",
+          "duration_ms": 0
+        },
+        {
+          "agent_id": "A4",
+          "model_id": "?",
+          "status": "no_model",
+          "duration_ms": 0
+        },
+        {
+          "agent_id": "A5",
+          "model_id": "?",
+          "status": "no_model",
+          "duration_ms": 0
+        }
+      ],
+      "finished_at": "2026-09-29T18:29:11Z"
+    },
+    "consensus": {
+      "wrote": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1400\\consensus.json",
+      "orders": [],
+      "no_consensus": true,
+      "rejected_legs": [],
+      "proposals_loaded": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5"
+      ],
+      "min_votes": 2
+    },
+    "validate": {
+      "ok": true,
+      "errors": [],
+      "post_trade": {
+        "cash_usd": 750.0200000000041,
+        "positions": [
+          {
+            "symbol": "VTI",
+            "qty": 0.664662949,
+            "avg_cost": 376.100398,
+            "mark_price": 375.14,
+            "market_value": 249.341659
+          }
+        ],
+        "equity_usd": 999.3600000000006
+      },
+      "hold": true,
+      "sizing_view": true,
+      "equity_offset_usd": -99000
+    },
+    "submit": {
+      "skipped": true,
+      "reason": "no_consensus"
+    }
+  },
+  "finished_at": "2026-09-29T18:29:11Z"
+}

@@ -1,0 +1,237 @@
+{
+  "date": "2026-09-02",
+  "cutoff_utc": "2026-09-02T13:30:00Z",
+  "mode": "cache",
+  "fetched_at": "2026-09-28T00:58:32.456708Z",
+  "source_counts": {
+    "yahoo_finance": 20,
+    "politician_trades": 12
+  },
+  "cache_items_scanned": 3246,
+  "items": [
+    {
+      "source": "yahoo_finance",
+      "title": "FTC accuses Amazon of running a 'secret ad surcharge scheme' in new lawsuit",
+      "url": "https://finance.yahoo.com/media-advertising/articles/ftc-accuses-amazon-running-secret-202025049.html",
+      "published": "2026-09-02T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Cathie Wood of ARK Invest Continues to Scoop up Bargain-Priced Crypto Stocks. Here Are 2 Stocks You Should Be Buying Now.",
+      "url": "https://finance.yahoo.com/markets/crypto/articles/cathie-wood-ark-invest-continues-201500969.html",
+      "published": "2026-09-02T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Bill Gates Says 'We Need Time to Prepare' for an Economic Upheaval &#x2014; Especially the $20-an-Hour Workers Being Replaced by $10-an-Hour Robots",
+      "url": "https://finance.yahoo.com/economy/policy/articles/bill-gates-says-time-prepare-210039008.html",
+      "published": "2026-09-02T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Energy Expert Warns Venezuela's 65 Billion-Barrel Oil Deal Won't Fix Supply Anytime Soon",
+      "url": "https://finance.yahoo.com/energy/articles/energy-expert-warns-venezuela-65-202413500.html",
+      "published": "2026-09-02T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Ethereum Will Hit $6,000 as CLARITY Act 'Supercharges' Wall Street Demand, Says Tom Lee",
+      "url": "https://finance.yahoo.com/markets/crypto/articles/ethereum-hit-6-000-clarity-201202953.html",
+      "published": "2026-09-02T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Iran War Triggers Billions in New Oil Pipeline and Port Investment",
+      "url": "https://finance.yahoo.com/energy/articles/iran-war-triggers-billions-oil-210000940.html",
+      "published": "2026-09-02T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "PG&E Stock Is Priced For A Decision It Does Not Make",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/pg-e-stock-priced-decision-200825908.html",
+      "published": "2026-09-02T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Meta just turned teen safety into a competitive advantage",
+      "url": "https://finance.yahoo.com/technology/articles/meta-just-turned-teen-safety-202300523.html",
+      "published": "2026-09-02T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Tesla Stock Has Been on a Hot Streak Ahead of Big Event This Week",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/tesla-stock-hot-streak-ahead-201059821.html",
+      "published": "2026-09-02T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Cleo Fields (LA06) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035345.pdf",
+      "published": "2026-09-02T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Cleo Fields, LA06, filing date 9/2/2026, DocID 20035345. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. John J Mr McGuire III (VA05) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035367.pdf",
+      "published": "2026-09-02T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. John J Mr McGuire III, VA05, filing date 9/2/2026, DocID 20035367. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Michael Rulli (OH06) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035365.pdf",
+      "published": "2026-09-02T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Michael Rulli, OH06, filing date 9/2/2026, DocID 20035365. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Tony Wied (WI08) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116326.pdf",
+      "published": "2026-09-02T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Tony Wied, WI08, filing date 9/2/2026, DocID 9116326. Official House Clerk disclosure."
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Digi International (DGII) Surged on AI and Automation Demand",
+      "url": "https://finance.yahoo.com/technology/ai/articles/digi-international-dgii-surged-ai-160223916.html",
+      "published": "2026-09-02T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Brazil's Congress approves tax exemptions to attract data center investments",
+      "url": "https://finance.yahoo.com/news/brazils-congress-approves-tax-exemptions-232613524.html",
+      "published": "2026-09-02T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "McDonald's and Taco Bell Are Fighting Over Your 3 P.M. Pick-Me-Up &#x2014; Here's Who's Winning",
+      "url": "https://finance.yahoo.com/small-business/articles/mcdonald-taco-bell-fighting-over-153000927.html",
+      "published": "2026-09-02T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "A $4 Billion Reason to Buy the Recent Dip in IREN Stock Today",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/4-billion-reason-buy-recent-155956790.html",
+      "published": "2026-09-02T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Warren Buffett claimed he could end America's deficit crisis 'in five minutes' &#x2014; but would his solution actually work?",
+      "url": "https://finance.yahoo.com/economy/policy/articles/warren-buffett-claimed-could-end-155500879.html",
+      "published": "2026-09-02T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "OpenAI's ChatGPT ad business hits $1 billion run rate in six months",
+      "url": "https://finance.yahoo.com/media-advertising/articles/openais-chatgpt-ad-business-hits-153400849.html",
+      "published": "2026-09-02T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Why SAIC Stock Is Rising Today",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/why-saic-stock-rising-today-153319526.html",
+      "published": "2026-09-02T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "The Stamp Album He Started in Fifth Grade Sold for $95,000 at 74. Two Years Later, Medicare Sent the Invoice.",
+      "url": "https://finance.yahoo.com/healthcare/articles/stamp-album-started-fifth-grade-153054185.html",
+      "published": "2026-09-02T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Donald Sternoff Beyer Jr (VA08) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035349.pdf",
+      "published": "2026-09-01T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Donald Sternoff Beyer Jr, VA08, filing date 9/1/2026, DocID 20035349. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Steve Cohen (TN09) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035350.pdf",
+      "published": "2026-09-01T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Steve Cohen, TN09, filing date 9/1/2026, DocID 20035350. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Kevin Hern (OK01) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035326.pdf",
+      "published": "2026-09-01T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Kevin Hern, OK01, filing date 9/1/2026, DocID 20035326. Official House Clerk disclosure."
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "How Shein lost its shine ahead of long-awaited stock market debut",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/cut-price-shein-shine-long-220835403.html",
+      "published": "2026-09-01T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Strategy Just Bought Bitcoin for the First Time in Over Two Months. Here's Why the Timing Matters.",
+      "url": "https://finance.yahoo.com/markets/crypto/articles/strategy-just-bought-bitcoin-first-232646299.html",
+      "published": "2026-09-01T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Bessent says yen moves 'pretty contained' and not disorderly",
+      "url": "https://finance.yahoo.com/markets/currencies/articles/bessent-says-yen-moves-pretty-222814628.html",
+      "published": "2026-08-31T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Jared Moskowitz (FL23) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035243.pdf",
+      "published": "2026-08-27T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Jared Moskowitz, FL23, filing date 8/27/2026, DocID 20035243. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. William R. Keating (MA09) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035293.pdf",
+      "published": "2026-08-25T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. William R. Keating, MA09, filing date 8/25/2026, DocID 20035293. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Kelly Louise Morrison (MN03) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035244.pdf",
+      "published": "2026-08-25T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Kelly Louise Morrison, MN03, filing date 8/25/2026, DocID 20035244. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Suzan K. DelBene (WA01) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035274.pdf",
+      "published": "2026-08-21T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Suzan K. DelBene, WA01, filing date 8/21/2026, DocID 20035274. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Nancy Pelosi (CA11) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035143.pdf",
+      "published": "2026-08-21T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Nancy Pelosi, CA11, filing date 8/21/2026, DocID 20035143. Official House Clerk disclosure."
+    }
+  ]
+}

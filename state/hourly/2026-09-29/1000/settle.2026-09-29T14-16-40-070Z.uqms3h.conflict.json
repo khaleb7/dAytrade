@@ -1,0 +1,134 @@
+{
+  "as_of": "2026-09-29T10:00:00-04:00",
+  "day": "2026-09-29",
+  "hour_et": "10",
+  "minute_et": "00",
+  "slot": "1000",
+  "phase": "prep-then-settle",
+  "started_at": "2026-09-29T14:00:01Z",
+  "dry_run": false,
+  "steps": {
+    "news": {
+      "wrote": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1000\\news.json",
+      "as_of": "2026-09-29T10:00:00-04:00",
+      "items": 72,
+      "mode": "cache",
+      "source_counts": {
+        "marketwatch": 26,
+        "sec_edgar": 40,
+        "politician_trades": 6
+      },
+      "cache_items_scanned": 3345,
+      "cutoff_utc": "2026-09-29T14:00:00Z",
+      "signals": {
+        "wrote": {
+          "latest": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\signals\\latest.json",
+          "hourly": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1000\\signals.json"
+        },
+        "fetched_at": "2026-09-29T14:00:12Z",
+        "ok_count": 6,
+        "errors": {}
+      }
+    },
+    "reconcile": {
+      "equity_usd": 99999.69,
+      "sizing_equity_usd": 999.6900000000023,
+      "positions": 1
+    },
+    "packs": {
+      "wrote": [
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1000\\A1.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1000\\A2.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1000\\A3.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1000\\A4.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1000\\A5.md"
+      ]
+    },
+    "ready": {
+      "as_of": "2026-09-29T10:00:00-04:00",
+      "day": "2026-09-29",
+      "slot": "1000",
+      "packs": [
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1000\\A1.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1000\\A2.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1000\\A3.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1000\\A4.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1000\\A5.md"
+      ],
+      "ready_at": "2026-09-29T14:00:12Z",
+      "next": "fanout then settle"
+    },
+    "fanout": {
+      "as_of": "2026-09-29T10:00:00-04:00",
+      "mode": "sdk_local",
+      "agents": [
+        {
+          "agent_id": "A1",
+          "model_id": "gpt-5.6-sol",
+          "status": "wrote",
+          "agentId": "agent-4f9e0f68-6695-44db-81c0-e7fed77125cf",
+          "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1000\\A1.json"
+        },
+        {
+          "agent_id": "A2",
+          "model_id": "claude-sonnet-5",
+          "status": "wrote",
+          "agentId": "agent-89fff924-01b7-4e58-91d3-f7b1111abd10",
+          "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1000\\A2.json"
+        },
+        {
+          "agent_id": "A3",
+          "model_id": "gemini-3.8-flash",
+          "status": "error",
+          "error": "fanout timeout",
+          "agentId": "agent-cf32fb52-d614-4d0c-87e4-9d1527ace812"
+        },
+        {
+          "agent_id": "A4",
+          "model_id": "claude-opus-5",
+          "status": "wrote",
+          "agentId": "agent-454f2838-6df0-4da3-a648-b50f8d1d4611",
+          "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1000\\A4.json"
+        },
+        {
+          "agent_id": "A5",
+          "model_id": "grok-4.7",
+          "status": "wrote",
+          "agentId": "agent-93e04723-1c57-45f6-902e-3496d48798a6",
+          "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1000\\A5.json"
+        }
+      ],
+      "finished_at": "2026-09-29T14:12:12Z"
+    },
+    "consensus": {
+      "wrote": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1000\\consensus.json",
+      "orders": [],
+      "no_consensus": true
+    },
+    "validate": {
+      "ok": true,
+      "errors": [],
+      "post_trade": {
+        "cash_usd": 750.0200000000041,
+        "positions": [
+          {
+            "symbol": "VTI",
+            "qty": 0.664662949,
+            "avg_cost": 376.100398,
+            "mark_price": 375.64,
+            "market_value": 249.67399
+          }
+        ],
+        "equity_usd": 999.6900000000023
+      },
+      "hold": true,
+      "sizing_view": true,
+      "equity_offset_usd": -99000
+    },
+    "submit": {
+      "skipped": true,
+      "reason": "no_consensus"
+    }
+  },
+  "finished_at": "2026-09-29T14:12:12Z"
+}

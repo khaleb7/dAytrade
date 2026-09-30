@@ -49,7 +49,10 @@ export function loadEnvFile(filePath?: string): string | null {
 }
 
 export function readJson<T = unknown>(filePath: string): T {
-  return JSON.parse(fs.readFileSync(filePath, "utf8")) as T;
+  let text = fs.readFileSync(filePath, "utf8");
+  // Windows PowerShell Set-Content -Encoding utf8 writes a BOM
+  if (text.charCodeAt(0) === 0xfeff) text = text.slice(1);
+  return JSON.parse(text) as T;
 }
 
 export function writeJson(filePath: string, data: unknown): void {

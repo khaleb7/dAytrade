@@ -1,0 +1,49 @@
+{
+  "as_of": "2026-09-29T12:00:00-04:00",
+  "mode": "sdk_local",
+  "started_at": "2026-09-29T16:00:12Z",
+  "timeout_ms": 1200000,
+  "agents": [
+    {
+      "agent_id": "A1",
+      "model_id": "grok-4.7",
+      "status": "wrote",
+      "agentId": "agent-ca695640-7466-4f84-b2c0-0686c4d46211",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1200\\A1.json",
+      "duration_ms": 389814
+    },
+    {
+      "agent_id": "A2",
+      "model_id": "grok-4.7",
+      "status": "wrote",
+      "agentId": "agent-070170a2-1c28-472e-9991-3afb9ea5c757",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1200\\A2.json",
+      "duration_ms": 383900
+    },
+    {
+      "agent_id": "A3",
+      "model_id": "grok-4.7",
+      "status": "wrote",
+      "agentId": "agent-0c7e8cdc-fdb0-4e30-9171-b2f00600d16c",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1200\\A3.json",
+      "duration_ms": 393214
+    },
+    {
+      "agent_id": "A4",
+      "model_id": "grok-4.7",
+      "status": "wrote",
+      "agentId": "agent-e1a1e188-7481-4d30-a5ba-5a4aef523a98",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1200\\A4.json",
+      "duration_ms": 414244
+    },
+    {
+      "agent_id": "A5",
+      "model_id": "grok-4.7",
+      "status": "wrote",
+      "agentId": "agent-32285f07-2103-4f93-bc7d-1a179c0467cc",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1200\\A5.json",
+      "duration_ms": 400380
+    }
+  ],
+  "finished_at": "2026-09-29T16:07:07Z"
+}

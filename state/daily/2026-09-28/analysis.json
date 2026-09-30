@@ -1,0 +1,200 @@
+{
+  "date": "2026-09-28",
+  "generated_at": "2026-09-28T19:50:05Z",
+  "cadence": "30m",
+  "rth": "09:30-15:30 ET",
+  "stats": {
+    "ticks": 6,
+    "consensus_ticks": 1,
+    "no_consensus_ticks": 0,
+    "orders": 1,
+    "submitted_ticks": 1,
+    "dry_run_ticks": 0,
+    "top_symbols": [
+      {
+        "symbol": "VTI",
+        "ticks": 1
+      }
+    ]
+  },
+  "orders": [
+    {
+      "side": "buy",
+      "symbol": "VTI",
+      "notional_usd": 150,
+      "votes": 2,
+      "agents": [
+        "A3",
+        "A4"
+      ],
+      "slot": "15"
+    }
+  ],
+  "ticks": [
+    {
+      "slot": "10",
+      "path": "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-28/10",
+      "settle": {
+        "dry_run": true,
+        "error": null,
+        "submit": {},
+        "validate_ok": null
+      }
+    },
+    {
+      "slot": "11",
+      "path": "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-28/11",
+      "settle": {
+        "dry_run": true,
+        "error": "news build failed",
+        "submit": {},
+        "validate_ok": null
+      }
+    },
+    {
+      "slot": "12",
+      "path": "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-28/12",
+      "settle": {
+        "dry_run": true,
+        "error": "news build failed",
+        "submit": {},
+        "validate_ok": null
+      }
+    },
+    {
+      "slot": "13",
+      "path": "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-28/13",
+      "settle": {
+        "dry_run": true,
+        "error": "news build failed",
+        "submit": {},
+        "validate_ok": null
+      }
+    },
+    {
+      "slot": "14",
+      "path": "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-28/14",
+      "settle": {
+        "dry_run": true,
+        "error": "news build failed",
+        "submit": {},
+        "validate_ok": null
+      }
+    },
+    {
+      "slot": "15",
+      "path": "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-28/15",
+      "consensus": {
+        "as_of": "2026-09-28T15:00:00-04:00",
+        "no_consensus": false,
+        "orders": [
+          {
+            "side": "buy",
+            "symbol": "VTI",
+            "notional_usd": 150,
+            "votes": 2,
+            "agents": [
+              "A3",
+              "A4"
+            ]
+          }
+        ],
+        "rejected_legs": [
+          {
+            "symbol": "QQQ",
+            "side": "buy",
+            "votes": 1,
+            "agents": [
+              "A4"
+            ],
+            "reason": "below_majority"
+          }
+        ],
+        "min_votes": 2,
+        "proposals_loaded": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5"
+        ]
+      },
+      "settle": {
+        "dry_run": false,
+        "error": null,
+        "submit": {
+          "dry_run": false,
+          "orders": [
+            {
+              "order": {
+                "side": "buy",
+                "symbol": "VTI",
+                "notional_usd": 150,
+                "votes": 2,
+                "agents": [
+                  "A3",
+                  "A4"
+                ]
+              },
+              "dry_run": false,
+              "status": "submitted",
+              "alpaca": {
+                "id": "dfdf468e-7726-47fe-9630-aa148f16a428",
+                "status": "pending_new",
+                "symbol": "VTI"
+              }
+            }
+          ],
+          "note": "submitted to Alpaca paper"
+        },
+        "validate_ok": true
+      },
+      "fanout_mode": "sdk_local",
+      "fanout_agents": [
+        {
+          "agent_id": "A1",
+          "status": "error",
+          "model_id": "gpt-5.6-sol-medium"
+        },
+        {
+          "agent_id": "A2",
+          "status": "error",
+          "model_id": "claude-sonnet-5-thinking-medium"
+        },
+        {
+          "agent_id": "A3",
+          "status": "error",
+          "model_id": "gemini-3.8-flash-medium"
+        },
+        {
+          "agent_id": "A4",
+          "status": "error",
+          "model_id": "claude-opus-5-thinking-medium"
+        },
+        {
+          "agent_id": "A5",
+          "status": "error",
+          "model_id": "grok-4.7-medium"
+        }
+      ]
+    }
+  ],
+  "book_snapshot": {
+    "equity_usd": 100000,
+    "cash_usd": 99850.01,
+    "positions": [
+      {
+        "symbol": "VTI",
+        "qty": 0.398775942,
+        "avg_cost": 376.126,
+        "mark_price": 376.12,
+        "market_value": 149.987607
+      }
+    ]
+  },
+  "lessons": [
+    "Most agreed symbols: VTI\u00d71.",
+    "Paper submits on 1 tick(s); dry-run-only ticks: 0."
+  ],
+  "for_next_session": "Day-end 2026-09-28 (RTH half-hour cadence).\nTicks observed: 6; consensus: 1; no_consensus: 0.\nBook equity\u2248100000 cash\u224899850.01 positions=1.\nMost agreed symbols: VTI\u00d71.\nPaper submits on 1 tick(s); dry-run-only ticks: 0.\nUse this brief plus the anonymized ledger; do not invent fills that did not happen.\n- 15: buy VTI notional=150 votes=2"
+}

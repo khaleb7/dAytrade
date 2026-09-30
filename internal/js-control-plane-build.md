@@ -11,7 +11,7 @@ Hybrid multi-package control plane landed under `services/`. Smokes ran from a l
 
 - `npm run build` (all workspaces) — OK after fanout SDK cast + orchestrator import fix
 - Book sizing: 100000 + offset −99000 → sizing equity **1000**
-- Consensus fixtures: majority VTI buy @ 50 (3/5)
+- Consensus fixtures: majority VTI buy (now **≥2/5**; see `internal/consensus-2-submit-default.md`)
 - Orchestrator `prep` / `settle` / `full` with `--from-fixtures`
 - `--next-tick` → next RTH bucket
 

@@ -1,0 +1,14 @@
+{
+  "as_of": "2026-09-29T13:00:00-04:00",
+  "day": "2026-09-29",
+  "slot": "1300",
+  "packs": [
+    "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1300\\A1.md",
+    "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1300\\A2.md",
+    "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1300\\A3.md",
+    "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1300\\A4.md",
+    "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1300\\A5.md"
+  ],
+  "ready_at": "2026-09-29T17:00:13Z",
+  "next": "fanout then settle"
+}

@@ -1,0 +1,17 @@
+{
+  "as_of": "2026-09-30T10:00:00-04:00",
+  "mode": "sdk_local",
+  "started_at": "2026-09-30T14:00:12Z",
+  "timeout_ms": 1200000,
+  "agents": [
+    {
+      "agent_id": "A1",
+      "model_id": "grok-4.7",
+      "status": "wrote",
+      "agentId": "agent-49fd5f36-9216-4372-9d2f-eabe90d513b8",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-30\\1000\\A1.json",
+      "duration_ms": 409745
+    }
+  ],
+  "finished_at": "2026-09-30T14:07:02Z"
+}

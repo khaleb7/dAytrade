@@ -6,6 +6,7 @@ param(
     [string]$Mode = "Loop",
     [string]$TaskName = "DayTradeHourlyConsensus",
     [switch]$Submit,
+    [switch]$DryRun,
     [switch]$Unregister,
     [switch]$StartupFallback
 )
@@ -23,7 +24,9 @@ if (-not (Test-Path -LiteralPath $starter)) {
 function Get-StarterArgs([string[]]$Extra) {
     $list = @("-StoreRoot", ("`"{0}`"" -f $StoreRoot))
     $list += $Extra
-    if ($Submit) { $list += "-Submit" }
+    # Paper submit is default; only pass -DryRun when opting out. -Submit kept for compatibility.
+    if ($DryRun -and -not $Submit) { $list += "-DryRun" }
+    elseif ($Submit) { $list += "-Submit" }
     return $list
 }
 

@@ -1,0 +1,37 @@
+{
+  "as_of": "2026-09-28T15:00:00-04:00",
+  "mode": "sdk_local",
+  "agents": [
+    {
+      "agent_id": "A1",
+      "model_id": "gpt-5.6-sol-medium",
+      "status": "error",
+      "error": "Cannot use this model: gpt-5.6-sol-medium. Available models: default, grok-4.7, grok-4.6, composer-2.5, claude-opus-5-5, claude-opus-5, claude-opus-4-8, gpt-5.6-sol, gpt-5.5, claude-fable-5-1, claude-fable-5, grok-4.5, gemini-3.8-flash, gemini-3.7-flash, muse-spark-1.3, gpt-5.6-terra, claude-sonnet-5-5, claude-sonnet-5, claude-sonnet-4-6, composer-2, gpt-5.3-codex, claude-opus-4-7, gpt-5.4, claude-opus-4-6, claude-opus-4-5, gpt-5.2, gpt-5.6-luna, gemini-3.6-flash, gemini-3.1-pro, gpt-5.4-mini, gpt-5.4-nano, claude-haiku-4-5, claude-sonnet-4-5, gpt-5.1, gemini-3-flash, gemini-3.5-flash, claude-sonnet-4, gpt-5-mini, gemini-2.5-flash, kimi-k3, kimi-k2.7-code, glm-5.2. Use Cursor.models.list() to discover valid selections."
+    },
+    {
+      "agent_id": "A2",
+      "model_id": "claude-sonnet-5-thinking-medium",
+      "status": "error",
+      "error": "Cannot use this model: claude-sonnet-5-thinking-medium. Available models: default, grok-4.7, grok-4.6, composer-2.5, claude-opus-5-5, claude-opus-5, claude-opus-4-8, gpt-5.6-sol, gpt-5.5, claude-fable-5-1, claude-fable-5, grok-4.5, gemini-3.8-flash, gemini-3.7-flash, muse-spark-1.3, gpt-5.6-terra, claude-sonnet-5-5, claude-sonnet-5, claude-sonnet-4-6, composer-2, gpt-5.3-codex, claude-opus-4-7, gpt-5.4, claude-opus-4-6, claude-opus-4-5, gpt-5.2, gpt-5.6-luna, gemini-3.6-flash, gemini-3.1-pro, gpt-5.4-mini, gpt-5.4-nano, claude-haiku-4-5, claude-sonnet-4-5, gpt-5.1, gemini-3-flash, gemini-3.5-flash, claude-sonnet-4, gpt-5-mini, gemini-2.5-flash, kimi-k3, kimi-k2.7-code, glm-5.2. Use Cursor.models.list() to discover valid selections."
+    },
+    {
+      "agent_id": "A3",
+      "model_id": "gemini-3.8-flash-medium",
+      "status": "error",
+      "error": "Cannot use this model: gemini-3.8-flash-medium. Available models: default, grok-4.7, grok-4.6, composer-2.5, claude-opus-5-5, claude-opus-5, claude-opus-4-8, gpt-5.6-sol, gpt-5.5, claude-fable-5-1, claude-fable-5, grok-4.5, gemini-3.8-flash, gemini-3.7-flash, muse-spark-1.3, gpt-5.6-terra, claude-sonnet-5-5, claude-sonnet-5, claude-sonnet-4-6, composer-2, gpt-5.3-codex, claude-opus-4-7, gpt-5.4, claude-opus-4-6, claude-opus-4-5, gpt-5.2, gpt-5.6-luna, gemini-3.6-flash, gemini-3.1-pro, gpt-5.4-mini, gpt-5.4-nano, claude-haiku-4-5, claude-sonnet-4-5, gpt-5.1, gemini-3-flash, gemini-3.5-flash, claude-sonnet-4, gpt-5-mini, gemini-2.5-flash, kimi-k3, kimi-k2.7-code, glm-5.2. Use Cursor.models.list() to discover valid selections."
+    },
+    {
+      "agent_id": "A4",
+      "model_id": "claude-opus-5-thinking-medium",
+      "status": "error",
+      "error": "Cannot use this model: claude-opus-5-thinking-medium. Available models: default, grok-4.7, grok-4.6, composer-2.5, claude-opus-5-5, claude-opus-5, claude-opus-4-8, gpt-5.6-sol, gpt-5.5, claude-fable-5-1, claude-fable-5, grok-4.5, gemini-3.8-flash, gemini-3.7-flash, muse-spark-1.3, gpt-5.6-terra, claude-sonnet-5-5, claude-sonnet-5, claude-sonnet-4-6, composer-2, gpt-5.3-codex, claude-opus-4-7, gpt-5.4, claude-opus-4-6, claude-opus-4-5, gpt-5.2, gpt-5.6-luna, gemini-3.6-flash, gemini-3.1-pro, gpt-5.4-mini, gpt-5.4-nano, claude-haiku-4-5, claude-sonnet-4-5, gpt-5.1, gemini-3-flash, gemini-3.5-flash, claude-sonnet-4, gpt-5-mini, gemini-2.5-flash, kimi-k3, kimi-k2.7-code, glm-5.2. Use Cursor.models.list() to discover valid selections."
+    },
+    {
+      "agent_id": "A5",
+      "model_id": "grok-4.7-medium",
+      "status": "error",
+      "error": "Cannot use this model: grok-4.7-medium. Available models: default, grok-4.7, grok-4.6, composer-2.5, claude-opus-5-5, claude-opus-5, claude-opus-4-8, gpt-5.6-sol, gpt-5.5, claude-fable-5-1, claude-fable-5, grok-4.5, gemini-3.8-flash, gemini-3.7-flash, muse-spark-1.3, gpt-5.6-terra, claude-sonnet-5-5, claude-sonnet-5, claude-sonnet-4-6, composer-2, gpt-5.3-codex, claude-opus-4-7, gpt-5.4, claude-opus-4-6, claude-opus-4-5, gpt-5.2, gpt-5.6-luna, gemini-3.6-flash, gemini-3.1-pro, gpt-5.4-mini, gpt-5.4-nano, claude-haiku-4-5, claude-sonnet-4-5, gpt-5.1, gemini-3-flash, gemini-3.5-flash, claude-sonnet-4, gpt-5-mini, gemini-2.5-flash, kimi-k3, kimi-k2.7-code, glm-5.2. Use Cursor.models.list() to discover valid selections."
+    }
+  ],
+  "finished_at": "2026-09-28T19:04:06Z"
+}

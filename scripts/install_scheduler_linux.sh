@@ -37,7 +37,7 @@ if tmux_bin has-session -t "=$SESSION" 2>/dev/null; then
   tmux_bin kill-session -t "$SESSION" || true
 fi
 
-# Launch long-running scheduler (dry-run settle; no --submit)
+# Launch long-running scheduler (paper submit ON by default)
 CMD=(python3 "$SCRIPTS/hourly_scheduler.py"
   --env-file "$ENV_FILE"
   --catch-up

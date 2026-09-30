@@ -10,8 +10,8 @@ async function main(): Promise<void> {
     console.error("usage: fanout YYYY-MM-DDTHH [--from-fixtures]");
     process.exit(1);
   }
-  const { day, hour } = parseHourBucket(bucket);
-  const result = await fanoutLocalSdk(formatDay(day), hour, { fromFixtures });
+  const { day, hour, slot } = parseHourBucket(bucket);
+  const result = await fanoutLocalSdk(formatDay(day), slot, { fromFixtures });
   console.log(JSON.stringify(result, null, 2));
 }
 

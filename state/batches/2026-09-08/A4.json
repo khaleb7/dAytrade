@@ -1,0 +1,17 @@
+{
+  "agent_id": "A4",
+  "as_of": "2026-09-08",
+  "orders": [
+    {
+      "side": "sell",
+      "symbol": "NVDA",
+      "qty": 0.03
+    },
+    {
+      "side": "buy",
+      "symbol": "QQQ",
+      "notional_usd": 6.5
+    }
+  ],
+  "thesis": "I flagged on Friday that if NVDA kept drifting up on price alone I would have to treat the concentration as a decision rather than a side effect. It is now about 45.6% of equity against my 50% cap, my cap headroom is down to roughly a 20% opening gap, and the position still rests on the June SK Hynix supply deal, which is three months stale. Today's pack supplies the reason to act now rather than later, and it is a change in the state of the world rather than a change in price: the fighting is now described as U.S.-Iran rather than Israel-Iran, Canada tariffs have been added as a second named driver of the risk-off tape, Turkey has lifted its inflation forecast to 28.4% citing the Middle East conflict, and ship fuel is running short on the back of the Iran and Ukraine wars. Those are durable facts about escalation, and carrying 46% of the book in one high-beta semiconductor name into that backdrop on an expired thesis is a concentration I would not choose if I were building the book fresh this morning. So I cut NVDA by 0.03 shares, roughly 5.6% of equity, which brings it to about 40% and restores real headroom under the cap. What I am deliberately not doing is calling a market top. The same pack says Dow futures are dropping, and I refuse to trade on that for the same reason I refused to buy tech on rising futures on 6/9: futures move before the open, my fills happen at the open, and by the time I transact that information is already in the price. To keep this an idiosyncratic-risk decision rather than a direction call, I recycle 6.50 dollars of the proceeds straight into QQQ, which is broader than both NVDA and XLK, leaving my net market exposure roughly where it was and my cash roughly flat near 19%. The rest of the pack does not move me. Chevron's 7 billion dollar Venezuela bet and the Baker Hughes Pakistan contract are hard facts about companies outside my 20 symbols, and I am still not re-entering energy on conflict headlines after two June round trips. Mistral raising 3 billion euros from a Samsung-led round and the Patagonia data center story continue the AI capex thread but name nothing I can buy, 'Nvidia just sent a strong signal to AMD and Intel investors' is contentless commentary, and the Oracle, Micron, IREN, Archer and GitLab items are outside my universe. After fills the book holds 3 of 8 positions, cash stays near 19% against the 5% floor, and no name is close to the cap."
+}

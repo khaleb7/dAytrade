@@ -1,0 +1,14 @@
+{
+  "as_of": "2026-09-29T11:30:00-04:00",
+  "orders": [],
+  "rejected_legs": [],
+  "no_consensus": true,
+  "proposals_loaded": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5"
+  ],
+  "min_votes": 2
+}

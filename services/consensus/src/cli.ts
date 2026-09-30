@@ -25,9 +25,9 @@ async function main(): Promise<void> {
     }
     i++;
   }
-  const { day, hour, asOf } = parseHourBucket(bucket);
+  const { day, hour, slot, asOf } = parseHourBucket(bucket);
   const dayStr = formatDay(day);
-  const { loaded, missing } = loadProposals(dayStr, hour, proposalsDir);
+  const { loaded, missing } = loadProposals(dayStr, slot, proposalsDir);
   let held: Record<string, number> = {};
   try {
     const book = readJson<BookPortfolio>(bookPortfolioPath());
@@ -37,7 +37,7 @@ async function main(): Promise<void> {
   }
   const consensus = buildConsensus(loaded, { asOf, heldQty: held });
   if (missing.length) consensus.missing_agents = missing;
-  if (!proposalsDir) writeConsensus(dayStr, hour, consensus);
+  if (!proposalsDir) writeConsensus(dayStr, slot, consensus);
   else {
     const out = path.join(proposalsDir, "..", "consensus.smoke.json");
     const { writeJson } = await import("@daytrade/shared");

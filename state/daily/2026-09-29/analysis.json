@@ -1,0 +1,774 @@
+{
+  "date": "2026-09-29",
+  "generated_at": "2026-09-29T19:48:07Z",
+  "cadence": "30m",
+  "rth": "09:30-15:30 ET",
+  "stats": {
+    "ticks": 13,
+    "consensus_ticks": 1,
+    "no_consensus_ticks": 11,
+    "orders": 1,
+    "submitted_ticks": 1,
+    "dry_run_ticks": 0,
+    "top_symbols": [
+      {
+        "symbol": "VTI",
+        "ticks": 1
+      }
+    ]
+  },
+  "orders": [
+    {
+      "side": "buy",
+      "symbol": "VTI",
+      "notional_usd": 100,
+      "votes": 2,
+      "agents": [
+        "A2",
+        "A4"
+      ],
+      "slot": "0930"
+    }
+  ],
+  "ticks": [
+    {
+      "slot": "0930",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930",
+      "consensus": {
+        "as_of": "2026-09-29T09:30:00-04:00",
+        "no_consensus": false,
+        "orders": [
+          {
+            "side": "buy",
+            "symbol": "VTI",
+            "notional_usd": 100,
+            "votes": 2,
+            "agents": [
+              "A2",
+              "A4"
+            ]
+          }
+        ],
+        "rejected_legs": [
+          {
+            "symbol": "SMH",
+            "side": "buy",
+            "votes": 1,
+            "agents": [
+              "A4"
+            ],
+            "reason": "below_majority"
+          }
+        ],
+        "min_votes": 2,
+        "proposals_loaded": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5"
+        ]
+      },
+      "settle": {
+        "dry_run": false,
+        "error": null,
+        "submit": {
+          "dry_run": false,
+          "orders": [
+            {
+              "order": {
+                "side": "buy",
+                "symbol": "VTI",
+                "notional_usd": 100,
+                "votes": 2,
+                "agents": [
+                  "A2",
+                  "A4"
+                ]
+              },
+              "dry_run": false,
+              "status": "submitted",
+              "alpaca": {
+                "id": "d2f162a0-b9d5-4277-8468-f7bdca26d3de",
+                "status": "pending_new",
+                "symbol": "VTI"
+              }
+            }
+          ],
+          "note": "submitted to Alpaca paper"
+        },
+        "validate_ok": true
+      },
+      "fanout_mode": "sdk_local",
+      "fanout_agents": [
+        {
+          "agent_id": "A1",
+          "status": "wrote",
+          "model_id": "gpt-5.6-sol"
+        },
+        {
+          "agent_id": "A2",
+          "status": "wrote",
+          "model_id": "claude-sonnet-5"
+        },
+        {
+          "agent_id": "A3",
+          "status": "error",
+          "model_id": "gemini-3.8-flash"
+        },
+        {
+          "agent_id": "A4",
+          "status": "wrote",
+          "model_id": "claude-opus-5"
+        },
+        {
+          "agent_id": "A5",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        }
+      ]
+    },
+    {
+      "slot": "1000",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1000",
+      "consensus": {
+        "as_of": "2026-09-29T10:00:00-04:00",
+        "no_consensus": true,
+        "orders": [],
+        "rejected_legs": [
+          {
+            "symbol": "QQQ",
+            "side": "buy",
+            "votes": 1,
+            "agents": [
+              "A4"
+            ],
+            "reason": "below_majority"
+          },
+          {
+            "symbol": "VTI",
+            "side": "buy",
+            "votes": 1,
+            "agents": [
+              "A4"
+            ],
+            "reason": "below_majority"
+          }
+        ],
+        "min_votes": 2,
+        "proposals_loaded": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5"
+        ]
+      },
+      "settle": {
+        "dry_run": true,
+        "error": null,
+        "submit": {},
+        "validate_ok": null
+      },
+      "fanout_mode": "sdk_local",
+      "fanout_agents": [
+        {
+          "agent_id": "A1",
+          "status": "wrote",
+          "model_id": "gpt-5.6-sol"
+        },
+        {
+          "agent_id": "A2",
+          "status": "wrote",
+          "model_id": "claude-sonnet-5"
+        },
+        {
+          "agent_id": "A3",
+          "status": "error",
+          "model_id": "gemini-3.8-flash"
+        },
+        {
+          "agent_id": "A4",
+          "status": "wrote",
+          "model_id": "claude-opus-5"
+        },
+        {
+          "agent_id": "A5",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        }
+      ]
+    },
+    {
+      "slot": "1030",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1030",
+      "consensus": {
+        "as_of": "2026-09-29T10:30:00-04:00",
+        "no_consensus": true,
+        "orders": [],
+        "rejected_legs": [
+          {
+            "symbol": "QQQ",
+            "side": "buy",
+            "votes": 1,
+            "agents": [
+              "A4"
+            ],
+            "reason": "below_majority"
+          },
+          {
+            "symbol": "VTI",
+            "side": "buy",
+            "votes": 1,
+            "agents": [
+              "A4"
+            ],
+            "reason": "below_majority"
+          }
+        ],
+        "min_votes": 2,
+        "proposals_loaded": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5"
+        ]
+      },
+      "settle": {
+        "dry_run": false,
+        "error": null,
+        "submit": {
+          "skipped": true,
+          "reason": "no_consensus"
+        },
+        "validate_ok": true
+      },
+      "fanout_mode": "sdk_local",
+      "fanout_agents": [
+        {
+          "agent_id": "A1",
+          "status": "wrote",
+          "model_id": "composer-2.5"
+        },
+        {
+          "agent_id": "A2",
+          "status": "wrote",
+          "model_id": "composer-2.5"
+        },
+        {
+          "agent_id": "A3",
+          "status": "wrote",
+          "model_id": "composer-2.5"
+        },
+        {
+          "agent_id": "A4",
+          "status": "wrote",
+          "model_id": "composer-2.5"
+        },
+        {
+          "agent_id": "A5",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        }
+      ]
+    },
+    {
+      "slot": "1100",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1100",
+      "consensus": {
+        "as_of": "2026-09-29T11:00:00-04:00",
+        "no_consensus": true,
+        "orders": [],
+        "rejected_legs": [],
+        "min_votes": 2,
+        "proposals_loaded": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5"
+        ]
+      },
+      "settle": {
+        "dry_run": false,
+        "error": null,
+        "submit": {
+          "skipped": true,
+          "reason": "no_consensus"
+        },
+        "validate_ok": true
+      },
+      "fanout_mode": "sdk_local",
+      "fanout_agents": [
+        {
+          "agent_id": "A1",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A2",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A3",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A4",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A5",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        }
+      ]
+    },
+    {
+      "slot": "1130",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1130",
+      "consensus": {
+        "as_of": "2026-09-29T11:30:00-04:00",
+        "no_consensus": true,
+        "orders": [],
+        "rejected_legs": [],
+        "min_votes": 2,
+        "proposals_loaded": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5"
+        ]
+      },
+      "settle": {
+        "dry_run": false,
+        "error": null,
+        "submit": {
+          "skipped": true,
+          "reason": "no_consensus"
+        },
+        "validate_ok": true
+      },
+      "fanout_mode": "sdk_local",
+      "fanout_agents": [
+        {
+          "agent_id": "A1",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A2",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A3",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A4",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A5",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        }
+      ]
+    },
+    {
+      "slot": "1200",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1200",
+      "consensus": {
+        "as_of": "2026-09-29T12:00:00-04:00",
+        "no_consensus": true,
+        "orders": [],
+        "rejected_legs": [],
+        "min_votes": 2,
+        "proposals_loaded": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5"
+        ]
+      },
+      "settle": {
+        "dry_run": true,
+        "error": null,
+        "submit": {},
+        "validate_ok": null
+      },
+      "fanout_mode": "sdk_local",
+      "fanout_agents": [
+        {
+          "agent_id": "A1",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A2",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A3",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A4",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A5",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        }
+      ]
+    },
+    {
+      "slot": "1230",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1230",
+      "consensus": {
+        "as_of": "2026-09-29T12:30:00-04:00",
+        "no_consensus": true,
+        "orders": [],
+        "rejected_legs": [],
+        "min_votes": 2,
+        "proposals_loaded": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5"
+        ]
+      },
+      "settle": {
+        "dry_run": false,
+        "error": null,
+        "submit": {
+          "skipped": true,
+          "reason": "no_consensus"
+        },
+        "validate_ok": true
+      },
+      "fanout_mode": "sdk_local",
+      "fanout_agents": [
+        {
+          "agent_id": "A1",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A2",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A3",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A4",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A5",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        }
+      ]
+    },
+    {
+      "slot": "1300",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1300",
+      "consensus": {
+        "as_of": "2026-09-29T13:00:00-04:00",
+        "no_consensus": true,
+        "orders": [],
+        "rejected_legs": [],
+        "min_votes": 2,
+        "proposals_loaded": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5"
+        ]
+      },
+      "settle": {
+        "dry_run": false,
+        "error": null,
+        "submit": {
+          "skipped": true,
+          "reason": "no_consensus"
+        },
+        "validate_ok": true
+      },
+      "fanout_mode": "sdk_local",
+      "fanout_agents": [
+        {
+          "agent_id": "A1",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A2",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A3",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A4",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A5",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        }
+      ]
+    },
+    {
+      "slot": "1330",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1330",
+      "consensus": {
+        "as_of": "2026-09-29T13:30:00-04:00",
+        "no_consensus": true,
+        "orders": [],
+        "rejected_legs": [],
+        "min_votes": 2,
+        "proposals_loaded": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5"
+        ]
+      },
+      "settle": {
+        "dry_run": false,
+        "error": null,
+        "submit": {
+          "skipped": true,
+          "reason": "no_consensus"
+        },
+        "validate_ok": true
+      },
+      "fanout_mode": "sdk_local",
+      "fanout_agents": [
+        {
+          "agent_id": "A1",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A2",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A3",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A4",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A5",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        }
+      ]
+    },
+    {
+      "slot": "1400",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1400",
+      "consensus": {
+        "as_of": "2026-09-29T14:00:00-04:00",
+        "no_consensus": true,
+        "orders": [],
+        "rejected_legs": [],
+        "min_votes": 2,
+        "proposals_loaded": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5"
+        ]
+      },
+      "settle": {
+        "dry_run": false,
+        "error": null,
+        "submit": {
+          "skipped": true,
+          "reason": "no_consensus"
+        },
+        "validate_ok": true
+      },
+      "fanout_mode": "sdk_local",
+      "fanout_agents": [
+        {
+          "agent_id": "A1",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A2",
+          "status": "no_model",
+          "model_id": "?"
+        },
+        {
+          "agent_id": "A3",
+          "status": "no_model",
+          "model_id": "?"
+        },
+        {
+          "agent_id": "A4",
+          "status": "no_model",
+          "model_id": "?"
+        },
+        {
+          "agent_id": "A5",
+          "status": "no_model",
+          "model_id": "?"
+        }
+      ]
+    },
+    {
+      "slot": "1430",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1430",
+      "settle": {
+        "dry_run": false,
+        "error": null,
+        "submit": {},
+        "validate_ok": null
+      },
+      "fanout_mode": "sdk_local",
+      "fanout_agents": [
+        {
+          "agent_id": "A1",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        },
+        {
+          "agent_id": "A2",
+          "status": "no_model",
+          "model_id": "?"
+        },
+        {
+          "agent_id": "A3",
+          "status": "no_model",
+          "model_id": "?"
+        },
+        {
+          "agent_id": "A4",
+          "status": "no_model",
+          "model_id": "?"
+        },
+        {
+          "agent_id": "A5",
+          "status": "no_model",
+          "model_id": "?"
+        }
+      ]
+    },
+    {
+      "slot": "1500",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1500",
+      "consensus": {
+        "as_of": "2026-09-29T15:00:00-04:00",
+        "no_consensus": true,
+        "orders": [],
+        "rejected_legs": [],
+        "min_votes": 1,
+        "proposals_loaded": [
+          "A1"
+        ]
+      },
+      "settle": {
+        "dry_run": false,
+        "error": null,
+        "submit": {
+          "skipped": true,
+          "reason": "hold"
+        },
+        "validate_ok": true
+      },
+      "fanout_mode": "sdk_local",
+      "fanout_agents": [
+        {
+          "agent_id": "A1",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        }
+      ]
+    },
+    {
+      "slot": "1530",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1530",
+      "consensus": {
+        "as_of": "2026-09-29T15:30:00-04:00",
+        "no_consensus": true,
+        "orders": [],
+        "rejected_legs": [],
+        "min_votes": 1,
+        "proposals_loaded": [
+          "A1"
+        ]
+      },
+      "settle": {
+        "dry_run": false,
+        "error": null,
+        "submit": {},
+        "validate_ok": null
+      },
+      "fanout_mode": "sdk_local",
+      "fanout_agents": [
+        {
+          "agent_id": "A1",
+          "status": "wrote",
+          "model_id": "grok-4.7"
+        }
+      ]
+    }
+  ],
+  "book_snapshot": {
+    "equity_usd": 99999.54,
+    "cash_usd": 99750.02,
+    "positions": [
+      {
+        "symbol": "VTI",
+        "qty": 0.664662949,
+        "avg_cost": 376.100398,
+        "mark_price": 375.41,
+        "market_value": 249.521118
+      }
+    ]
+  },
+  "lessons": [
+    "Most agreed symbols: VTI\u00d71.",
+    "Paper submits on 1 tick(s); dry-run-only ticks: 0."
+  ],
+  "for_next_session": "Day-end 2026-09-29 (RTH half-hour cadence).\nTicks observed: 13; consensus: 1; no_consensus: 11.\nBook equity\u224899999.54 cash\u224899750.02 positions=1.\nMost agreed symbols: VTI\u00d71.\nPaper submits on 1 tick(s); dry-run-only ticks: 0.\nUse this brief plus the anonymized ledger; do not invent fills that did not happen.\n- 0930: buy VTI notional=100 votes=2"
+}

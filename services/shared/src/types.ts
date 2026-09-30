@@ -63,4 +63,6 @@ export interface RosterAgent {
 export interface Roster {
   agents: Record<string, RosterAgent>;
   shared_rules?: Record<string, unknown>;
+  /** Fan-out spend policy (Cursor-bucket Composer only). */
+  fanout_spend?: Record<string, unknown>;
 }

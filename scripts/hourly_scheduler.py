@@ -1,8 +1,7 @@
-"""RTH hourly scheduler for Alpaca paper consensus (Windows-friendly).
+"""RTH half-hour scheduler for Alpaca paper consensus (Windows-friendly).
 
-Runs America/New_York ticks at :00 for hours 10–15 on NYSE trading days.
-Designed to stay alive on a Windows box (Task Scheduler → this process, or
-per-hour scheduled tasks calling --once).
+Runs America/New_York ticks every 30 minutes from 09:30–15:30 on NYSE days.
+Designed to stay alive on a Windows box (Task Scheduler → this process).
 
 Secrets: load from environment, or a local env file outside the Project store
 (default candidate: %USERPROFILE%\\.daytrade\\alpaca.env). Never writes keys
@@ -20,9 +19,23 @@ from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-from hour_bucket import as_of_iso, is_rth_consensus_hour
+from hour_bucket import (
+    RTH_TICKS,
+    as_of_iso,
+    bucket_for,
+    is_rth_consensus_tick,
+    next_rth_tick as hb_next_rth_tick,
+    parse_hour_bucket,
+    slot_key,
+)
 from paths import SCRIPTS, STATE, STORE_ROOT, hourly_dir
-from trading_calendar import is_trading_day, next_trading_day
+from trading_calendar import is_trading_day
+
+try:
+    from discord_notify import notify as discord_notify
+except Exception:  # noqa: BLE001
+    def discord_notify(*_a: Any, **_k: Any) -> bool:  # type: ignore[misc]
+        return False
 
 try:
     from zoneinfo import ZoneInfo
@@ -30,7 +43,6 @@ except ImportError:  # pragma: no cover
     ZoneInfo = None  # type: ignore
 
 ET_NAME = "America/New_York"
-RTH_HOURS = (10, 11, 12, 13, 14, 15)
 DEFAULT_ENV_CANDIDATES = [
     Path(os.environ.get("DAYTRADE_ENV_FILE", "")),
     Path.home() / ".daytrade" / "alpaca.env",
@@ -91,29 +103,15 @@ def apply_env_file(path: Optional[Path] = None) -> Optional[Path]:
     return None
 
 
-def next_rth_tick(after: Optional[datetime] = None) -> Tuple[date, int, datetime]:
-    """Next consensus tick (day, hour_et, aware datetime at :00 ET)."""
-    tz = et_tz()
-    cur = (after or now_et()).astimezone(tz)
-    # Start search at current ET calendar day
-    d = cur.date()
-    for _ in range(20):  # enough to clear long weekends
-        if is_trading_day(d):
-            for h in RTH_HOURS:
-                tick = datetime(d.year, d.month, d.day, h, 0, 0, tzinfo=tz)
-                if tick > cur:
-                    return d, h, tick
-        d = next_trading_day(d)
-    raise RuntimeError("could not find next RTH tick")
-
-
-def bucket_for(day: date, hour: int) -> str:
-    return f"{day.isoformat()}T{hour:02d}"
+def next_rth_tick(after: Optional[datetime] = None) -> Tuple[date, int, int, datetime, str, str]:
+    """Next consensus tick (day, hour, minute, when_et, bucket, slot)."""
+    return hb_next_rth_tick(after)
 
 
 def run_tick(
     day: date,
     hour: int,
+    minute: int = 0,
     *,
     phase: str,
     submit: bool,
@@ -121,7 +119,7 @@ def run_tick(
     python: str,
     extra_args: Optional[List[str]] = None,
 ) -> int:
-    bucket = bucket_for(day, hour)
+    bucket = bucket_for(day, hour, minute)
     cmd = [
         python,
         str(SCRIPTS / "run_hourly.py"),
@@ -141,14 +139,18 @@ def run_tick(
         cmd.extend(extra_args)
     print(f"[scheduler] running: {' '.join(cmd)}", flush=True)
     env = os.environ.copy()
-    # Ensure scripts/ is importable when invoked as subprocess cwd
     proc = subprocess.run(cmd, cwd=str(SCRIPTS), env=env)
     return int(proc.returncode)
 
 
-def proposals_ready(day: date, hour: int) -> bool:
-    d = hourly_dir(day.isoformat(), hour)
-    return all((d / f"{a}.json").exists() for a in ("A1", "A2", "A3", "A4", "A5"))
+def proposals_ready(day: date, hour: int, minute: int = 0) -> bool:
+    from paths import active_agent_ids
+
+    d = hourly_dir(day.isoformat(), slot_key(hour, minute))
+    aids = active_agent_ids()
+    if not aids:
+        return False
+    return all((d / f"{a}.json").exists() for a in aids)
 
 
 def write_scheduler_status(payload: Dict[str, Any]) -> Path:
@@ -182,14 +184,28 @@ def main(argv: Optional[List[str]] = None) -> int:
         "--proposal-wait-minutes",
         type=int,
         default=20,
-        help="For prep-then-settle: minutes to wait for A1–A5.json before settle (0=skip wait)",
+        help="For prep-then-settle: minutes to wait for A1.json before settle (0=skip wait; default 20)",
     )
-    p.add_argument("--submit", action="store_true", help="Pass --submit on settle/full (default dry-run)")
+    p.add_argument(
+        "--submit",
+        action="store_true",
+        default=True,
+        help="Pass --submit on settle/full (default ON for paper account)",
+    )
+    p.add_argument(
+        "--dry-run",
+        "--no-submit",
+        dest="dry_run",
+        action="store_true",
+        help="Skip Alpaca paper orders (opt-in dry-run)",
+    )
     p.add_argument("--continue-on-ingest-error", action="store_true")
     p.add_argument("--env-file", type=Path, help="Path to alpaca.env OUTSIDE the Project store")
     p.add_argument("--python", default=sys.executable, help="Python executable for child ticks")
     p.add_argument("--catch-up", action="store_true", help="If started mid-hour in RTH, run current hour once")
     args = p.parse_args(argv)
+    if getattr(args, "dry_run", False):
+        args.submit = False
 
     used_env = apply_env_file(args.env_file)
     if used_env:
@@ -206,14 +222,16 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     force_once = bool(args.once or args.hour)
 
-    def do_phases(day: date, hour: int) -> int:
+    def do_phases(day: date, hour: int, minute: int = 0) -> int:
         phase = args.phase
         status = {
-            "bucket": bucket_for(day, hour),
-            "as_of": as_of_iso(day, hour),
+            "bucket": bucket_for(day, hour, minute),
+            "slot": slot_key(hour, minute),
+            "as_of": as_of_iso(day, hour, minute),
             "phase_mode": phase,
             "started_at": now_et().isoformat(),
             "submit": bool(args.submit),
+            "cadence": "30m",
         }
         write_scheduler_status(status)
 
@@ -221,6 +239,7 @@ def main(argv: Optional[List[str]] = None) -> int:
             rc = run_tick(
                 day,
                 hour,
+                minute,
                 phase="prep",
                 submit=False,
                 continue_on_ingest_error=args.continue_on_ingest_error,
@@ -232,21 +251,28 @@ def main(argv: Optional[List[str]] = None) -> int:
                 return rc
             deadline = now_et() + timedelta(minutes=max(0, args.proposal_wait_minutes))
             while args.proposal_wait_minutes > 0 and now_et() < deadline:
-                if proposals_ready(day, hour):
+                if proposals_ready(day, hour, minute):
                     break
                 status["waiting_for_proposals"] = True
                 status["deadline"] = deadline.isoformat()
                 write_scheduler_status(status)
                 time.sleep(15)
-            if not proposals_ready(day, hour):
+            if not proposals_ready(day, hour, minute):
                 status["settle_skipped"] = "proposals_missing"
                 status["finished_at"] = now_et().isoformat()
                 write_scheduler_status(status)
                 print("[scheduler] settle skipped — proposals not ready", flush=True)
+                discord_notify(
+                    f"Issue · settle skipped · {bucket_for(day, hour, minute)}",
+                    "proposals_missing",
+                    kind="issue",
+                    ok=False,
+                )
                 return 0
             rc2 = run_tick(
                 day,
                 hour,
+                minute,
                 phase="settle",
                 submit=args.submit,
                 continue_on_ingest_error=args.continue_on_ingest_error,
@@ -255,11 +281,41 @@ def main(argv: Optional[List[str]] = None) -> int:
             status["settle_rc"] = rc2
             status["finished_at"] = now_et().isoformat()
             write_scheduler_status(status)
+            if hour == 15 and minute == 30:
+                try:
+                    discord_notify(
+                        f"Day-end analysis · {day.isoformat()}",
+                        "Building day-end brief…",
+                        kind="day_end",
+                    )
+                    r = subprocess.run(
+                        [args.python, str(SCRIPTS / "day_end_analysis.py"), "--date", day.isoformat()],
+                        cwd=str(SCRIPTS),
+                        check=False,
+                        capture_output=True,
+                        text=True,
+                    )
+                    brief = (r.stdout or r.stderr or f"exit {r.returncode}")[:500]
+                    discord_notify(
+                        f"Day-end done · {day.isoformat()}",
+                        brief,
+                        kind="day_end",
+                        ok=r.returncode == 0,
+                    )
+                except Exception as e:  # noqa: BLE001
+                    print(f"[scheduler] day-end analysis failed: {e}", flush=True)
+                    discord_notify(
+                        f"Day-end failed · {day.isoformat()}",
+                        str(e),
+                        kind="issue",
+                        ok=False,
+                    )
             return rc2
 
         rc = run_tick(
             day,
             hour,
+            minute,
             phase=phase,
             submit=args.submit and phase in ("settle", "full"),
             continue_on_ingest_error=args.continue_on_ingest_error,
@@ -271,62 +327,74 @@ def main(argv: Optional[List[str]] = None) -> int:
         return rc
 
     if args.hour:
-        from hour_bucket import parse_hour_bucket
-
-        day, hour, _ = parse_hour_bucket(args.hour)
-        if not is_rth_consensus_hour(day, hour):
-            print(f"[scheduler] warning: {args.hour} outside RTH consensus hours", flush=True)
-        return do_phases(day, hour)
+        day, hour, minute, slot, _ = parse_hour_bucket(args.hour)
+        if not is_rth_consensus_tick(day, hour, minute):
+            print(f"[scheduler] warning: {args.hour} outside RTH consensus ticks", flush=True)
+        return do_phases(day, hour, minute)
 
     if args.catch_up:
         n = now_et()
-        if is_trading_day(n.date()) and n.hour in RTH_HOURS and n.minute < 55:
-            print(f"[scheduler] catch-up current hour {n.hour}", flush=True)
-            rc = do_phases(n.date(), n.hour)
+        now_mins = n.hour * 60 + n.minute
+        best = None
+        if is_trading_day(n.date()):
+            for h, m in RTH_TICKS:
+                tick_mins = h * 60 + m
+                if tick_mins <= now_mins < tick_mins + 25:
+                    best = (h, m)
+        if best:
+            print(f"[scheduler] catch-up tick {best[0]:02d}:{best[1]:02d}", flush=True)
+            rc = do_phases(n.date(), best[0], best[1])
             if force_once:
                 return rc
 
     if force_once:
-        day, hour, tick = next_rth_tick()
-        # --once without --hour: if we're past a tick that just started (<2 min), run it;
-        # else wait for next? For Task Scheduler firing at :00, run "this hour" if on the hour.
+        day, hour, minute, tick, bucket, slot = next_rth_tick()
         n = now_et()
-        if is_trading_day(n.date()) and n.hour in RTH_HOURS and n.minute <= 2:
-            day, hour = n.date(), n.hour
-            print(f"[scheduler] --once on-the-hour → {bucket_for(day, hour)}", flush=True)
-            return do_phases(day, hour)
+        now_mins = n.hour * 60 + n.minute
+        if is_trading_day(n.date()):
+            for h, m in RTH_TICKS:
+                if h * 60 + m <= now_mins <= h * 60 + m + 2:
+                    print(f"[scheduler] --once on-tick → {bucket_for(n.date(), h, m)}", flush=True)
+                    return do_phases(n.date(), h, m)
         print(f"[scheduler] --once waiting for {tick.isoformat()} …", flush=True)
         sleep_until(tick)
-        return do_phases(day, hour)
+        return do_phases(day, hour, minute)
 
     # Long-running loop
-    print("[scheduler] loop started (Ctrl+C to stop)", flush=True)
+    print("[scheduler] loop started (30m RTH ticks; Ctrl+C to stop)", flush=True)
     while True:
-        day, hour, tick = next_rth_tick()
+        day, hour, minute, tick, bucket, slot = next_rth_tick()
         write_scheduler_status(
             {
                 "next_tick": tick.isoformat(),
-                "bucket": bucket_for(day, hour),
+                "bucket": bucket,
+                "slot": slot,
                 "mode": "loop",
+                "cadence": "30m",
                 "updated_at": now_et().isoformat(),
             }
         )
-        print(f"[scheduler] next tick {tick.isoformat()} ({bucket_for(day, hour)})", flush=True)
+        print(f"[scheduler] next tick {tick.isoformat()} ({bucket})", flush=True)
         sleep_until(tick)
-        # small pad so clock is firmly on the hour
         time.sleep(1)
         try:
-            do_phases(day, hour)
+            do_phases(day, hour, minute)
         except Exception as e:  # noqa: BLE001
             print(f"[scheduler] tick error: {e}", file=sys.stderr, flush=True)
             write_scheduler_status(
                 {
                     "error": str(e),
-                    "bucket": bucket_for(day, hour),
+                    "bucket": bucket,
+                    "slot": slot,
                     "at": now_et().isoformat(),
                 }
             )
-        # advance past this tick
+            discord_notify(
+                f"Issue · loop · {bucket}",
+                str(e),
+                kind="issue",
+                ok=False,
+            )
         time.sleep(2)
 
 

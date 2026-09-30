@@ -44,13 +44,13 @@ Buys use `notional_usd` (not qty). Sells use `qty` (not notional).
 | Consensus | `state/hourly/YYYY-MM-DD/HH/consensus.json` |
 | Validation / settle log | `state/hourly/YYYY-MM-DD/HH/settle.json` |
 
-`HH` is zero-padded America/New_York hour (`10`–`15` during RTH ticks).
+`HH` is zero-padded America/New_York **slot** as `HHMM` (`0930`–`1530` during RTH half-hour ticks). Legacy hour-only dirs (`14`) still resolve for minute `:00`.
 
 ## Validation
 
-- Per-agent proposal schema is checked lightly when loading for consensus.
-- **Execution** validation is on the **consensus** order list via `scripts/validate_book.py` (shared book caps 15% / 35% / 6), not per-agent daily roster tiers.
-- Whole consensus batch reject → hold that hour.
+- Per-agent proposal schema is checked lightly when loading for settle.
+- **Execution** validation is on the settle order list via `scripts/validate_book.py` / `@daytrade/book` (shared book caps **8% / 45% / 7**).
+- Whole-batch reject → hold that tick.
 
 ## Fidelity
 

@@ -1,0 +1,37 @@
+{
+  "sim_date": "2026-09-17",
+  "mode": "backfill",
+  "started_at": "2026-06-01",
+  "sessions_completed": 17,
+  "last_checkpoint_at": null,
+  "checkpoint_every": 20,
+  "notes": "Paused until Gemini/Opus usage limits reset (~2026-10-04). Packs ready for sim_date 2026-09-17.",
+  "skipped_sessions": 58,
+  "last_settled_date": "2026-09-16",
+  "gap_jump": {
+    "from_date": "2026-06-08",
+    "to_date": "2026-09-01",
+    "mtm_date": "2026-08-31",
+    "method": "carry+MTM",
+    "file": "state/gap_jump_2026-09-01.json"
+  },
+  "usage_limit_note": {
+    "recorded_at": "2026-09-28T01:28:59.701457Z",
+    "as_of_session": "2026-09-16",
+    "agents": {
+      "A3": {
+        "model": "gemini-3.8-flash-medium",
+        "issue": "usage limit mid-backfill"
+      },
+      "A4": {
+        "model": "claude-opus-5-thinking-medium",
+        "issue": "usage limit mid-backfill"
+      }
+    },
+    "status": "awaiting_coordinator_decision_on_model_substitutes",
+    "note": "A3 (Gemini) and A4 (Opus) hit usage limits mid-backfill. Batches for 2026-09-16 were written and are valid JSON; settlement proceeded. Awaiting coordinator decision on model substitutes before further fan-out for those agents."
+  },
+  "paused": true,
+  "pause_reason": "A3 Gemini and A4 Opus usage limits; resume after monthly reset ~2026-10-04",
+  "pause_until": "2026-10-04"
+}

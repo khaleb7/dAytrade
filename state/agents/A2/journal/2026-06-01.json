@@ -1,0 +1,46 @@
+{
+  "agent_id": "A2",
+  "date": "2026-06-01",
+  "thesis": "Fixture: core equity sleeve via VTI.",
+  "batch": {
+    "agent_id": "A2",
+    "as_of": "2026-06-01",
+    "orders": [
+      {
+        "side": "buy",
+        "symbol": "VTI",
+        "notional_usd": 15.0
+      }
+    ],
+    "thesis": "Fixture: core equity sleeve via VTI."
+  },
+  "accepted": true,
+  "reject_errors": [],
+  "fills": [
+    {
+      "side": "buy",
+      "symbol": "VTI",
+      "qty": 0.05996402158704777,
+      "price": 250.15,
+      "notional_usd": 15.0
+    }
+  ],
+  "eod": {
+    "equity_usd": 100.01499700179892,
+    "cash_usd": 85.0,
+    "day_pnl_usd": 0.014997001798917609,
+    "unrealized_pnl_usd": 0.014997001798920847,
+    "realized_pnl_usd": 0.0,
+    "positions": [
+      {
+        "symbol": "VTI",
+        "qty": 0.05996402158704777,
+        "avg_cost": 250.15,
+        "mark_price": 250.4001,
+        "market_value": 15.014997001798921,
+        "unrealized_pnl": 0.014997001798920847
+      }
+    ],
+    "lesson": "Batch accepted. Day PnL +0.01 on equity 100.01. Cash 85.00; positions 1."
+  }
+}

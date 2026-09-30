@@ -1,0 +1,15 @@
+{
+  "as_of": "2026-09-29T12:00:00-04:00",
+  "day": "2026-09-29",
+  "hour_et": "12",
+  "packs": [
+    "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-29/1200/A1.md",
+    "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-29/1200/A2.md",
+    "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-29/1200/A3.md",
+    "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-29/1200/A4.md",
+    "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-29/1200/A5.md"
+  ],
+  "ready_at": "2026-09-29T16:44:48.054178Z",
+  "missing_proposals": [],
+  "next": "Fan out A1\u2013A5, then: python run_hourly.py --hour \u2026 --phase settle"
+}

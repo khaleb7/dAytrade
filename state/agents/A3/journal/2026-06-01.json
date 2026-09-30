@@ -1,0 +1,66 @@
+{
+  "agent_id": "A3",
+  "date": "2026-06-01",
+  "thesis": "Fixture: balanced stock/bond mix.",
+  "batch": {
+    "agent_id": "A3",
+    "as_of": "2026-06-01",
+    "orders": [
+      {
+        "side": "buy",
+        "symbol": "VTI",
+        "notional_usd": 20.0
+      },
+      {
+        "side": "buy",
+        "symbol": "BND",
+        "notional_usd": 10.0
+      }
+    ],
+    "thesis": "Fixture: balanced stock/bond mix."
+  },
+  "accepted": true,
+  "reject_errors": [],
+  "fills": [
+    {
+      "side": "buy",
+      "symbol": "VTI",
+      "qty": 0.07995202878273036,
+      "price": 250.15,
+      "notional_usd": 20.0
+    },
+    {
+      "side": "buy",
+      "symbol": "BND",
+      "qty": 0.13850415512465372,
+      "price": 72.2,
+      "notional_usd": 10.0
+    }
+  ],
+  "eod": {
+    "equity_usd": 100.03999600239857,
+    "cash_usd": 70.0,
+    "day_pnl_usd": 0.03999600239856704,
+    "unrealized_pnl_usd": 0.039996002398559785,
+    "realized_pnl_usd": 0.0,
+    "positions": [
+      {
+        "symbol": "VTI",
+        "qty": 0.07995202878273036,
+        "avg_cost": 250.15,
+        "mark_price": 250.4001,
+        "market_value": 20.01999600239856,
+        "unrealized_pnl": 0.019996002398561127
+      },
+      {
+        "symbol": "BND",
+        "qty": 0.13850415512465372,
+        "avg_cost": 72.2,
+        "mark_price": 72.3444,
+        "market_value": 10.019999999999998,
+        "unrealized_pnl": 0.019999999999998654
+      }
+    ],
+    "lesson": "Batch accepted. Day PnL +0.04 on equity 100.04. Cash 70.00; positions 2."
+  }
+}

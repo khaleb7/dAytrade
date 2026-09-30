@@ -40,7 +40,8 @@ Useful flags:
 .\Install-DayTrade.ps1 -StoreRoot "D:\daytrade-store" -StartNow
 .\Install-DayTrade.ps1 -SkipEnvEdit          # don't open Notepad
 .\Install-DayTrade.ps1 -VerifyOnly           # re-check after editing keys
-.\Install-DayTrade.ps1 -Submit -StartNow     # paper orders ON (only when ready)
+.\Install-DayTrade.ps1 -StartNow             # paper submit ON by default
+.\Install-DayTrade.ps1 -DryRun -StartNow     # opt out of paper orders
 .\Uninstall-DayTrade.ps1                     # remove task + shortcut
 .\Uninstall-DayTrade.ps1 -RemoveEnv          # also delete alpaca.env
 ```
@@ -75,18 +76,47 @@ Do not use `npm run orchestrator -- --next-tick` in PowerShell — npm eats dash
 ## After install
 
 1. Confirm keys in `%USERPROFILE%\.daytrade\alpaca.env` (`APCA_*` + `CURSOR_API_KEY`)
-2. Autostart: `Start-ScheduledTask -TaskName DayTradeHourlyConsensus` **or** log off/on if a Startup shortcut was installed after Access Denied
-3. Foreground anytime: `.\Start-HourlyScheduler.ps1 -CatchUp`
-4. Status: `<store>\state\scheduler\status.json`
-5. Keep **dry-run** until a clean hour; then re-run installer with `-Submit`
+2. Optional Discord alerts: set `DAYTRADE_DISCORD_WEBHOOK_URL` in the same `alpaca.env` (see Discord section below)
+3. Autostart: `Start-ScheduledTask -TaskName DayTradeHourlyConsensus` **or** log off/on if a Startup shortcut was installed after Access Denied
+4. Foreground anytime: `.\Start-HourlyScheduler.ps1 -CatchUp`
+5. Status: `<store>\state\scheduler\status.json`
+6. Paper submit is **ON** by default. Use `-DryRun` on Start/Install only to skip live paper orders.
+
+## Discord webhook alerts
+
+Optional. Soft-fail: missing/invalid URL or POST errors never block ticks.
+
+1. Add to `%USERPROFILE%\.daytrade\alpaca.env` (outside the store):
+
+   ```
+   DAYTRADE_DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/<id>/<token>
+   ```
+
+2. Restart the scheduler so it reloads env.
+
+3. Smoke test (PowerShell, after `Load-AlpacaEnv.ps1`):
+
+   ```powershell
+   . .\Load-AlpacaEnv.ps1
+   py -3 $env:DAYTRADE_STORE\scripts\discord_notify.py
+   ```
+
+Or one-liner with env already set:
+
+```powershell
+py -3 "$env:DAYTRADE_STORE\scripts\discord_notify.py"
+```
+
+Events: tick start/end, fan-out/settle issues, **proposal** + submit outcomes, day-end analysis. Details: `internal/discord-webhook-alerts.md`.
 
 ## What each tick does
 
 Default phase **`prep-then-settle`**:
 
-1. **Prep** — Python news ingest, hour pack, Alpaca reconcile, `A1.md`…`A5.md` + `ready.json`
-2. **Fan-out** — Cursor SDK local agents (roster `model_id`) write `A1.json`…`A5.json` (fixtures if no `CURSOR_API_KEY`)
-3. **Settle** — consensus → book caps (with −$99k sizing offset) → dry-run / `--submit`
+1. **Prep** — Python news ingest, hour pack, Alpaca reconcile, `A1.md` + `ready.json`
+2. **Fan-out** — one Cursor SDK local agent (`grok-4.7`) writes `A1.json` (fixture if no `CURSOR_API_KEY`)
+3. **Settle** — A1 proposal (`min_votes=1`) → book caps 8%/45%/7 → Alpaca paper submit (default). Empty orders = hold. After **15:30 ET**, day-end analysis for next-session packs.
+4. Cadence is **30 minutes** (09:30–15:30 ET). Fan-out budget defaults to **20 minutes**. Roster: single **A1** medium-aggressive — see `state/roster.json`.
 
 ## Manual / advanced
 

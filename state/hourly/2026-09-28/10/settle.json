@@ -1,0 +1,68 @@
+{
+  "as_of": "2026-09-28T10:00:00-04:00",
+  "day": "2026-09-28",
+  "hour_et": "10",
+  "started_at": "2026-09-28T18:52:44.714987Z",
+  "dry_run": true,
+  "steps": {
+    "ingest": {
+      "ingest_id": "20260928T185244Z",
+      "via": "live_feeds",
+      "items_added": 49,
+      "errors": [
+        "reuters: <urlopen error [Errno -2] Name or service not known>"
+      ]
+    },
+    "news": {
+      "wrote": "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-28/10/news.json",
+      "items": 32,
+      "mode": "cache"
+    },
+    "reconcile": {
+      "error": "Alpaca HTTP 401 /v2/account: {\"message\": \"unauthorized.\"}\n"
+    },
+    "packs": {
+      "wrote": [
+        "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-28/10/A1.md",
+        "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-28/10/A2.md",
+        "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-28/10/A3.md",
+        "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-28/10/A4.md",
+        "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-28/10/A5.md"
+      ]
+    },
+    "fanout": {
+      "mode": "placeholder",
+      "missing_proposals": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5"
+      ],
+      "note": "Launch five cloud agents with packs A1.md\u2026A5.md; write A1.json\u2026A5.json here. Re-run with --phase settle (or --skip-ingest --skip-packs --skip-news) after proposals land."
+    },
+    "ready": {
+      "as_of": "2026-09-28T10:00:00-04:00",
+      "day": "2026-09-28",
+      "hour_et": "10",
+      "packs": [
+        "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-28/10/A1.md",
+        "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-28/10/A2.md",
+        "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-28/10/A3.md",
+        "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-28/10/A4.md",
+        "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-28/10/A5.md"
+      ],
+      "ready_at": "2026-09-28T18:53:24.955350Z",
+      "missing_proposals": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5"
+      ],
+      "next": "Fan out A1\u2013A5, then: python run_hourly.py --hour \u2026 --phase settle"
+    }
+  },
+  "phase": "prep",
+  "finished_at": "2026-09-28T18:53:25.208238Z"
+}

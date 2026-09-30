@@ -1,0 +1,19 @@
+{
+  "as_of": "2026-09-25T14:00:00-04:00",
+  "date": "2026-09-25",
+  "hour_et": "14",
+  "cutoff_utc": "2026-09-25T18:00:00Z",
+  "mode": "fixture",
+  "source_counts": {
+    "yahoo_finance": 1
+  },
+  "items": [
+    {
+      "source": "yahoo_finance",
+      "title": "Fixture headline: markets steady into the afternoon",
+      "url": "https://example.com/fixture-hourly",
+      "published": "2026-09-25T16:30:00Z",
+      "summary": "Synthetic item for hourly smoke (before 14:00 ET cutoff)."
+    }
+  ]
+}

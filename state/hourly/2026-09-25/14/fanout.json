@@ -1,0 +1,13 @@
+{
+  "as_of": "2026-09-25T14:00:00-04:00",
+  "mode": "fixtures",
+  "agents": [
+    {
+      "agent_id": "A1",
+      "model_id": "fixture",
+      "status": "copied",
+      "path": "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-25/14/A1.json"
+    }
+  ],
+  "finished_at": "2026-09-29T19:03:16Z"
+}

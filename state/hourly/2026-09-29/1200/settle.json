@@ -1,0 +1,66 @@
+{
+  "as_of": "2026-09-29T12:00:00-04:00",
+  "day": "2026-09-29",
+  "hour_et": "12",
+  "minute_et": "00",
+  "slot": "1200",
+  "started_at": "2026-09-29T16:44:17.667521Z",
+  "dry_run": true,
+  "steps": {
+    "ingest": {
+      "ingest_id": "20260929T164418Z",
+      "via": "live_feeds",
+      "items_added": 7,
+      "errors": [
+        "reuters: <urlopen error [Errno -2] Name or service not known>"
+      ]
+    },
+    "news": {
+      "wrote": "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-29/1200/news.json",
+      "items": 74,
+      "mode": "cache"
+    },
+    "signals": {
+      "wrote": {
+        "latest": "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/signals/latest.json",
+        "hourly": "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-29/1200/signals.json"
+      },
+      "ok_count": 6,
+      "errors": {}
+    },
+    "reconcile": {
+      "error": "Alpaca HTTP 401 /v2/account: {\"message\": \"unauthorized.\"}\n"
+    },
+    "packs": {
+      "wrote": [
+        "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-29/1200/A1.md",
+        "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-29/1200/A2.md",
+        "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-29/1200/A3.md",
+        "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-29/1200/A4.md",
+        "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-29/1200/A5.md"
+      ]
+    },
+    "fanout": {
+      "mode": "placeholder",
+      "missing_proposals": [],
+      "note": "Launch five cloud agents with packs A1.md\u2026A5.md; write A1.json\u2026A5.json here. Re-run with --phase settle (or --skip-ingest --skip-packs --skip-news) after proposals land."
+    },
+    "ready": {
+      "as_of": "2026-09-29T12:00:00-04:00",
+      "day": "2026-09-29",
+      "hour_et": "12",
+      "packs": [
+        "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-29/1200/A1.md",
+        "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-29/1200/A2.md",
+        "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-29/1200/A3.md",
+        "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-29/1200/A4.md",
+        "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/hourly/2026-09-29/1200/A5.md"
+      ],
+      "ready_at": "2026-09-29T16:44:48.054178Z",
+      "missing_proposals": [],
+      "next": "Fan out A1\u2013A5, then: python run_hourly.py --hour \u2026 --phase settle"
+    }
+  },
+  "phase": "prep",
+  "finished_at": "2026-09-29T16:44:48.376073Z"
+}

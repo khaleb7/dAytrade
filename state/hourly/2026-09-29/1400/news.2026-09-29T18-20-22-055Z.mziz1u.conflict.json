@@ -1,0 +1,337 @@
+{
+  "as_of": "2026-09-29T14:00:00-04:00",
+  "date": "2026-09-29",
+  "hour_et": "14",
+  "cutoff_utc": "2026-09-29T18:00:00Z",
+  "mode": "cache",
+  "fetched_at": "2026-09-29T18:19:24.001945Z",
+  "source_counts": {
+    "sec_edgar": 36,
+    "marketwatch": 10
+  },
+  "cache_items_scanned": 99,
+  "items": [
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Luvu Brands, Inc. (0001374567) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1374567/000165495426008628/0001654954-26-008628-index.htm",
+      "published": "2026-09-29T17:53:29Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001654954-26-008628 <b>Size:</b> 315 KB\n<br>Item 2.02: Results of Operations and Financial Condition\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "marketwatch",
+      "title": "Medicare Advantage plans will be cheaper next year. Here\u2019s the new cost.",
+      "url": "https://www.marketwatch.com/story/medicare-advantage-plans-will-be-cheaper-next-year-heres-the-new-cost-2f7ab55b?mod=mw_rss_topstories",
+      "published": "2026-09-29T17:45:00Z",
+      "summary": "Medicare beneficiaries can change their coverage during open enrollment, which begins Oct. 15."
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Fidelity Core Real Estate Fund (0001953520) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1953520/000119312526406738/0001193125-26-406738-index.htm",
+      "published": "2026-09-29T17:43:53Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001193125-26-406738 <b>Size:</b> 162 KB\n<br>Item 7.01: Regulation FD Disclosure"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Federal Home Loan Bank of Cincinnati (0001326771) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1326771/000132677126000157/0001326771-26-000157-index.htm",
+      "published": "2026-09-29T17:34:22Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001326771-26-000157 <b>Size:</b> 173 KB\n<br>Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Stone Point Credit Corp (0001825384) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1825384/000110465926111809/0001104659-26-111809-index.htm",
+      "published": "2026-09-29T17:33:46Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001104659-26-111809 <b>Size:</b> 183 KB\n<br>Item 8.01: Other Events\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Federal Home Loan Bank of Des Moines (0001325814) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1325814/000132581426000154/0001325814-26-000154-index.htm",
+      "published": "2026-09-29T17:31:51Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001325814-26-000154 <b>Size:</b> 196 KB\n<br>Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "marketwatch",
+      "title": "I\u2019m 77, pay rent and live off Social Security, but I help homeless people. Why are so many people going hungry?",
+      "url": "https://www.marketwatch.com/story/im-77-pay-rent-and-live-off-social-security-but-i-help-homeless-people-why-are-so-many-people-going-hungry-5818465f?mod=mw_rss_topstories",
+      "published": "2026-09-29T17:30:00Z",
+      "summary": "\u201cI am a retired senior citizen living check-to-check.\u201d"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - BROOKFIELD REAL ESTATE INCOME TRUST INC. (0001713407) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1713407/000171340726000097/0001713407-26-000097-index.htm",
+      "published": "2026-09-29T17:20:56Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001713407-26-000097 <b>Size:</b> 134 KB\n<br>Item 7.01: Regulation FD Disclosure"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Federal Home Loan Bank of Boston (0001331463) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1331463/000133146326000186/0001331463-26-000186-index.htm",
+      "published": "2026-09-29T17:13:42Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001331463-26-000186 <b>Size:</b> 177 KB\n<br>Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - PORTSMOUTH SQUARE INC (0000079661) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/79661/000149315226044837/0001493152-26-044837-index.htm",
+      "published": "2026-09-29T17:03:29Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001493152-26-044837 <b>Size:</b> 235 KB\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Federal Home Loan Bank of Dallas (0001331757) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1331757/000133175726000175/0001331757-26-000175-index.htm",
+      "published": "2026-09-29T17:01:12Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001331757-26-000175 <b>Size:</b> 227 KB\n<br>Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - INTERGROUP CORP (0000069422) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/69422/000149315226044836/0001493152-26-044836-index.htm",
+      "published": "2026-09-29T17:00:23Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001493152-26-044836 <b>Size:</b> 264 KB\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - ADAMS STREET CREDIT SOLUTIONS FUND (0001772918) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1772918/000119312526406625/0001193125-26-406625-index.htm",
+      "published": "2026-09-29T16:59:37Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001193125-26-406625 <b>Size:</b> 138 KB\n<br>Item 3.02: Unregistered Sales of Equity Securities\n<br>Item 8.01: Other Events"
+    },
+    {
+      "source": "marketwatch",
+      "title": "Could SpaceX be worth $12 trillion one day? Citi says Starship gets it a step closer.",
+      "url": "https://www.marketwatch.com/story/could-spacex-be-worth-12-trillion-one-day-citi-says-starship-gets-it-a-step-closer-6ce44961?mod=mw_rss_topstories",
+      "published": "2026-09-29T16:59:00Z",
+      "summary": "The recent Starship launch helps SpaceX with a number of priorities that could help its stock reach $900 over the long run, an analyst says."
+    },
+    {
+      "source": "marketwatch",
+      "title": "Here\u2019s what Netflix skeptics are getting wrong about the stock, according to an analyst",
+      "url": "https://www.marketwatch.com/story/heres-what-netflix-skeptics-are-getting-wrong-about-the-stock-according-to-an-analyst-40436696?mod=mw_rss_topstories",
+      "published": "2026-09-29T16:45:00Z",
+      "summary": "Netflix investors are too worried about the U.S. and are overlooking gains abroad, Deutsche Bank argues."
+    },
+    {
+      "source": "marketwatch",
+      "title": "The hidden messages the bond market is sending about the AI boom and the stock market",
+      "url": "https://www.marketwatch.com/story/the-hidden-messages-the-bond-market-is-sending-about-the-ai-boom-and-the-stock-market-5c9495ba?mod=mw_rss_topstories",
+      "published": "2026-09-29T16:44:00Z",
+      "summary": "Author and FT correspondent Robin Wigglesworth tells MarketWatch about how bonds build the modern financial system, and what they are currently saying about and inflation, government debt and the financial markets."
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - United States Commodity Index Funds Trust (0001479247) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1479247/000110465926111783/0001104659-26-111783-index.htm",
+      "published": "2026-09-29T16:41:55Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001104659-26-111783 <b>Size:</b> 289 KB\n<br>Item 7.01: Regulation FD Disclosure\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - United States Brent Oil Fund, LP (0001472494) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1472494/000110465926111782/0001104659-26-111782-index.htm",
+      "published": "2026-09-29T16:40:50Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001104659-26-111782 <b>Size:</b> 206 KB\n<br>Item 7.01: Regulation FD Disclosure\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - United States 12 Month Natural Gas Fund, LP (0001405513) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1405513/000110465926111781/0001104659-26-111781-index.htm",
+      "published": "2026-09-29T16:39:48Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001104659-26-111781 <b>Size:</b> 207 KB\n<br>Item 7.01: Regulation FD Disclosure\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - United States Gasoline Fund, LP (0001396878) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1396878/000110465926111780/0001104659-26-111780-index.htm",
+      "published": "2026-09-29T16:37:36Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001104659-26-111780 <b>Size:</b> 206 KB\n<br>Item 7.01: Regulation FD Disclosure\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - United States 12 Month Oil Fund, LP (0001405528) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1405528/000110465926111779/0001104659-26-111779-index.htm",
+      "published": "2026-09-29T16:35:48Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001104659-26-111779 <b>Size:</b> 207 KB\n<br>Item 7.01: Regulation FD Disclosure\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - United States Natural Gas Fund, LP (0001376227) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1376227/000110465926111778/0001104659-26-111778-index.htm",
+      "published": "2026-09-29T16:34:50Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001104659-26-111778 <b>Size:</b> 208 KB\n<br>Item 7.01: Regulation FD Disclosure\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - United States Oil Fund, LP (0001327068) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1327068/000110465926111777/0001104659-26-111777-index.htm",
+      "published": "2026-09-29T16:33:48Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001104659-26-111777 <b>Size:</b> 211 KB\n<br>Item 7.01: Regulation FD Disclosure\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "marketwatch",
+      "title": "\u2018I\u2019d rather be on a beach in Bali\u2019: My husband resents my $8 million net worth. Should I pay for his retirement?",
+      "url": "https://www.marketwatch.com/story/i-feel-like-hes-holding-me-back-i-have-8-million-my-husband-resents-my-success-should-i-pay-for-more-things-08a4221b?mod=mw_rss_topstories",
+      "published": "2026-09-29T16:30:00Z",
+      "summary": "\u201cWe have an ironclad prenup.\u201d"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Federal Home Loan Bank of Atlanta (0001331465) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1331465/000133146526000175/0001331465-26-000175-index.htm",
+      "published": "2026-09-29T16:26:01Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001331465-26-000175 <b>Size:</b> 188 KB\n<br>Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant"
+    },
+    {
+      "source": "marketwatch",
+      "title": "You might be shocked by how many stocks are in a bear market right now",
+      "url": "https://www.marketwatch.com/story/you-might-be-shocked-by-how-many-stocks-are-in-a-bear-market-right-now-017c9cd8?mod=mw_rss_topstories",
+      "published": "2026-09-29T16:24:00Z",
+      "summary": "The S&P 500 was trading within 2 percentage points of its record closing high on Tuesday, but dig a little bit deeper, and things are looking far less rosy."
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - BayFirst Financial Corp. (0001649739) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1649739/000164973926000114/0001649739-26-000114-index.htm",
+      "published": "2026-09-29T16:17:50Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001649739-26-000114 <b>Size:</b> 515 KB\n<br>Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "marketwatch",
+      "title": "\u2018I want to make her proud\u2019: My mother, a divorc\u00e9e, died and I\u2019m her executor. Do I need to file for probate?",
+      "url": "https://www.marketwatch.com/story/i-want-to-make-her-proud-my-mother-a-divorcee-died-and-im-her-executor-do-i-need-to-file-for-probate-a39b1123?mod=mw_rss_topstories",
+      "published": "2026-09-29T16:15:00Z",
+      "summary": "\u201cThe only debts were utility and credit-card bills, which we will pay off.\u201d"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Federal Home Loan Bank of Chicago (0001331451) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1331451/000133145126000180/0001331451-26-000180-index.htm",
+      "published": "2026-09-29T16:06:31Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001331451-26-000180 <b>Size:</b> 181 KB\n<br>Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant"
+    },
+    {
+      "source": "marketwatch",
+      "title": "\u2018I have $400,000 in equity\u2019: I\u2019m 80 years old. Should I move out of my house because of dangerous stairs?",
+      "url": "https://www.marketwatch.com/story/i-have-a-low-interest-rate-im-80-years-old-should-i-move-out-of-my-house-because-of-dangerous-stairs-389c3c7b?mod=mw_rss_topstories",
+      "published": "2026-09-29T15:45:00Z",
+      "summary": "\u201cGenerally, the advice I\u2019ve read says not to sell because I have a low-interest-rate mortgage.\u201d"
+    },
+    {
+      "source": "marketwatch",
+      "title": "I don\u2019t want to spend $800 on flights to see my family for Thanksgiving. Can I break this holiday tradition?",
+      "url": "https://www.marketwatch.com/story/spending-800-to-see-my-family-this-thanksgiving-is-a-financial-burden-how-can-i-push-for-a-cheaper-flight-c6dd1fdf?mod=mw_rss_topstories",
+      "published": "2026-09-29T15:29:00Z",
+      "summary": "\u201cMy sister always chooses places where it\u2019s cheapest for her to fly.\u201d"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - TREASURE GLOBAL INC (0001905956) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1905956/000121390026104429/0001213900-26-104429-index.htm",
+      "published": "2026-09-29T15:00:23Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001213900-26-104429 <b>Size:</b> 468 KB\n<br>Item 1.01: Entry into a Material Definitive Agreement\n<br>Item 3.02: Unregistered Sales of Equity Securities\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Federal Home Loan Bank of Indianapolis (0001331754) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1331754/000133175426000192/0001331754-26-000192-index.htm",
+      "published": "2026-09-29T14:58:55Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001331754-26-000192 <b>Size:</b> 199 KB\n<br>Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Federal Home Loan Bank of Topeka (0001325878) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1325878/000132587826000205/0001325878-26-000205-index.htm",
+      "published": "2026-09-29T14:47:05Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001325878-26-000205 <b>Size:</b> 178 KB\n<br>Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Tri-State Generation & Transmission Association, Inc. (0001637880) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1637880/000163788026000046/0001637880-26-000046-index.htm",
+      "published": "2026-09-29T14:45:47Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001637880-26-000046 <b>Size:</b> 127 KB\n<br>Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Stone Point Credit Income Fund (0002031283) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/2031283/000110465926111732/0001104659-26-111732-index.htm",
+      "published": "2026-09-29T14:41:22Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001104659-26-111732 <b>Size:</b> 183 KB\n<br>Item 8.01: Other Events"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Silexion Therapeutics Corp (0002022416) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/2022416/000117891326004645/0001178913-26-004645-index.htm",
+      "published": "2026-09-29T14:31:04Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001178913-26-004645 <b>Size:</b> 575 KB\n<br>Item 1.01: Entry into a Material Definitive Agreement\n<br>Item 3.02: Unregistered Sales of Equity Securities\n<br>Item 8.01: Other Events\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - ONCOLYTICS BIOTECH INC (0001129928) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1129928/000112992826000059/0001129928-26-000059-index.htm",
+      "published": "2026-09-29T13:34:58Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001129928-26-000059 <b>Size:</b> 161 KB\n<br>Item 8.01: Other Events"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Columbus Acquisition Corp/Cayman Islands (0002028201) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/2028201/000121390026104375/0001213900-26-104375-index.htm",
+      "published": "2026-09-29T13:28:34Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001213900-26-104375 <b>Size:</b> 276 KB\n<br>Item 8.01: Other Events\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Federal Home Loan Bank of Pittsburgh (0001330399) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1330399/000133039926000125/0001330399-26-000125-index.htm",
+      "published": "2026-09-29T13:28:30Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001330399-26-000125 <b>Size:</b> 245 KB\n<br>Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - CVC-PE Global Private Equity Fund, LP (0002096330) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/2096330/000119312526406168/0001193125-26-406168-index.htm",
+      "published": "2026-09-29T13:27:13Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001193125-26-406168 <b>Size:</b> 181 KB\n<br>Item 3.02: Unregistered Sales of Equity Securities\n<br>Item 8.01: Other Events"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - SmartStop Self Storage REIT, Inc. (0001585389) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1585389/000119312526406164/0001193125-26-406164-index.htm",
+      "published": "2026-09-29T13:23:58Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001193125-26-406164 <b>Size:</b> 18 MB\n<br>Item 7.01: Regulation FD Disclosure\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Greenland Energy Co (0002093507) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/2093507/000182912626010531/0001829126-26-010531-index.htm",
+      "published": "2026-09-29T13:23:18Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001829126-26-010531 <b>Size:</b> 278 KB\n<br>Item 7.01: Regulation FD Disclosure\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Creatd, Inc. (0001357671) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1357671/000162828026063773/0001628280-26-063773-index.htm",
+      "published": "2026-09-29T13:20:36Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001628280-26-063773 <b>Size:</b> 543 KB\n<br>Item 1.01: Entry into a Material Definitive Agreement"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Tessera Defense & Homeland Security Inc. (0001739174) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1739174/000121390026104363/0001213900-26-104363-index.htm",
+      "published": "2026-09-29T13:20:17Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0001213900-26-104363 <b>Size:</b> 260 KB\n<br>Item 7.01: Regulation FD Disclosure\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Carnival Corp Ltd. (0000815097) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/815097/000081509726000104/0000815097-26-000104-index.htm",
+      "published": "2026-09-29T13:16:12Z",
+      "summary": "<b>Filed:</b> 2026-09-29 <b>AccNo:</b> 0000815097-26-000104 <b>Size:</b> 2 MB\n<br>Item 2.02: Results of Operations and Financial Condition\n<br>Item 9.01: Financial Statements and Exhibits"
+    }
+  ]
+}

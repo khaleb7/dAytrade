@@ -1,0 +1,10 @@
+{
+  "agent_id": "A4",
+  "as_of": "2026-06-02",
+  "orders": [
+    {"side": "sell", "symbol": "QQQ", "qty": 0.015},
+    {"side": "buy", "symbol": "NVDA", "notional_usd": 45.0},
+    {"side": "buy", "symbol": "XLK", "notional_usd": 18.0}
+  ],
+  "thesis": "Pack's densest pre-open theme is AI datacenter demand: Nvidia says supply is in place for AI demand growth, Nvidia's CEO endorses Marvell, Marvell launches an AI switch, STMicro raises its datacenter target, AMD joins a DriveNets round. Aggressive tier: rotate part of the broad QQQ sleeve into the named beneficiary (NVDA) plus an XLK tech sleeve for breadth, since several catalysts sit in semis/networking names outside the tradable list. Avoiding GOOGL despite the Berkshire $10bn item because the same headline carries an $80bn equity raise (dilution) and a falling stock into the open. Sizing leaves cash and single-name room well inside the 5% floor / 50% name cap / 8-position limits under either plausible open print, so no hindsight sizing and no reject risk."
+}

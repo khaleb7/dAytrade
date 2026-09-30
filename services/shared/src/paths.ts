@@ -44,40 +44,92 @@ export function lessonsPath(root = storeRoot()): string {
   return path.join(stateDir(root), "lessons", "ledger.jsonl");
 }
 
-export function hourlyDir(day: string, hour: number | string, root = storeRoot()): string {
-  const hh = String(hour).padStart(2, "0");
-  return path.join(stateDir(root), "hourly", day, hh);
+export function signalsDir(root = storeRoot()): string {
+  return path.join(stateDir(root), "signals");
 }
 
-export function hourlyNewsPath(day: string, hour: number | string, root = storeRoot()): string {
-  return path.join(hourlyDir(day, hour, root), "news.json");
+export function signalsLatestPath(root = storeRoot()): string {
+  return path.join(signalsDir(root), "latest.json");
+}
+
+/** Slot dir key: HHMM (0930, 1400). Legacy 2-digit hour dirs still resolved as fallback. */
+export function hourlyDir(day: string, hourOrSlot: number | string, root = storeRoot()): string {
+  const slot = normalizeHourlySlot(hourOrSlot);
+  const primary = path.join(stateDir(root), "hourly", day, slot);
+  if (fs.existsSync(primary)) return primary;
+  // Legacy hour-only dirs (e.g. "14") for historical reads
+  if (slot.endsWith("00")) {
+    const legacy = path.join(stateDir(root), "hourly", day, slot.slice(0, 2));
+    if (fs.existsSync(legacy)) return legacy;
+  }
+  return primary;
+}
+
+function normalizeHourlySlot(hourOrSlot: number | string): string {
+  if (typeof hourOrSlot === "number") {
+    return `${String(hourOrSlot).padStart(2, "0")}00`;
+  }
+  const raw = String(hourOrSlot).trim();
+  if (/^\d{4}$/.test(raw)) return raw;
+  if (/^\d{1,2}$/.test(raw)) return `${raw.padStart(2, "0")}00`;
+  const m = raw.match(/^(\d{1,2})[:\-](\d{2})$/);
+  if (m) return `${m[1]!.padStart(2, "0")}${m[2]}`;
+  return raw;
+}
+
+export function hourlyNewsPath(day: string, hourOrSlot: number | string, root = storeRoot()): string {
+  return path.join(hourlyDir(day, hourOrSlot, root), "news.json");
 }
 
 export function hourlyProposalPath(
   day: string,
-  hour: number | string,
+  hourOrSlot: number | string,
   agentId: string,
   root = storeRoot(),
 ): string {
-  return path.join(hourlyDir(day, hour, root), `${agentId}.json`);
+  return path.join(hourlyDir(day, hourOrSlot, root), `${agentId}.json`);
 }
 
 export function hourlyPackPath(
   day: string,
-  hour: number | string,
+  hourOrSlot: number | string,
   agentId: string,
   root = storeRoot(),
 ): string {
-  return path.join(hourlyDir(day, hour, root), `${agentId}.md`);
+  return path.join(hourlyDir(day, hourOrSlot, root), `${agentId}.md`);
 }
 
-export function hourlyConsensusPath(day: string, hour: number | string, root = storeRoot()): string {
-  return path.join(hourlyDir(day, hour, root), "consensus.json");
+export function hourlyConsensusPath(
+  day: string,
+  hourOrSlot: number | string,
+  root = storeRoot(),
+): string {
+  return path.join(hourlyDir(day, hourOrSlot, root), "consensus.json");
+}
+
+export function hourlySignalsPath(
+  day: string,
+  hourOrSlot: number | string,
+  root = storeRoot(),
+): string {
+  return path.join(hourlyDir(day, hourOrSlot, root), "signals.json");
+}
+
+export function dailyDir(day: string, root = storeRoot()): string {
+  return path.join(stateDir(root), "daily", day);
+}
+
+export function dayEndAnalysisPath(day: string, root = storeRoot()): string {
+  return path.join(dailyDir(day), "analysis.json");
 }
 
 export function schedulerStatusPath(root = storeRoot()): string {
   return path.join(stateDir(root), "scheduler", "status.json");
 }
 
-export const AGENT_IDS = ["A1", "A2", "A3", "A4", "A5"] as const;
+/**
+ * @deprecated Prefer `activeAgentIds()` from `@daytrade/shared` (roster-driven).
+ * Kept as a compile-time fallback constant matching single-agent A1 cutover.
+ */
+export const AGENT_IDS = ["A1"] as const;
 export type AgentId = (typeof AGENT_IDS)[number];

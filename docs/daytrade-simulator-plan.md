@@ -1,6 +1,6 @@
 # DayTrade simulator plan
 
-Cursor-orchestrated investment simulator: five rules-constrained agents with different LLMs each place one pre-market trade batch per US trading day, driven by multi-source news, own history, and shared lessons.
+Cursor-orchestrated investment simulator: five rules-constrained agents (all fan-out on `grok-4.7`) each place one pre-market trade batch per US trading day, driven by multi-source news, own history, and shared lessons.
 
 ## Locked decisions
 
@@ -18,15 +18,15 @@ Cursor-orchestrated investment simulator: five rules-constrained agents with dif
 
 ## Five agents
 
-| Agent | Risk | Cash floor | Max single name | Max positions | LLM (spread) |
-|-------|------|------------|-----------------|---------------|--------------|
-| A1 | Very conservative | 40% | 15% | 3 | `gpt-5.6-sol-medium` |
-| A2 | Conservative | 25% | 25% | 4 | `claude-sonnet-5-thinking-medium` |
-| A3 | Balanced | 15% | 35% | 6 | `gemini-3.8-flash-medium` |
-| A4 | Aggressive | 5% | 50% | 8 | `claude-opus-5-thinking-medium` |
-| A5 | Speculative | 0% | 80% | 10 | `grok-4.7-medium` |
+| Agent | Risk | Cash floor | Max single name | Max positions | Model |
+|-------|------|------------|-----------------|---------------|-------|
+| A1 | Very conservative | 40% | 15% | 3 | `grok-4.7` |
+| A2 | Conservative | 25% | 25% | 4 | `grok-4.7` |
+| A3 | Balanced | 15% | 35% | 6 | `grok-4.7` |
+| A4 | Aggressive | 5% | 50% | 8 | `grok-4.7` |
+| A5 | Speculative | 0% | 80% | 10 | `grok-4.7` |
 
-Shared rules for all: US listed equity/ETF tickers only; no options/crypto/OTC; no shorts; one batch per day; batch must validate or is rejected and agent holds.
+Shared rules for all: US listed equity/ETF tickers only; no options/crypto/OTC; no shorts; one batch per day; batch must validate or is rejected and agent holds. Fan-out: all `grok-4.7` (Composer is coding-only) — diversity via risk params.
 
 ## Architecture
 

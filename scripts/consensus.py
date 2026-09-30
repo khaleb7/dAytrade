@@ -1,4 +1,8 @@
-"""Majority consensus over A1–A5 hourly proposals."""
+"""Single-agent proposal → book orders (ex-majority consensus).
+
+A1 (grok-4.7) writes the hourly proposal; min_votes=1 so that agent's
+valid legs become the settle set. Empty orders = hold (valid).
+"""
 from __future__ import annotations
 
 import argparse
@@ -8,10 +12,9 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-from paths import hourly_consensus_path, hourly_dir
+from paths import hourly_consensus_path, hourly_dir, active_agent_ids
 
-AGENT_IDS = ["A1", "A2", "A3", "A4", "A5"]
-MIN_VOTES = 3
+MIN_VOTES = 1
 
 
 def load_json(path: Path) -> Any:
@@ -25,15 +28,15 @@ def _median(vals: List[float]) -> float:
 
 def load_proposals(
     day: str,
-    hour: int,
+    hour_or_slot: int | str,
     *,
     proposals_dir: Optional[Path] = None,
 ) -> Tuple[List[Dict[str, Any]], List[str]]:
-    """Load A1–A5 proposals. Missing files are skipped (reported)."""
-    base = proposals_dir or hourly_dir(day, hour)
+    """Load proposals for roster agents with model_id. Missing files are skipped (reported)."""
+    base = proposals_dir or hourly_dir(day, hour_or_slot)
     loaded: List[Dict[str, Any]] = []
     missing: List[str] = []
-    for aid in AGENT_IDS:
+    for aid in active_agent_ids():
         path = base / f"{aid}.json"
         if not path.exists():
             missing.append(aid)
@@ -54,7 +57,7 @@ def build_consensus(
     held_qty: Optional[Dict[str, float]] = None,
     min_votes: int = MIN_VOTES,
 ) -> Dict[str, Any]:
-    """Group by (symbol, side); require ≥min_votes; median size among voters.
+    """Group by (symbol, side); require ≥min_votes (1 for single-agent); median size among voters.
 
     Empty-order agents do not count toward any leg's votes.
     """
@@ -148,19 +151,19 @@ def build_consensus(
     }
 
 
-def write_consensus(day: str, hour: int, consensus: Dict[str, Any]) -> Path:
-    path = hourly_consensus_path(day, hour)
+def write_consensus(day: str, hour_or_slot: int | str, consensus: Dict[str, Any]) -> Path:
+    path = hourly_consensus_path(day, hour_or_slot)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(consensus, indent=2) + "\n")
     return path
 
 
 def main(argv: Optional[List[str]] = None) -> int:
-    p = argparse.ArgumentParser(description="Build majority consensus from A1–A5 proposals")
+    p = argparse.ArgumentParser(description="Build settle orders from A1 proposal (min_votes=1)")
     p.add_argument("--day", help="YYYY-MM-DD (ET)")
     p.add_argument("--hour", type=int, help="ET hour 0-23")
     p.add_argument("--bucket", help="YYYY-MM-DDTHH (alternative to --day/--hour)")
-    p.add_argument("--proposals-dir", type=Path, help="Directory with A1.json…A5.json")
+    p.add_argument("--proposals-dir", type=Path, help="Directory with A1.json")
     p.add_argument("--portfolio", type=Path, help="Book portfolio for sell qty scaling")
     p.add_argument("--out", type=Path, help="Output consensus.json path")
     p.add_argument("--min-votes", type=int, default=MIN_VOTES)
@@ -171,14 +174,14 @@ def main(argv: Optional[List[str]] = None) -> int:
     if args.bucket:
         from hour_bucket import parse_hour_bucket
 
-        d, h, _ = parse_hour_bucket(args.bucket)
+        d, h, minute, slot, _ = parse_hour_bucket(args.bucket)
         day = d.isoformat()
-        hour = h
+        hour = slot  # path key HHMM
     if args.proposals_dir and (day is None or hour is None):
         # allow fixtures without day/hour if --out given
         proposals, missing = [], []
         base = args.proposals_dir
-        for aid in AGENT_IDS:
+        for aid in active_agent_ids():
             path = base / f"{aid}.json"
             if path.exists():
                 proposals.append(load_json(path))

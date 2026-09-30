@@ -1,0 +1,12 @@
+{
+  "agent_id": "A2",
+  "as_of": "2026-06-01",
+  "orders": [
+    {
+      "side": "buy",
+      "symbol": "VTI",
+      "notional_usd": 15.0
+    }
+  ],
+  "thesis": "Fixture: core equity sleeve via VTI."
+}

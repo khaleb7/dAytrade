@@ -1,5 +1,5 @@
 import {
-  AGENT_IDS,
+  activeAgentIds,
   hourlyConsensusPath,
   hourlyDir,
   readJson,
@@ -9,7 +9,8 @@ import {
   type HourlyProposal,
 } from "@daytrade/shared";
 
-const MIN_VOTES = 3;
+/** Single-agent mode: roster proposal(s) become settle orders (minVotes=1). Empty = hold. */
+const MIN_VOTES = 1;
 
 function median(vals: number[]): number {
   const s = [...vals].sort((a, b) => a - b);
@@ -20,13 +21,13 @@ function median(vals: number[]): number {
 
 export function loadProposals(
   day: string,
-  hour: number,
+  hourOrSlot: number | string,
   proposalsDir?: string,
 ): { loaded: HourlyProposal[]; missing: string[] } {
-  const base = proposalsDir ?? hourlyDir(day, hour);
+  const base = proposalsDir ?? hourlyDir(day, hourOrSlot);
   const loaded: HourlyProposal[] = [];
   const missing: string[] = [];
-  for (const aid of AGENT_IDS) {
+  for (const aid of activeAgentIds()) {
     const p = `${base}/${aid}.json`;
     try {
       const data = readJson<HourlyProposal>(p);
@@ -142,8 +143,12 @@ export function buildConsensus(
   };
 }
 
-export function writeConsensus(day: string, hour: number, consensus: ConsensusResult): string {
-  const out = hourlyConsensusPath(day, hour);
+export function writeConsensus(
+  day: string,
+  hourOrSlot: number | string,
+  consensus: ConsensusResult,
+): string {
+  const out = hourlyConsensusPath(day, hourOrSlot);
   writeJson(out, consensus);
   return out;
 }

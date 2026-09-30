@@ -1,0 +1,49 @@
+{
+  "agent_id": "A3",
+  "as_of": "2026-09-16",
+  "cash_usd": 35.0,
+  "positions": [
+    {
+      "symbol": "VTI",
+      "qty": 0.07995202878273036,
+      "avg_cost": 250.15,
+      "mark_price": 371.260009765625,
+      "market_value": 29.682990986658005,
+      "unrealized_pnl": 9.682990986658005
+    },
+    {
+      "symbol": "BND",
+      "qty": 0.13850415512465372,
+      "avg_cost": 72.2,
+      "mark_price": 71.11000061035156,
+      "market_value": 9.849030555450353,
+      "unrealized_pnl": -0.15096944454964545
+    },
+    {
+      "symbol": "NVDA",
+      "qty": 0.08823715520603159,
+      "avg_cost": 226.66188583823322,
+      "mark_price": 213.89999389648438,
+      "market_value": 18.873926960013303,
+      "unrealized_pnl": -1.1260730399866965
+    },
+    {
+      "symbol": "XLK",
+      "qty": 0.07653555976813758,
+      "avg_cost": 195.9873298822416,
+      "mark_price": 183.71559143066406,
+      "market_value": 14.060775628280334,
+      "unrealized_pnl": -0.9392243717196646
+    }
+  ],
+  "equity_usd": 107.466724130402,
+  "realized_pnl_usd": 0.0,
+  "unrealized_pnl_usd": 7.466724130402,
+  "day_pnl_usd": 0.03530973437614193,
+  "gap_jump": {
+    "from_date": "2026-06-08",
+    "mtm_date": "2026-08-31",
+    "method": "carry+MTM",
+    "note": "Speed-up jump: positions/cash carried; no agent orders in gap."
+  }
+}

@@ -15,5 +15,5 @@ ZoneInfo("America/New_York")
 
 from hourly_scheduler import next_rth_tick  # noqa: E402
 
-d, h, t = next_rth_tick()
-print("next_tick={0}T{1:02d} {2}".format(d.isoformat(), h, t.isoformat()))
+d, h, m, t, bucket, slot = next_rth_tick()
+print("next_tick={0} slot={1} when={2}".format(bucket, slot, t.isoformat()))

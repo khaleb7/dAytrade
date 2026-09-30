@@ -7,6 +7,6 @@ if (!bucket) {
   console.error("usage: packs YYYY-MM-DDTHH");
   process.exit(1);
 }
-const { day, hour } = parseHourBucket(bucket);
-const wrote = buildHourlyPacks(formatDay(day), hour);
+const { day, hour, slot } = parseHourBucket(bucket);
+const wrote = buildHourlyPacks(formatDay(day), slot);
 console.log(JSON.stringify({ wrote }, null, 2));

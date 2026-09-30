@@ -1,0 +1,33 @@
+{
+  "updated_at": "2026-09-29T18:19:22.397339Z",
+  "item_count": 99,
+  "by_source": {
+    "yahoo_finance": 49,
+    "marketwatch": 10,
+    "sec_edgar": 40
+  },
+  "published_min": "2024-11-20",
+  "published_max": "2026-09-29",
+  "layout": {
+    "items": "items.jsonl",
+    "gaps": "gaps.jsonl",
+    "ingest_log": "ingest_log.jsonl",
+    "fields": [
+      "source",
+      "title",
+      "url",
+      "published",
+      "summary",
+      "ingested_at",
+      "ingest_id"
+    ]
+  },
+  "last_live_ingest": {
+    "ingest_id": "20260929T181912Z",
+    "via": "live_feeds",
+    "items_added": 99,
+    "errors": [
+      "reuters: <urlopen error [Errno 11001] getaddrinfo failed>"
+    ]
+  }
+}

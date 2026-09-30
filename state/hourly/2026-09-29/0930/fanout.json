@@ -1,0 +1,42 @@
+{
+  "as_of": "2026-09-29T09:30:00-04:00",
+  "mode": "sdk_local",
+  "agents": [
+    {
+      "agent_id": "A1",
+      "model_id": "gpt-5.6-sol",
+      "status": "wrote",
+      "agentId": "agent-7e509553-c475-4b77-a5e8-ed52ca19c8ab",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\A1.json"
+    },
+    {
+      "agent_id": "A2",
+      "model_id": "claude-sonnet-5",
+      "status": "wrote",
+      "agentId": "agent-22db4400-7e25-4e3a-a133-58bd9e9c2826",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\A2.json"
+    },
+    {
+      "agent_id": "A3",
+      "model_id": "gemini-3.8-flash",
+      "status": "error",
+      "error": "fanout timeout",
+      "agentId": "agent-c4a5e34f-4e39-4371-9d0e-ba5af3052b23"
+    },
+    {
+      "agent_id": "A4",
+      "model_id": "claude-opus-5",
+      "status": "wrote",
+      "agentId": "agent-b77c5d31-29a2-4730-ba45-8b8340db74b9",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\A4.json"
+    },
+    {
+      "agent_id": "A5",
+      "model_id": "grok-4.7",
+      "status": "wrote",
+      "agentId": "agent-2d731d52-a260-476c-b669-c05c17279d71",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\A5.json"
+    }
+  ],
+  "finished_at": "2026-09-29T13:42:19Z"
+}

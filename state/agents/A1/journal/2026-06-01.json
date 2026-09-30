@@ -1,0 +1,46 @@
+{
+  "agent_id": "A1",
+  "date": "2026-06-01",
+  "thesis": "Fixture: allocate 10% to BND; preserve cash floor.",
+  "batch": {
+    "agent_id": "A1",
+    "as_of": "2026-06-01",
+    "orders": [
+      {
+        "side": "buy",
+        "symbol": "BND",
+        "notional_usd": 10.0
+      }
+    ],
+    "thesis": "Fixture: allocate 10% to BND; preserve cash floor."
+  },
+  "accepted": true,
+  "reject_errors": [],
+  "fills": [
+    {
+      "side": "buy",
+      "symbol": "BND",
+      "qty": 0.13850415512465372,
+      "price": 72.2,
+      "notional_usd": 10.0
+    }
+  ],
+  "eod": {
+    "equity_usd": 100.02,
+    "cash_usd": 90.0,
+    "day_pnl_usd": 0.01999999999999602,
+    "unrealized_pnl_usd": 0.019999999999998654,
+    "realized_pnl_usd": 0.0,
+    "positions": [
+      {
+        "symbol": "BND",
+        "qty": 0.13850415512465372,
+        "avg_cost": 72.2,
+        "mark_price": 72.3444,
+        "market_value": 10.019999999999998,
+        "unrealized_pnl": 0.019999999999998654
+      }
+    ],
+    "lesson": "Batch accepted. Day PnL +0.02 on equity 100.02. Cash 90.00; positions 1."
+  }
+}

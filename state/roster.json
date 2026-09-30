@@ -1,47 +1,35 @@
 {
   "agents": {
     "A1": {
-      "risk_label": "Very conservative",
-      "cash_floor_pct": 40,
-      "max_single_name_pct": 15,
-      "max_positions": 3,
-      "model_id": "gpt-5.6-sol-medium"
-    },
-    "A2": {
-      "risk_label": "Conservative",
-      "cash_floor_pct": 25,
-      "max_single_name_pct": 25,
-      "max_positions": 4,
-      "model_id": "claude-sonnet-5-thinking-medium"
-    },
-    "A3": {
-      "risk_label": "Balanced",
-      "cash_floor_pct": 15,
-      "max_single_name_pct": 35,
-      "max_positions": 6,
-      "model_id": "gemini-3.8-flash-medium"
-    },
-    "A4": {
-      "risk_label": "Aggressive",
-      "cash_floor_pct": 5,
-      "max_single_name_pct": 50,
-      "max_positions": 8,
-      "model_id": "claude-opus-5-thinking-medium"
-    },
-    "A5": {
-      "risk_label": "Speculative",
-      "cash_floor_pct": 0,
-      "max_single_name_pct": 80,
-      "max_positions": 10,
-      "model_id": "grok-4.7-medium"
+      "risk_label": "Medium-aggressive",
+      "cash_floor_pct": 8,
+      "max_single_name_pct": 45,
+      "max_positions": 7,
+      "model_id": "grok-4.7"
     }
   },
   "shared_rules": {
     "universe": "US equities and ETFs only",
     "long_only": true,
     "fractional_shares": true,
-    "forbidden": ["options", "crypto", "OTC", "shorts"],
+    "forbidden": [
+      "options",
+      "crypto",
+      "OTC",
+      "shorts"
+    ],
     "batches_per_day": 1,
     "invalid_batch_policy": "reject_whole_batch"
+  },
+  "fanout_spend": {
+    "bucket": "cursor",
+    "mode": "single_agent",
+    "note": "One Grok agent (A1) per tick — no A2–A5 parallel fan-out. Composer is coding-only."
+  },
+  "book_caps": {
+    "cash_floor_pct": 8,
+    "max_single_name_pct": 45,
+    "max_positions": 7,
+    "note": "Shared Alpaca book caps match A1 medium-aggressive tier."
   }
 }

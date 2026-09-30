@@ -1,0 +1,123 @@
+{
+  "as_of": "2026-09-29T15:30:00-04:00",
+  "day": "2026-09-29",
+  "hour_et": "15",
+  "minute_et": "30",
+  "slot": "1530",
+  "phase": "prep-then-settle",
+  "started_at": "2026-09-29T19:39:03Z",
+  "dry_run": false,
+  "steps": {
+    "news": {
+      "wrote": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1530\\news.json",
+      "as_of": "2026-09-29T15:30:00-04:00",
+      "items": 77,
+      "mode": "cache",
+      "source_counts": {
+        "sec_edgar": 40,
+        "marketwatch": 31,
+        "politician_trades": 6
+      },
+      "cache_items_scanned": 3394,
+      "cutoff_utc": "2026-09-29T19:30:00Z",
+      "signals": {
+        "wrote": {
+          "latest": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\signals\\latest.json",
+          "hourly": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1530\\signals.json"
+        },
+        "fetched_at": "2026-09-29T19:39:15Z",
+        "ok_count": 6,
+        "errors": {}
+      }
+    },
+    "reconcile": {
+      "equity_usd": 99999.54,
+      "sizing_equity_usd": 999.5399999999936,
+      "positions": 1
+    },
+    "packs": {
+      "wrote": [
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1530\\A1.md"
+      ]
+    },
+    "ready": {
+      "as_of": "2026-09-29T15:30:00-04:00",
+      "day": "2026-09-29",
+      "slot": "1530",
+      "packs": [
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1530\\A1.md"
+      ],
+      "ready_at": "2026-09-29T19:39:16Z",
+      "next": "fanout then settle"
+    },
+    "fanout": {
+      "as_of": "2026-09-29T15:30:00-04:00",
+      "mode": "sdk_local",
+      "started_at": "2026-09-29T19:39:16Z",
+      "timeout_ms": 1200000,
+      "agents": [
+        {
+          "agent_id": "A1",
+          "model_id": "grok-4.7",
+          "status": "wrote",
+          "agentId": "agent-e0a998b6-e0d3-41c0-8aaf-31005b12de03",
+          "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1530\\A1.json",
+          "duration_ms": 531390
+        }
+      ],
+      "finished_at": "2026-09-29T19:48:07Z"
+    },
+    "consensus": {
+      "wrote": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1530\\consensus.json",
+      "orders": [],
+      "no_consensus": true,
+      "rejected_legs": [],
+      "proposals_loaded": [
+        "A1"
+      ],
+      "min_votes": 1
+    },
+    "validate": {
+      "ok": true,
+      "errors": [],
+      "post_trade": {
+        "cash_usd": 750.0200000000041,
+        "positions": [
+          {
+            "symbol": "VTI",
+            "qty": 0.664662949,
+            "avg_cost": 376.100398,
+            "mark_price": 375.41,
+            "market_value": 249.521118
+          }
+        ],
+        "equity_usd": 999.5399999999936
+      },
+      "hold": true,
+      "sizing_view": true,
+      "equity_offset_usd": -99000
+    },
+    "submit": {
+      "skipped": true,
+      "reason": "hold"
+    },
+    "day_end": {
+      "wrote": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\daily\\2026-09-29\\analysis.json",
+      "stats": {
+        "ticks": 13,
+        "consensus_ticks": 1,
+        "no_consensus_ticks": 11,
+        "orders": 1,
+        "submitted_ticks": 1,
+        "dry_run_ticks": 0,
+        "top_symbols": [
+          {
+            "symbol": "VTI",
+            "ticks": 1
+          }
+        ]
+      }
+    }
+  },
+  "finished_at": "2026-09-29T19:48:07Z"
+}

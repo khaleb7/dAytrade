@@ -1,0 +1,385 @@
+{
+  "date": "2026-06-09",
+  "cutoff_utc": "2026-06-09T13:30:00Z",
+  "mode": "cache",
+  "fetched_at": "2026-09-28T00:51:27.617524Z",
+  "source_counts": {
+    "yahoo_finance": 40,
+    "politician_trades": 12,
+    "marketwatch": 1
+  },
+  "cache_items_scanned": 3246,
+  "items": [
+    {
+      "source": "yahoo_finance",
+      "title": "Applovin Corporation (APP) Stock Forecasts",
+      "url": "https://finance.yahoo.com/research/reports/ARGUS_47268_TopBottomInsiderActivity_1781000071000",
+      "published": "2026-06-09T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Temenos to buy Swiss fintech additiv in wealth push",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/temenos-buy-swiss-fintech-additiv-112655881.html",
+      "published": "2026-06-09T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Trump praised IBM's 'legend' CEO, government floated a $1B quantum award &#x2014; is the stock still a 'very nice price'?",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/trump-praised-ibms-legend-ceo-111500982.html",
+      "published": "2026-06-09T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "SpaceX's Historic IPO May Be Oversubscribed. Here's What That Means for You.",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/spacexs-historic-ipo-may-oversubscribed-113000813.html",
+      "published": "2026-06-09T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Temenos to buy Swiss fintech additive in wealth push",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/temenos-buy-swiss-fintech-additive-112655943.html",
+      "published": "2026-06-09T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Gibraltar Industries, Inc. (ROCK) Stock Forecasts",
+      "url": "https://finance.yahoo.com/research/reports/ARGUS_47267_InsiderActivity_1781000071000",
+      "published": "2026-06-09T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Carlyle finalises $2.8bn acquisition of majority stake in MAI Capital",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/carlyle-finalises-2-8bn-acquisition-113512302.html",
+      "published": "2026-06-09T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Does Moderna Need to Start Making Money?",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/does-moderna-start-making-money-113100675.html",
+      "published": "2026-06-09T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Oil prices fall on Iran deal; S&P 500, Nasdaq futures rise",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/oil-prices-fall-iran-deal-113203413.html",
+      "published": "2026-06-09T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Google's 4-Pronged AI Strategy Could Help it Leapfrog Nvidia to Become the World's Most Valuable Company",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/googles-4-pronged-ai-strategy-071500533.html",
+      "published": "2026-06-09T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Your Adult Child Has a Chronic Health Condition and Needs Your Help. What Retirees Should Know",
+      "url": "https://finance.yahoo.com/sectors/healthcare/articles/adult-child-chronic-health-condition-202115735.html",
+      "published": "2026-06-09T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Is Toast's (TOST) Higher EBITDA Outlook Reframing the Narrative Around Its AI-Led Platform Strategy?",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/toast-tost-higher-ebitda-outlook-071333925.html",
+      "published": "2026-06-09T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "EXCLUSIVE: Anthropic, OpenAI, Databricks Or Canva? This Is The Most Anticipated IPO After SpaceX",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/exclusive-anthropic-openai-databricks-canva-203102645.html",
+      "published": "2026-06-09T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "European shares steady; Middle East tensions in focus",
+      "url": "https://finance.yahoo.com/markets/world-indices/articles/european-shares-steady-middle-east-072136836.html",
+      "published": "2026-06-09T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Sheri Biggs (SC03) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034496.pdf",
+      "published": "2026-06-09T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Sheri Biggs, SC03, filing date 6/9/2026, DocID 20034496. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Rohit Khanna (CA17) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116142.pdf",
+      "published": "2026-06-09T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Rohit Khanna, CA17, filing date 6/9/2026, DocID 9116142. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Thomas Suozzi (NY03) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034747.pdf",
+      "published": "2026-06-09T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Thomas Suozzi, NY03, filing date 6/9/2026, DocID 20034747. Official House Clerk disclosure."
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "A Chinese startup just beat Apple and Meta to coding glasses",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/chinese-startup-just-beat-apple-233700539.html",
+      "published": "2026-06-09T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "'Travel the world by just saving money,' says Symphony's Vik Chawla",
+      "url": "https://finance.yahoo.com/markets/options/articles/travel-world-just-saving-money-233348290.html",
+      "published": "2026-06-09T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "marketwatch",
+      "title": "How digital payments can increase sales tax audit risk for convenience services operators",
+      "url": "https://www.vendingmarketwatch.com/management/article/55381040/tacs-llc-how-digital-payments-can-increase-sales-tax-audit-risk-for-convenience-services-operators",
+      "published": "2026-06-08T23:45:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "IASB's Global Preparers Forum appoints new member",
+      "url": "https://finance.yahoo.com/economy/policy/articles/iasb-global-preparers-forum-appoints-112358981.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Pan American Silver (PAAS) Announces $146M Investment to Expand Timmins Camp Operations",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/pan-american-silver-paas-announces-104636169.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Stablecoins Need Confidentiality to Move Institutional Volume",
+      "url": "https://finance.yahoo.com/markets/crypto/articles/stablecoins-confidentiality-move-institutional-volume-112445515.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Howard Hughes Holdings completes $2.1bn Vantage Group acquisition",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/howard-hughes-holdings-completes-2-113338614.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Nvidia signs multi-year memory chip deal with SK Hynix",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/nvidia-signs-multi-memory-chip-111750820.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Amazon.com (AMZN) Is A Top AI Stock In Billionaire Ken Fisher's Portfolio",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/amazon-com-amzn-top-ai-105521369.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Vida Health, Instacart (CART) Partner to Provide Targeted Nutrition Stipends for Cardiometabolic Care",
+      "url": "https://finance.yahoo.com/sectors/healthcare/articles/vida-health-instacart-cart-partner-104727352.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Here is Why Block (XYZ) is One of the Most Undervalued Stocks to Buy and Hold for 2 Years",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/why-block-xyz-one-most-104653941.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Should You Buy The Goldman Sachs Group (GS)?",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/buy-goldman-sachs-group-gs-105655815.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Is Centene (CNC) Most Undervalued Stocks to Buy and Hold for 2 Years?",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/centene-cnc-most-undervalued-stocks-104704110.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "IATA warns global airline profits to halve in 2026",
+      "url": "https://finance.yahoo.com/economy/articles/iata-warns-global-airline-profits-112824593.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Phillips 66 (PSX) Advances Zeus Gas Plant and Third Coastal Bend Fractionator to Expand Integrated Midstream Capacity",
+      "url": "https://finance.yahoo.com/sectors/energy/articles/phillips-66-psx-advances-zeus-104755740.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Citigroup (C) Announces Full Redemption of $3.15B in Notes Due 2027",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/citigroup-c-announces-full-redemption-104719611.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "When The Bull Case for a Company Starts With \"I Wouldn't Be Surprised If It Goes to Zero,\" I Pay Attention",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/bull-case-company-starts-wouldn-112126999.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Nan Fung Group Sells $4.3 Million in Oculis Shares As Lead Drug Stumbles",
+      "url": "https://finance.yahoo.com/sectors/healthcare/articles/nan-fung-group-sells-4-111603582.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Silver prices today, Monday, June 8, 2026: Much lower to start the week following Israel, Iran missile strikes",
+      "url": "https://finance.yahoo.com/personal-finance/investing/article/silver-prices-today-monday-june-8-2026-much-lower-to-start-the-week-following-israel-iran-missile-strikes-112853793.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Should You Buy Caterpillar (CAT) Amidst The Data Center Build Out?",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/buy-caterpillar-cat-amidst-data-105547467.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Dave Ramsey says this group of Americans could lose out from Roth conversions. Are you one of them?",
+      "url": "https://finance.yahoo.com/markets/options/articles/dave-ramsey-says-group-americans-105500581.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "UK financial regulator to introduce new rule on money market fund liquidity",
+      "url": "https://finance.yahoo.com/economy/policy/articles/uk-financial-regulator-introduce-rule-113133178.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "ASML Holding N.V. (ASML) Is A Top AI Stock In Billionaire Ken Fisher's Portfolio",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/asml-holding-n-v-asml-105625132.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Veterans in Logistics names John Tozer as Chairman",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/veterans-logistics-names-john-tozer-110000797.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Hewlett Packard Enterprise (HPE) Transitions to Unified Global Distribution Model with Ingram Micro, TD SYNNEX",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/hewlett-packard-enterprise-hpe-transitions-104643682.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Nu Holdings (NU) Authorizes $1B Share Repurchase Program Over Next 12 Months",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/nu-holdings-nu-authorizes-1b-104713222.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "NVIDIA (NVDA) Is A Top AI Stock In Billionaire Ken Fisher's Portfolio",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/nvidia-nvda-top-ai-stock-105344444.html",
+      "published": "2026-06-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Gilbert Cisneros (CA31) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034713.pdf",
+      "published": "2026-06-08T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Gilbert Cisneros, CA31, filing date 6/8/2026, DocID 20034713. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Maria Elvira Salazar (FL27) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034709.pdf",
+      "published": "2026-06-08T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Maria Elvira Salazar, FL27, filing date 6/8/2026, DocID 20034709. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Jefferson Shreve (IN06) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034653.pdf",
+      "published": "2026-06-06T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Jefferson Shreve, IN06, filing date 6/6/2026, DocID 20034653. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Richard W. Allen (GA12) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034473.pdf",
+      "published": "2026-06-05T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Richard W. Allen, GA12, filing date 6/5/2026, DocID 20034473. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. April McClain Delaney (MD06) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034718.pdf",
+      "published": "2026-06-05T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. April McClain Delaney, MD06, filing date 6/5/2026, DocID 20034718. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Debbie Dingell (MI06) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034702.pdf",
+      "published": "2026-06-05T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Debbie Dingell, MI06, filing date 6/5/2026, DocID 20034702. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Robert E. Latta (OH05) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034726.pdf",
+      "published": "2026-06-05T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Robert E. Latta, OH05, filing date 6/5/2026, DocID 20034726. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Tim Moore (NC14) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034721.pdf",
+      "published": "2026-06-05T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Tim Moore, NC14, filing date 6/5/2026, DocID 20034721. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Lloyd Doggett (TX37) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034712.pdf",
+      "published": "2026-06-04T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Lloyd Doggett, TX37, filing date 6/4/2026, DocID 20034712. Official House Clerk disclosure."
+    }
+  ]
+}

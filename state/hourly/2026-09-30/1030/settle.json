@@ -1,0 +1,106 @@
+{
+  "as_of": "2026-09-30T10:30:00-04:00",
+  "day": "2026-09-30",
+  "hour_et": "10",
+  "minute_et": "30",
+  "slot": "1030",
+  "phase": "prep-then-settle",
+  "started_at": "2026-09-30T14:30:01Z",
+  "dry_run": false,
+  "steps": {
+    "news": {
+      "wrote": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-30\\1030\\news.json",
+      "as_of": "2026-09-30T10:30:00-04:00",
+      "items": 86,
+      "mode": "cache",
+      "source_counts": {
+        "sec_edgar": 40,
+        "marketwatch": 40,
+        "politician_trades": 6
+      },
+      "cache_items_scanned": 3449,
+      "cutoff_utc": "2026-09-30T14:30:00Z",
+      "signals": {
+        "wrote": {
+          "latest": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\signals\\latest.json",
+          "hourly": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-30\\1030\\signals.json"
+        },
+        "fetched_at": "2026-09-30T14:30:12Z",
+        "ok_count": 6,
+        "errors": {}
+      }
+    },
+    "reconcile": {
+      "equity_usd": 100000.5,
+      "sizing_equity_usd": 1000.5,
+      "positions": 1
+    },
+    "packs": {
+      "wrote": [
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-30\\1030\\A1.md"
+      ]
+    },
+    "ready": {
+      "as_of": "2026-09-30T10:30:00-04:00",
+      "day": "2026-09-30",
+      "slot": "1030",
+      "packs": [
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-30\\1030\\A1.md"
+      ],
+      "ready_at": "2026-09-30T14:30:12Z",
+      "next": "fanout then settle"
+    },
+    "fanout": {
+      "as_of": "2026-09-30T10:30:00-04:00",
+      "mode": "sdk_local",
+      "started_at": "2026-09-30T14:30:12Z",
+      "timeout_ms": 1200000,
+      "agents": [
+        {
+          "agent_id": "A1",
+          "model_id": "grok-4.7",
+          "status": "wrote",
+          "agentId": "agent-68337fa0-13f2-428a-ac45-1c5054e72741",
+          "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-30\\1030\\A1.json",
+          "duration_ms": 428639
+        }
+      ],
+      "finished_at": "2026-09-30T14:37:21Z"
+    },
+    "consensus": {
+      "wrote": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-30\\1030\\consensus.json",
+      "orders": [],
+      "no_consensus": true,
+      "rejected_legs": [],
+      "proposals_loaded": [
+        "A1"
+      ],
+      "min_votes": 1
+    },
+    "validate": {
+      "ok": true,
+      "errors": [],
+      "post_trade": {
+        "cash_usd": 750.0099999999948,
+        "positions": [
+          {
+            "symbol": "VTI",
+            "qty": 0.664662949,
+            "avg_cost": 376.100398,
+            "mark_price": 376.874,
+            "market_value": 250.494184
+          }
+        ],
+        "equity_usd": 1000.5
+      },
+      "hold": true,
+      "sizing_view": true,
+      "equity_offset_usd": -99000
+    },
+    "submit": {
+      "skipped": true,
+      "reason": "hold"
+    }
+  },
+  "finished_at": "2026-09-30T14:37:21Z"
+}

@@ -1,0 +1,10 @@
+{
+  "as_of": "2026-09-30T11:00:00-04:00",
+  "day": "2026-09-30",
+  "slot": "1100",
+  "packs": [
+    "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-30\\1100\\A1.md"
+  ],
+  "ready_at": "2026-09-30T15:00:13Z",
+  "next": "fanout then settle"
+}

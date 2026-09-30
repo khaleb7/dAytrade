@@ -1,0 +1,76 @@
+{
+  "as_of": "2026-09-28T15:00:00-04:00",
+  "day": "2026-09-28",
+  "hour_et": "15",
+  "phase": "settle",
+  "started_at": "2026-09-28T19:33:00Z",
+  "dry_run": false,
+  "steps": {
+    "consensus": {
+      "wrote": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-28\\15\\consensus.json",
+      "orders": [
+        {
+          "side": "buy",
+          "symbol": "VTI",
+          "notional_usd": 150,
+          "votes": 2,
+          "agents": [
+            "A3",
+            "A4"
+          ]
+        }
+      ],
+      "no_consensus": false
+    },
+    "validate": {
+      "ok": true,
+      "errors": [],
+      "post_trade": {
+        "cash_usd": 850,
+        "positions": [
+          {
+            "symbol": "VTI",
+            "qty": 0.6,
+            "avg_cost": 250,
+            "mark_price": 250
+          }
+        ],
+        "equity_usd": 1000
+      },
+      "sizing_view": true,
+      "equity_offset_usd": -99000,
+      "broker_cash_usd": 100000,
+      "broker_equity_usd": 100000
+    },
+    "submit": {
+      "dry_run": false,
+      "orders": [
+        {
+          "order": {
+            "side": "buy",
+            "symbol": "VTI",
+            "notional_usd": 150,
+            "votes": 2,
+            "agents": [
+              "A3",
+              "A4"
+            ]
+          },
+          "dry_run": false,
+          "status": "submitted",
+          "alpaca": {
+            "id": "dfdf468e-7726-47fe-9630-aa148f16a428",
+            "status": "pending_new",
+            "symbol": "VTI"
+          }
+        }
+      ],
+      "note": "submitted to Alpaca paper"
+    },
+    "post_reconcile": {
+      "equity_usd": 100000,
+      "cash_usd": 99850.01
+    }
+  },
+  "finished_at": "2026-09-28T19:33:00Z"
+}

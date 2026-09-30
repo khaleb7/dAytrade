@@ -1,0 +1,413 @@
+{
+  "date": "2026-06-04",
+  "cutoff_utc": "2026-06-04T13:30:00Z",
+  "mode": "cache",
+  "fetched_at": "2026-09-28T00:41:02.400881Z",
+  "source_counts": {
+    "yahoo_finance": 40,
+    "politician_trades": 12,
+    "marketwatch": 5
+  },
+  "cache_items_scanned": 3246,
+  "items": [
+    {
+      "source": "yahoo_finance",
+      "title": "Germans shop more online as AI tools help hunt for bargains",
+      "url": "https://finance.yahoo.com/economy/articles/germans-shop-more-online-ai-111047434.html",
+      "published": "2026-06-04T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Spotting Winners: Truist Financial (NYSE:TFC) And Diversified Banks Stocks In Q1",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/spotting-winners-truist-financial-nyse-112530298.html",
+      "published": "2026-06-04T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Q1 Earnings Roundup: Kinsale Capital Group (NYSE:KNSL) And The Rest Of The Property & Casualty Insurance Segment",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/q1-earnings-roundup-kinsale-capital-113330332.html",
+      "published": "2026-06-04T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "PE firm Open Road Ventures acquires intermodal 3PL Double-Stack",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/pe-firm-open-road-ventures-205332270.html",
+      "published": "2026-06-04T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Stocks drop on AI, rate hike worries as Lebanon deal hits oil",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/stocks-drop-ai-rate-hike-030621040.html",
+      "published": "2026-06-04T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "2 Stocks to Buy Before the AI Arms Race Moves to Orbit",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/2-stocks-buy-ai-arms-072500177.html",
+      "published": "2026-06-04T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "This AI Stock Has Already Won. The Market Just Hasn't Realized It Yet.",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/ai-stock-already-won-market-194100425.html",
+      "published": "2026-06-04T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Pizza Hut has a $100 million AI problem",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/pizza-hut-100-million-ai-193700760.html",
+      "published": "2026-06-04T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Ahead of Broadcom Earnings, Here's What Barchart Data Says Comes Next for AVGO Stock",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/ahead-broadcom-earnings-barchart-data-204404163.html",
+      "published": "2026-06-04T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "AI Bubble or Not, the Stock Prices of These Dotcom Darlings Are Soaring Like It's 1999",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/ai-bubble-not-stock-prices-194343850.html",
+      "published": "2026-06-04T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Forget Weight Loss Drugs: Here Is Another Reason to Buy Eli Lilly Stock",
+      "url": "https://finance.yahoo.com/sectors/healthcare/articles/forget-weight-loss-drugs-another-072000123.html",
+      "published": "2026-06-04T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "European shares steady as investors eye Mideast tensions; Remy gains",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/european-shares-steady-investors-eye-072847905.html",
+      "published": "2026-06-04T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Fluence Energy Stock Is Soaring. Its Helping Nvidia Power a New Wave of Data Centers",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/fluence-energy-stock-soaring-helping-205340710.html",
+      "published": "2026-06-04T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "GameStop reports 14% rise in quarterly revenue, unveils $2 billion share buyback",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/gamestop-reports-14-rise-quarterly-205253848.html",
+      "published": "2026-06-04T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Lloyd Doggett (TX37) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034712.pdf",
+      "published": "2026-06-04T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Lloyd Doggett, TX37, filing date 6/4/2026, DocID 20034712. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Diana Harshbarger (TN01) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9115901.pdf",
+      "published": "2026-06-04T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Diana Harshbarger, TN01, filing date 6/4/2026, DocID 9115901. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Susie Lee (NV03) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034552.pdf",
+      "published": "2026-06-04T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Susie Lee, NV03, filing date 6/4/2026, DocID 20034552. Official House Clerk disclosure."
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Personal Loan Stocks Q1 In Review: Nubank (NYSE:NU) Vs Peers",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/personal-loan-stocks-q1-review-233533832.html",
+      "published": "2026-06-04T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "2 Nuclear Stocks Every AI Investor Should Follow",
+      "url": "https://finance.yahoo.com/sectors/energy/articles/2-nuclear-stocks-every-ai-155000876.html",
+      "published": "2026-06-04T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Exclusive-SpaceX targets $1.75 trillion valuation in all-primary IPO next week, sources say",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/exclusive-spacex-targets-1-75-161439113.html",
+      "published": "2026-06-04T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "The Iran War Is Pushing the Global Gas Trade Into the Shadows",
+      "url": "https://finance.yahoo.com/sectors/energy/articles/iran-war-pushing-global-gas-060005394.html",
+      "published": "2026-06-04T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Bitcoin crash triggers billions in liquidations",
+      "url": "https://finance.yahoo.com/markets/crypto/articles/bitcoin-crash-wipes-billions-market-172226666.html",
+      "published": "2026-06-04T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "United Airlines (UAL) Q1 2026 Earnings Transcript",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/united-airlines-ual-q1-2026-155155954.html",
+      "published": "2026-06-04T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Q1 Earnings Roundup: CNO Financial Group (NYSE:CNO) And The Rest Of The Life Insurance Segment",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/q1-earnings-roundup-cno-financial-232733070.html",
+      "published": "2026-06-04T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "3 Compelling Costco Growth Drivers You Might Not Know About",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/3-compelling-costco-growth-drivers-232600293.html",
+      "published": "2026-06-04T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "SpaceX or Tesla: What Will Be the Better Buy on June 12?",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/spacex-tesla-better-buy-june-232000028.html",
+      "published": "2026-06-04T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "German builder Hochtief to join benchmark DAX index",
+      "url": "https://finance.yahoo.com/markets/world-indices/articles/german-builder-hochtief-join-benchmark-232525003.html",
+      "published": "2026-06-04T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Gorilla Technology closes $2B Supermicro AI supply deal in India",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/gorilla-technology-closes-2b-supermicro-155100748.html",
+      "published": "2026-06-04T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "The AI boom is creating surging demand for this nontraditional tech job",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/ai-boom-creating-surging-demand-094701573.html",
+      "published": "2026-06-04T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Credo Technologies Paved a Path to a $300 Price Point",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/credo-technologies-paved-path-300-155000806.html",
+      "published": "2026-06-04T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Fears of dotcom bubble 2.0 as trillion-dollar AI floats swamp the market",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/ai-1tn-mega-floats-risk-155052470.html",
+      "published": "2026-06-04T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "CIMA welcomes Skills England report, seeks rethink on Level 7 cuts",
+      "url": "https://finance.yahoo.com/economy/policy/articles/cima-welcomes-skills-england-report-112938128.html",
+      "published": "2026-06-03T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "The SpaceX IPO: 3 of the Biggest Risks to Consider",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/spacex-ipo-3-biggest-risks-112000121.html",
+      "published": "2026-06-03T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Nvidia Has Racked Up a Nearly $20 Billion Profit Over the Last 5 Months From an Unlikely Source",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/nvidia-racked-nearly-20-billion-112600300.html",
+      "published": "2026-06-03T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Americans' financial literacy sags to a new low",
+      "url": "https://finance.yahoo.com/news/americans-financial-literacy-sags-to-a-new-low-113000653.html",
+      "published": "2026-06-03T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "3 things US boomers often regret downsizing in retirement &#x2014; are you cutting more than you should?",
+      "url": "https://finance.yahoo.com/markets/articles/3-things-us-boomers-often-112500392.html",
+      "published": "2026-06-03T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Walmart vs. Target: Which Retailer Is the Better Long-Term Hold?",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/walmart-vs-target-retailer-better-113037562.html",
+      "published": "2026-06-03T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Russia's Sberbank offers AI model to Global South states keen to bridge digital divide",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/russias-sberbank-offers-ai-model-103301461.html",
+      "published": "2026-06-03T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Target debuts $367M food distribution center in Colorado",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/target-debuts-367m-food-distribution-111554284.html",
+      "published": "2026-06-03T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Arm vs. NVIDIA: Which Semiconductor Stock Belongs in Your 10-Year Portfolio?",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/arm-vs-nvidia-semiconductor-stock-113025297.html",
+      "published": "2026-06-03T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Cincinnati claims 8 companies on new Fortune 500 list",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/cincinnati-claims-8-companies-fortune-113051307.html",
+      "published": "2026-06-03T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Macy's Q1 2026 earnings beat, raises full-year outlook",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/macys-q1-2026-earnings-beat-112512492.html",
+      "published": "2026-06-03T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "marketwatch",
+      "title": "Nayax adds artificial intelligence product discovery tools to retail platform",
+      "url": "https://www.vendingmarketwatch.com/technology/news/55381621/nayax-nayax-adds-artificial-intelligence-product-discovery-tools-to-retail-platform",
+      "published": "2026-06-03T08:15:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "marketwatch",
+      "title": "Clif Builders White Fudge Oreo protein bar launches with 20 grams protein",
+      "url": "https://www.vendingmarketwatch.com/products/product/55381623/mondelez-international-clif-builders-white-fudge-oreo-protein-bar-launches-with-20-grams-protein",
+      "published": "2026-06-03T08:15:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "marketwatch",
+      "title": "Bottled water market share reaches 45 . 5 % in 2025 , new data shows",
+      "url": "https://www.vendingmarketwatch.com/beverage/news/55381622/international-bottled-water-association-bottled-water-market-share-reaches-455-in-2025-new-data-shows",
+      "published": "2026-06-03T08:15:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Ross Gerber Says Bitcoin Has 'Lost The Narrative' As Prediction Markets Raise Odds Of BTC Falling Below $50,000: 'People Are Tired Of Rug Pulls'",
+      "url": "https://finance.yahoo.com/markets/crypto/articles/ross-gerber-says-bitcoin-lost-071826749.html",
+      "published": "2026-06-03T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Cleo Fields (LA06) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034591.pdf",
+      "published": "2026-06-03T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Cleo Fields, LA06, filing date 6/3/2026, DocID 20034591. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Josh Gottheimer (NJ05) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034693.pdf",
+      "published": "2026-06-03T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Josh Gottheimer, NJ05, filing date 6/3/2026, DocID 20034693. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Tim Walberg (MI05) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034660.pdf",
+      "published": "2026-06-03T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Tim Walberg, MI05, filing date 6/3/2026, DocID 20034660. Official House Clerk disclosure."
+    },
+    {
+      "source": "marketwatch",
+      "title": "Boar Head expands refrigerated snacking with pickle snacks",
+      "url": "https://www.vendingmarketwatch.com/products/podcast/55381599/boars-head-fine-crafted-foods-boars-head-expands-refrigerated-snacking-with-pickle-snacks",
+      "published": "2026-06-02T23:00:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "marketwatch",
+      "title": "Josh Rosenberg on AI , growth strategy and the future of convenience services",
+      "url": "https://www.vendingmarketwatch.com/management/podcast/55381016/josh-rosenberg-on-ai-growth-strategy-and-the-future-of-convenience-services",
+      "published": "2026-06-02T13:00:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Virginia Foxx (NC05) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034670.pdf",
+      "published": "2026-06-02T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Virginia Foxx, NC05, filing date 6/2/2026, DocID 20034670. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Kevin Hern (OK01) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034695.pdf",
+      "published": "2026-06-02T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Kevin Hern, OK01, filing date 6/2/2026, DocID 20034695. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Christian D. Menefee (TX18) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034099.pdf",
+      "published": "2026-06-01T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Christian D. Menefee, TX18, filing date 6/1/2026, DocID 20034099. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Daniel Webster (FL11) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034562.pdf",
+      "published": "2026-06-01T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Daniel Webster, FL11, filing date 6/1/2026, DocID 20034562. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Ed Case (HI01) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034668.pdf",
+      "published": "2026-05-31T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Ed Case, HI01, filing date 5/31/2026, DocID 20034668. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Max Miller (OH07) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034651.pdf",
+      "published": "2026-05-29T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Max Miller, OH07, filing date 5/29/2026, DocID 20034651. Official House Clerk disclosure."
+    }
+  ]
+}

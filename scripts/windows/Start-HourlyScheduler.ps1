@@ -6,8 +6,8 @@
   Loads keys from %USERPROFILE%\.daytrade\alpaca.env (APCA_* + CURSOR_API_KEY),
   then runs @daytrade/orchestrator in a loop (10:00-15:00 America/New_York).
 
-  Default mode: prep (Python news + packs) -> SDK local fan-out -> settle (dry-run).
-  Pass -Submit only when you intentionally want paper orders.
+  Default mode: prep (Python news + packs) -> SDK local fan-out -> settle with
+  Alpaca paper submit (account is paper-only). Pass -DryRun to skip live paper orders.
 
   Falls back to Python hourly_scheduler.py if Node/services are missing.
 #>
@@ -19,6 +19,7 @@ param(
     [string]$Phase = "prep-then-settle",
     [int]$ProposalWaitMinutes = 20,
     [switch]$Submit,
+    [switch]$DryRun,
     [switch]$CatchUp,
     [switch]$Once,
     [string]$Hour,
@@ -28,6 +29,14 @@ param(
 $ErrorActionPreference = "Stop"
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 . (Join-Path $here "Load-AlpacaEnv.ps1")
+
+# Env override when -ProposalWaitMinutes not passed on the CLI
+if (-not $PSBoundParameters.ContainsKey("ProposalWaitMinutes") -and $env:DAYTRADE_PROPOSAL_WAIT_MINUTES) {
+    $parsed = 0
+    if ([int]::TryParse($env:DAYTRADE_PROPOSAL_WAIT_MINUTES, [ref]$parsed) -and $parsed -ge 0) {
+        $ProposalWaitMinutes = $parsed
+    }
+}
 
 if (-not $StoreRoot) {
     $StoreRoot = (Resolve-Path (Join-Path $here "..\..")).Path
@@ -50,31 +59,56 @@ $useNode = -not $UsePythonFallback -and (Test-Path -LiteralPath $orchPkg) -and (
 
 if ($useNode) {
     $env:DAYTRADE_STORE = $StoreRoot
+    # News-bridge needs a real Python. Prefer py -3 on Windows.
+    if (-not $env:DAYTRADE_PYTHON) {
+        $resolvedPy = $null
+        foreach ($c in @($Python, "py", "python", "python3")) {
+            if (-not $c) { continue }
+            try {
+                if ($c -eq "py") {
+                    & py -3 -c "import sys" 2>$null | Out-Null
+                    if ($LASTEXITCODE -eq 0) { $resolvedPy = "py"; break }
+                } else {
+                    & $c -c "import sys" 2>$null | Out-Null
+                    if ($LASTEXITCODE -eq 0) { $resolvedPy = $c; break }
+                }
+            } catch { }
+        }
+        if ($resolvedPy) {
+            $env:DAYTRADE_PYTHON = $resolvedPy
+            Write-Host ("DAYTRADE_PYTHON=" + $resolvedPy)
+        } else {
+            Write-Host "WARN: Python not found on PATH; news-bridge will fail until Python 3.9+ is installed." -ForegroundColor Yellow
+        }
+    }
+    # Prefer source via tsx so Windows picks up news-bridge fixes without a tsc build.
+    $preferTsx = $true
     Set-Location -LiteralPath $services
     $extra = @("--phase", $Phase, "--proposal-wait-minutes", "$ProposalWaitMinutes", "--env-file", $envFile)
-    if ($Submit) { $extra += "--submit" }
+    # Paper submit is default; -DryRun opts out. -Submit kept for compatibility.
+    if ($DryRun -and -not $Submit) { $extra += "--dry-run" }
     if ($CatchUp) { $extra += "--catch-up" }
     if ($Hour) { $extra += @("--hour", $Hour) }
 
     if ($Once -or $Hour) {
         if (-not $Hour) { $extra += "--once" }
         Write-Host "Store: $StoreRoot"
-        if (Test-Path -LiteralPath $cliJs) {
-            Write-Host "Starting: $Node $cliJs $($extra -join ' ')"
-            & $Node $cliJs @extra
-        } else {
+        if ($preferTsx -or -not (Test-Path -LiteralPath $cliJs)) {
             Write-Host "Starting: npx tsx $cliTs $($extra -join ' ')"
             & npx --yes tsx $cliTs @extra
+        } else {
+            Write-Host "Starting: $Node $cliJs $($extra -join ' ')"
+            & $Node $cliJs @extra
         }
     } else {
         $extra = @("--loop") + $extra
         Write-Host "Store: $StoreRoot"
-        if (Test-Path -LiteralPath $cliJs) {
-            Write-Host "Starting: $Node $cliJs $($extra -join ' ')"
-            & $Node $cliJs @extra
-        } else {
+        if ($preferTsx -or -not (Test-Path -LiteralPath $cliJs)) {
             Write-Host "Starting: npx tsx $cliTs $($extra -join ' ')"
             & npx --yes tsx $cliTs @extra
+        } else {
+            Write-Host "Starting: $Node $cliJs $($extra -join ' ')"
+            & $Node $cliJs @extra
         }
     }
     exit $LASTEXITCODE
@@ -98,7 +132,9 @@ try {
 }
 
 $extra = @("--phase", $Phase, "--proposal-wait-minutes", "$ProposalWaitMinutes", "--env-file", $envFile)
-if ($Submit) { $extra += "--submit" }
+# Paper submit is default for Python fallback too; -DryRun opts out.
+if ($DryRun -and -not $Submit) { $extra += "--dry-run" }
+elseif ($Submit -or -not $DryRun) { $extra += "--submit" }
 if ($CatchUp) { $extra += "--catch-up" }
 if ($Once) { $extra += "--once" }
 if ($Hour) { $extra += @("--hour", $Hour) }

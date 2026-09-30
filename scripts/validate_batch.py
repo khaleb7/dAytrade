@@ -13,7 +13,32 @@ from paths import ROSTER, portfolio_path
 
 TICKER_RE = re.compile(r"^[A-Z][A-Z0-9.\-]{0,9}$")
 FORBIDDEN_MARKERS = ("/", "USD", "USDT", "-P", "-C", "BTC", "ETH")
+# Signal-only / non-equity instruments — never accept in proposals or consensus submits.
+SIGNAL_ONLY_BLOCKLIST = frozenset(
+    {
+        "VIX",
+        "VXX",
+        "UVXY",
+        "UVIX",
+        "SVIX",
+        "SVXY",
+        "VIXY",
+        "VIXM",
+        "VXZ",
+        "TVIX",
+    }
+)
 AGENT_IDS = {"A1", "A2", "A3", "A4", "A5"}
+
+
+def is_signal_only_symbol(symbol: str) -> bool:
+    up = symbol.upper().strip()
+    if up in SIGNAL_ONLY_BLOCKLIST:
+        return True
+    # Futures / continuous contracts (CL=F, ES=F, …) and index caret forms
+    if "=" in up or up.startswith("^"):
+        return True
+    return False
 
 
 def load_json(path: Path) -> Any:
@@ -65,6 +90,11 @@ def simulate_fills(
             errors.append(f"orders[{i}]: invalid symbol {symbol!r}")
             continue
         up = symbol.upper()
+        if is_signal_only_symbol(up):
+            errors.append(
+                f"orders[{i}]: {symbol} is signal-only / non-tradeable (VIX/vol products and futures blocked)"
+            )
+            continue
         if any(m in up for m in FORBIDDEN_MARKERS) and up not in ("SPY", "QQQ", "IWM", "DIA"):
             # crude crypto/options guard; allow common ETFs
             if "BTC" in up or "ETH" in up or up.endswith("-P") or up.endswith("-C"):

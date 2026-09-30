@@ -1,0 +1,240 @@
+{
+  "as_of": "2026-09-28T10:00:00-04:00",
+  "date": "2026-09-28",
+  "hour_et": "10",
+  "cutoff_utc": "2026-09-28T14:00:00Z",
+  "mode": "cache",
+  "fetched_at": "2026-09-28T18:53:21.841647Z",
+  "source_counts": {
+    "sec_edgar": 15,
+    "marketwatch": 10,
+    "politician_trades": 7
+  },
+  "cache_items_scanned": 3295,
+  "items": [
+    {
+      "source": "sec_edgar",
+      "title": "8-K - CORE MOLDING TECHNOLOGIES INC (0001026655) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1026655/000102665526000062/0001026655-26-000062-index.htm",
+      "published": "2026-09-28T13:37:45Z",
+      "summary": "<b>Filed:</b> 2026-09-28 <b>AccNo:</b> 0001026655-26-000062 <b>Size:</b> 15 MB\n<br>Item 7.01: Regulation FD Disclosure\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - ONCOLYTICS BIOTECH INC (0001129928) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1129928/000112992826000057/0001129928-26-000057-index.htm",
+      "published": "2026-09-28T13:32:06Z",
+      "summary": "<b>Filed:</b> 2026-09-28 <b>AccNo:</b> 0001129928-26-000057 <b>Size:</b> 174 KB\n<br>Item 8.01: Other Events"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Proem Acquisition Corp. I (0002087446) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/2087446/000121390026103789/0001213900-26-103789-index.htm",
+      "published": "2026-09-28T13:24:51Z",
+      "summary": "<b>Filed:</b> 2026-09-28 <b>AccNo:</b> 0001213900-26-103789 <b>Size:</b> 39 MB\n<br>Item 1.01: Entry into a Material Definitive Agreement\n<br>Item 3.02: Unregistered Sales of Equity Securities\n<br>Item 7.01: Regulation FD Disclosure\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Churchill Downs Inc (0000020212) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/20212/000119312526403885/0001193125-26-403885-index.htm",
+      "published": "2026-09-28T13:23:00Z",
+      "summary": "<b>Filed:</b> 2026-09-28 <b>AccNo:</b> 0001193125-26-403885 <b>Size:</b> 2 MB\n<br>Item 1.01: Entry into a Material Definitive Agreement\n<br>Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant\n<br>Item 7.01: Regulation FD Disclosure\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Columbus Acquisition Corp/Cayman Islands (0002028201) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/2028201/000121390026103784/0001213900-26-103784-index.htm",
+      "published": "2026-09-28T13:21:47Z",
+      "summary": "<b>Filed:</b> 2026-09-28 <b>AccNo:</b> 0001213900-26-103784 <b>Size:</b> 288 KB\n<br>Item 8.01: Other Events\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - CONAGRA BRANDS INC. (0000023217) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/23217/000002321726000047/0000023217-26-000047-index.htm",
+      "published": "2026-09-28T13:19:12Z",
+      "summary": "<b>Filed:</b> 2026-09-28 <b>AccNo:</b> 0000023217-26-000047 <b>Size:</b> 202 KB\n<br>Item 5.07: Submission of Matters to a Vote of Security Holders"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Greenpro Capital Corp. (0001597846) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1597846/000149315226044463/0001493152-26-044463-index.htm",
+      "published": "2026-09-28T13:10:15Z",
+      "summary": "<b>Filed:</b> 2026-09-28 <b>AccNo:</b> 0001493152-26-044463 <b>Size:</b> 789 KB\n<br>Item 2.01: Completion of Acquisition or Disposition of Assets\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - RideNow Group, Inc. (0001596961) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1596961/000162828026063662/0001628280-26-063662-index.htm",
+      "published": "2026-09-28T13:00:47Z",
+      "summary": "<b>Filed:</b> 2026-09-28 <b>AccNo:</b> 0001628280-26-063662 <b>Size:</b> 2 MB\n<br>Item 1.01: Entry into a Material Definitive Agreement\n<br>Item 1.02: Termination of a Material Definitive Agreement\n<br>Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant\n<br>Item 8.01: Other Events\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Brookfield Asset Management Ltd. (0001937926) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1937926/000110465926111209/0001104659-26-111209-index.htm",
+      "published": "2026-09-28T13:00:22Z",
+      "summary": "<b>Filed:</b> 2026-09-28 <b>AccNo:</b> 0001104659-26-111209 <b>Size:</b> 1 MB\n<br>Item 7.01: Regulation FD Disclosure\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - GETTY REALTY CORP /MD/ (0001052752) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1052752/000119312526403487/0001193125-26-403487-index.htm",
+      "published": "2026-09-28T13:00:14Z",
+      "summary": "<b>Filed:</b> 2026-09-28 <b>AccNo:</b> 0001193125-26-403487 <b>Size:</b> 205 KB\n<br>Item 1.01: Entry into a Material Definitive Agreement\n<br>Item 7.01: Regulation FD Disclosure\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - Kodiak Sciences Inc. (0001468748) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1468748/000119312526403481/0001193125-26-403481-index.htm",
+      "published": "2026-09-28T12:53:56Z",
+      "summary": "<b>Filed:</b> 2026-09-28 <b>AccNo:</b> 0001193125-26-403481 <b>Size:</b> 182 KB\n<br>Item 8.01: Other Events\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - LIFECORE BIOMEDICAL, INC. \\DE\\ (0001005286) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1005286/000114036126037767/0001140361-26-037767-index.htm",
+      "published": "2026-09-28T12:53:40Z",
+      "summary": "<b>Filed:</b> 2026-09-28 <b>AccNo:</b> 0001140361-26-037767 <b>Size:</b> 4 MB\n<br>Item 1.01: Entry into a Material Definitive Agreement\n<br>Item 7.01: Regulation FD Disclosure\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - QUANTUM CORP /DE/ (0000709283) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/709283/000162828026063661/0001628280-26-063661-index.htm",
+      "published": "2026-09-28T12:52:17Z",
+      "summary": "<b>Filed:</b> 2026-09-28 <b>AccNo:</b> 0001628280-26-063661 <b>Size:</b> 247 KB\n<br>Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br>Item 8.01: Other Events\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - PARK AEROSPACE CORP (0000076267) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/76267/000143774926031284/0001437749-26-031284-index.htm",
+      "published": "2026-09-28T12:51:05Z",
+      "summary": "<b>Filed:</b> 2026-09-28 <b>AccNo:</b> 0001437749-26-031284 <b>Size:</b> 152 KB\n<br>Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers"
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K - FULLER H B CO (0000039368) (Filer)",
+      "url": "https://www.sec.gov/Archives/edgar/data/39368/000143774926031283/0001437749-26-031283-index.htm",
+      "published": "2026-09-28T12:49:50Z",
+      "summary": "<b>Filed:</b> 2026-09-28 <b>AccNo:</b> 0001437749-26-031283 <b>Size:</b> 182 KB\n<br>Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br>Item 9.01: Financial Statements and Exhibits"
+    },
+    {
+      "source": "marketwatch",
+      "title": "\u2018I want to make her proud\u2019: My mother, a divorc\u00e9e, died and I\u2019m her executor. Do I need to file for probate?",
+      "url": "https://www.marketwatch.com/story/i-want-to-make-her-proud-my-mother-a-divorcee-died-and-im-her-executor-do-i-need-to-file-for-probate-a39b1123?mod=mw_rss_topstories",
+      "published": "2026-09-27T22:00:00Z",
+      "summary": "\u201cThe only debts were utility and credit-card bills, which we will pay off.\u201d"
+    },
+    {
+      "source": "marketwatch",
+      "title": "\u2018We lived within our means\u2019: I earned $30,000 as a pastor and still retired comfortably. Why don\u2019t you tell people that?",
+      "url": "https://www.marketwatch.com/story/we-lived-within-our-means-i-earned-30-000-as-a-pastor-and-still-retired-comfortably-why-dont-you-tell-people-that-6b9f231e?mod=mw_rss_topstories",
+      "published": "2026-09-27T21:45:00Z",
+      "summary": "\u201cAs a country, we have grown dangerously comfortable.\u201d"
+    },
+    {
+      "source": "marketwatch",
+      "title": "A \u2018death cross\u2019 is coming for the dollar. Why Trump will be happy.",
+      "url": "https://www.marketwatch.com/story/a-death-cross-is-coming-for-the-dollar-why-trump-will-be-happy-0766303d?mod=mw_rss_topstories",
+      "published": "2026-09-27T19:21:00Z",
+      "summary": "Don\u2019t look now, but there are some technical reasons to believe that U.S. Treasury Secretary Scott Bessent was right when he declared to the financial markets that \u201cI am the house now.\u201d"
+    },
+    {
+      "source": "marketwatch",
+      "title": "Social Security overpaid my 82-year-old mother by $20,000. What else is hiding in her finances?",
+      "url": "https://www.marketwatch.com/story/she-gave-a-neighbor-2-000-social-security-overpaid-my-mother-82-by-20-000-what-else-is-hiding-in-her-finances-1b54977f?mod=mw_rss_topstories",
+      "published": "2026-09-27T16:45:00Z",
+      "summary": "\u201cMy mother has a pension, Social Security, investments and a house probably worth over $1 million.\u201d"
+    },
+    {
+      "source": "marketwatch",
+      "title": "My husband and I are in our 50s and have no kids. We have $2 million in IRAs and 401(k)s. Do we really need a will?",
+      "url": "https://www.marketwatch.com/story/my-husband-and-i-are-in-our-50s-and-have-no-kids-we-have-2-million-do-we-need-a-will-62fb422f?mod=mw_rss_topstories",
+      "published": "2026-09-27T16:00:00Z",
+      "summary": "\u201cWe have no debt and own our primary home, a vacation home, as well as my mother\u2019s home in another state.\u201d"
+    },
+    {
+      "source": "marketwatch",
+      "title": "\u2018It doesn\u2019t seem fair\u2019: I\u2019m retired and have plenty of money. Why can\u2019t I qualify for a retail credit card?",
+      "url": "https://www.marketwatch.com/story/it-doesnt-seem-fair-im-retired-and-have-plenty-of-money-why-cant-i-qualify-for-a-retail-credit-card-8a58eda3?mod=mw_rss_topstories",
+      "published": "2026-09-27T16:00:00Z",
+      "summary": "\u201cI draw from my IRA as needed for household repairs, trips and other larger expenses.\u201d"
+    },
+    {
+      "source": "marketwatch",
+      "title": "My friend is terminally ill. Should she sell her rental home and pay $100,000 in capital gains?",
+      "url": "https://www.marketwatch.com/story/my-friend-is-terminally-ill-should-she-sell-her-rental-home-and-pay-100-000-in-capital-gains-8568aada?mod=mw_rss_topstories",
+      "published": "2026-09-27T15:15:00Z",
+      "summary": "\u201cHer younger son lives in the condo, but wants to move elsewhere with friends.\u201d"
+    },
+    {
+      "source": "marketwatch",
+      "title": "I\u2019m 77, pay rent and live off Social Security, but I help homeless people. Why are so many people going hungry?",
+      "url": "https://www.marketwatch.com/story/im-77-pay-rent-and-live-off-social-security-but-i-help-homeless-people-why-are-so-many-people-going-hungry-5818465f?mod=mw_rss_topstories",
+      "published": "2026-09-27T15:00:00Z",
+      "summary": "\u201cI am a retired senior citizen living check-to-check.\u201d"
+    },
+    {
+      "source": "marketwatch",
+      "title": "Micron could dethrone Nvidia and become the biggest driver of S&P 500 profit growth",
+      "url": "https://www.marketwatch.com/story/micron-could-dethrone-nvidia-and-become-the-biggest-driver-of-s-p-500-profit-growth-d62e0e68?mod=mw_rss_topstories",
+      "published": "2026-09-27T14:00:00Z",
+      "summary": "Micron is increasingly important to the S&P 500, and its earnings report has become \u201ca market event in and of itself.\u201d"
+    },
+    {
+      "source": "marketwatch",
+      "title": "Look closer, and Wall Street\u2019s rally is showing cracks",
+      "url": "https://www.marketwatch.com/story/look-closer-and-wall-streets-rally-is-showing-cracks-94952048?mod=mw_rss_topstories",
+      "published": "2026-09-27T13:00:00Z",
+      "summary": "Major stock indexes hovering near records are masking a market straining under elevated oil prices, rising Treasury yields and a Federal Reserve bracing for additional interest-rate hikes."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Richard W. Allen (GA12) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035492.pdf",
+      "published": "2026-09-22T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Richard W. Allen, GA12, filing date 9/22/2026, DocID 20035492. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Sheri Biggs (SC03) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035489.pdf",
+      "published": "2026-09-22T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Sheri Biggs, SC03, filing date 9/22/2026, DocID 20035489. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Pete Sessions (TX17) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035499.pdf",
+      "published": "2026-09-22T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Pete Sessions, TX17, filing date 9/22/2026, DocID 20035499. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Scott H. Peters (CA50) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035434.pdf",
+      "published": "2026-09-21T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Scott H. Peters, CA50, filing date 9/21/2026, DocID 20035434. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Scott Scott Franklin (FL18) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035450.pdf",
+      "published": "2026-09-17T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Scott Scott Franklin, FL18, filing date 9/17/2026, DocID 20035450. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. David J. Taylor (OH02) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035471.pdf",
+      "published": "2026-09-17T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. David J. Taylor, OH02, filing date 9/17/2026, DocID 20035471. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Byron Donalds (FL19) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035420.pdf",
+      "published": "2026-09-15T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Byron Donalds, FL19, filing date 9/15/2026, DocID 20035420. Official House Clerk disclosure."
+    }
+  ]
+}

@@ -1,0 +1,342 @@
+{
+  "date": "2026-09-15",
+  "cutoff_utc": "2026-09-15T13:30:00Z",
+  "mode": "cache",
+  "fetched_at": "2026-09-28T01:23:36.433940Z",
+  "source_counts": {
+    "yahoo_finance": 35,
+    "politician_trades": 12
+  },
+  "cache_items_scanned": 3246,
+  "items": [
+    {
+      "source": "yahoo_finance",
+      "title": "Chinese vehicle sales decline 5% in August",
+      "url": "https://finance.yahoo.com/economy/articles/chinese-vehicle-sales-decline-5-113418329.html",
+      "published": "2026-09-15T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "From Tecovas to REV Gum: Inside YETI founders' investment portfolio",
+      "url": "https://finance.yahoo.com/small-business/articles/tecovas-rev-gum-inside-yeti-113000159.html",
+      "published": "2026-09-15T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Meta's (META) Muse Math: 10 Million Paying Users Could Mean $2.4 Billion a Year",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/meta-meta-muse-math-10-112958828.html",
+      "published": "2026-09-15T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "2 Profitable Stocks to Target This Week and 1 That Underwhelm",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/2-profitable-stocks-target-week-072430568.html",
+      "published": "2026-09-15T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "UK jobs market stays soft before BoE rate call",
+      "url": "https://finance.yahoo.com/economy/policy/articles/uk-wages-grow-3-5-060544048.html",
+      "published": "2026-09-15T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Ousted Indonesia finance minister says he was 'upset', but half expected removal",
+      "url": "https://finance.yahoo.com/economy/policy/articles/ousted-indonesia-finance-minister-says-065000838.html",
+      "published": "2026-09-15T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Stocks drop, oil climbs and Treasury yields hit 19-year high",
+      "url": "https://finance.yahoo.com/markets/articles/most-markets-drop-oil-extends-025204412.html",
+      "published": "2026-09-15T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Byron Donalds (FL19) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035420.pdf",
+      "published": "2026-09-15T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Byron Donalds, FL19, filing date 9/15/2026, DocID 20035420. Official House Clerk disclosure."
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Dear SpaceX Stock Fans, Mark Your Calendars for September 21",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/dear-spacex-stock-fans-mark-170826925.html",
+      "published": "2026-09-15T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Korn Ferry (KFY) Expands Global Standing With AMS Acquisition",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/korn-ferry-kfy-expands-global-170618310.html",
+      "published": "2026-09-15T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Debt settlement vs. bankruptcy: How to choose",
+      "url": "https://finance.yahoo.com/personal-finance/personal-loans/article/debt-settlement-vs-bankruptcy-175657072.html",
+      "published": "2026-09-15T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Zcash Price Prediction: Bearish RSI Divergence Sets Stage for Pullback to $850",
+      "url": "https://finance.yahoo.com/markets/crypto/articles/zcash-price-prediction-bearish-rsi-160848407.html",
+      "published": "2026-09-15T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Silver prices today, Monday, September 14, 2026: Silver slides as rate-hike expectations grow",
+      "url": "https://finance.yahoo.com/personal-finance/investing/article/silver-prices-today-monday-september-14-2026-silver-slides-as-rate-hike-expectations-grow-112941547.html",
+      "published": "2026-09-14T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Nasdaq futures slide as AI warnings rattle markets; Nvidia, other chip stocks retreat",
+      "url": "https://finance.yahoo.com/technology/ai/articles/ai-warnings-knock-nasdaq-futures-092329455.html",
+      "published": "2026-09-14T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Recover appoints Enes Adak, Fehmi Y&#xFC;ksel as co-CEOs to drive growth",
+      "url": "https://finance.yahoo.com/small-business/articles/recover-appoints-enes-adak-fehmi-072321655.html",
+      "published": "2026-09-14T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Pentland Brands taps Inspectorio AI to enhance supply chain compliance",
+      "url": "https://finance.yahoo.com/technology/ai/articles/pentland-brands-taps-inspectorio-ai-072231403.html",
+      "published": "2026-09-14T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "European shares muted as tech slides, oil surge weighs",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/european-shares-muted-tech-slides-072955621.html",
+      "published": "2026-09-14T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Suzan K. DelBene (WA01) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035400.pdf",
+      "published": "2026-09-14T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Suzan K. DelBene, WA01, filing date 9/14/2026, DocID 20035400. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Josh Gottheimer (NJ05) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035455.pdf",
+      "published": "2026-09-14T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Josh Gottheimer, NJ05, filing date 9/14/2026, DocID 20035455. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. August Lee Pfluger II (TX11) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035432.pdf",
+      "published": "2026-09-14T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. August Lee Pfluger II, TX11, filing date 9/14/2026, DocID 20035432. Official House Clerk disclosure."
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "They Skipped Long-Term Care Insurance Because Dad Was Only 58. At 76, After a Stroke, No Carrier Would Write It at All",
+      "url": "https://finance.yahoo.com/healthcare/articles/skipped-long-term-care-insurance-232303028.html",
+      "published": "2026-09-14T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "2 Monster Stocks to Buy and Hold for at Least the Next 5 Years",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/2-monster-stocks-buy-hold-232500154.html",
+      "published": "2026-09-14T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Prediction: Nvidia Will Overtake Apple in Stock Buybacks and Dividends Under New Apple CEO John Ternus",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/prediction-nvidia-overtake-apple-stock-103600908.html",
+      "published": "2026-09-13T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Jim Cramer Might Have Made A Big Shift For Costco Wholesale Corporation (NASDAQ:COST)",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-might-made-big-105333167.html",
+      "published": "2026-09-13T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Got $1,000? An Investment in SpaceX Could Be Worth This Much by the End of 2027.",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/got-1-000-investment-spacex-112500303.html",
+      "published": "2026-09-13T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Jim Cramer Found The TJX Companies, Inc. (NYSE:TJX)'s Share Price Performance \"Unbelievable\"",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-found-tjx-companies-105419525.html",
+      "published": "2026-09-13T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Investors Showing 'Complacency' Even as Geopolitical, Economic Risks On the Rise, Says UBS CEO:",
+      "url": "https://finance.yahoo.com/markets/articles/investors-showing-complacency-even-geopolitical-104504886.html",
+      "published": "2026-09-13T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "5 Dividend Stocks to Hold for the Next 5 Years",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/5-dividend-stocks-hold-next-112300228.html",
+      "published": "2026-09-13T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "A Roth Conversion Isn't Investment Income. It Can Still Trigger the 3.8% Surtax on the Dividends You Collect That Year",
+      "url": "https://finance.yahoo.com/markets/options/articles/roth-conversion-isn-t-investment-103810608.html",
+      "published": "2026-09-13T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "600 Acres He Farmed Were Sold for a Google Data Center. At 63, Social Security Can Pay Him After the Harvest Even If He Already Earned Too Much This Year.",
+      "url": "https://finance.yahoo.com/small-business/articles/600-acres-farmed-were-sold-100539389.html",
+      "published": "2026-09-13T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Jim Cramer Remains A Believer In Affirm Holdings (NASDAQ:AFRM)",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-remains-believer-affirm-105203543.html",
+      "published": "2026-09-13T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "AMD's CFO, Jean Hu, Just Announced Fantastic News for Investors",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/amd-cfo-jean-hu-just-100501094.html",
+      "published": "2026-09-13T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "The S&P 500 Trades at 25x Earnings. This Dividend ETF Is Beating It With Stocks Trading at Much Lower Valuations",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/p-500-trades-25x-earnings-103659306.html",
+      "published": "2026-09-13T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Which Pays More for Life: A $710,000 Annuity or a $710,000 Dividend Portfolio?",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/pays-more-life-710-000-112559758.html",
+      "published": "2026-09-13T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Jim Cramer Called This Well Known Food Company's Situation A \"Nightmare\"",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-called-well-known-105130007.html",
+      "published": "2026-09-13T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Jim Cramer Thinks This Retailer Is \"Extraordinary\" With An \"Unsung\" CEO",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-thinks-retailer-extraordinary-105310371.html",
+      "published": "2026-09-13T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "GSK Targets &#xA3;1.9B Savings to Fuel Pipeline, Navigate HIV Patent Cliff",
+      "url": "https://finance.yahoo.com/healthcare/articles/gsk-targets-1-9b-savings-070158054.html",
+      "published": "2026-09-13T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Speculators turn bullish on yen for first time since February",
+      "url": "https://finance.yahoo.com/markets/currencies/articles/speculators-turn-bullish-yen-first-071432274.html",
+      "published": "2026-09-13T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "EUR/USD could retest 1.17 after Fed decision",
+      "url": "https://finance.yahoo.com/markets/currencies/articles/eur-usd-could-retest-1-232248495.html",
+      "published": "2026-09-13T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Thomas H. Kean Jr (NJ07) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035431.pdf",
+      "published": "2026-09-12T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Thomas H. Kean Jr, NJ07, filing date 9/12/2026, DocID 20035431. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. John W. Rose (TN06) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035444.pdf",
+      "published": "2026-09-12T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. John W. Rose, TN06, filing date 9/12/2026, DocID 20035444. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Diana Harshbarger (TN01) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116331.pdf",
+      "published": "2026-09-11T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Diana Harshbarger, TN01, filing date 9/11/2026, DocID 9116331. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Gilbert Cisneros (CA31) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035390.pdf",
+      "published": "2026-09-10T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Gilbert Cisneros, CA31, filing date 9/10/2026, DocID 20035390. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. April McClain Delaney (MD06) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035408.pdf",
+      "published": "2026-09-09T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. April McClain Delaney, MD06, filing date 9/9/2026, DocID 20035408. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Brandon Gill (TX26) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035410.pdf",
+      "published": "2026-09-09T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Brandon Gill, TX26, filing date 9/9/2026, DocID 20035410. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Maria Elvira Salazar (FL27) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035411.pdf",
+      "published": "2026-09-09T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Maria Elvira Salazar, FL27, filing date 9/9/2026, DocID 20035411. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Lloyd Doggett (TX37) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035401.pdf",
+      "published": "2026-09-08T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Lloyd Doggett, TX37, filing date 9/8/2026, DocID 20035401. Official House Clerk disclosure."
+    }
+  ]
+}

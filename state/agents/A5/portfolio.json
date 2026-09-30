@@ -1,0 +1,41 @@
+{
+  "agent_id": "A5",
+  "as_of": "2026-09-16",
+  "cash_usd": 0.0,
+  "positions": [
+    {
+      "symbol": "QQQ",
+      "qty": 0.11103708638685321,
+      "avg_cost": 450.3,
+      "mark_price": 703.9863891601562,
+      "market_value": 78.16859750834513,
+      "unrealized_pnl": 28.16859750834513
+    },
+    {
+      "symbol": "IWM",
+      "qty": 0.09970089730807577,
+      "avg_cost": 200.6,
+      "mark_price": 283.9200134277344,
+      "market_value": 28.30708010246604,
+      "unrealized_pnl": 8.30708010246604
+    },
+    {
+      "symbol": "NVDA",
+      "qty": 0.1323557328090474,
+      "avg_cost": 226.66188583823322,
+      "mark_price": 213.89999389648438,
+      "market_value": 28.310890440019953,
+      "unrealized_pnl": -1.6891095599800448
+    }
+  ],
+  "equity_usd": 134.78656805083114,
+  "realized_pnl_usd": 0.0,
+  "unrealized_pnl_usd": 34.78656805083112,
+  "day_pnl_usd": 0.12730516664589686,
+  "gap_jump": {
+    "from_date": "2026-06-08",
+    "mtm_date": "2026-08-31",
+    "method": "carry+MTM",
+    "note": "Speed-up jump: positions/cash carried; no agent orders in gap."
+  }
+}

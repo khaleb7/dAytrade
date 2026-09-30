@@ -1,0 +1,16 @@
+{
+  "recorded_at": "2026-09-28T01:28:59.701457Z",
+  "as_of_session": "2026-09-16",
+  "agents": {
+    "A3": {
+      "model": "gemini-3.8-flash-medium",
+      "issue": "usage limit mid-backfill"
+    },
+    "A4": {
+      "model": "claude-opus-5-thinking-medium",
+      "issue": "usage limit mid-backfill"
+    }
+  },
+  "status": "awaiting_coordinator_decision_on_model_substitutes",
+  "note": "A3 (Gemini) and A4 (Opus) hit usage limits mid-backfill. Batches for 2026-09-16 were written and are valid JSON; settlement proceeded. Awaiting coordinator decision on model substitutes before further fan-out for those agents."
+}

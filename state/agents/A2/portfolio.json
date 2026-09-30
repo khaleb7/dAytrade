@@ -1,0 +1,25 @@
+{
+  "agent_id": "A2",
+  "as_of": "2026-09-16",
+  "cash_usd": 85.0,
+  "positions": [
+    {
+      "symbol": "VTI",
+      "qty": 0.05996402158704777,
+      "avg_cost": 250.15,
+      "mark_price": 371.260009765625,
+      "market_value": 22.262243239993502,
+      "unrealized_pnl": 7.262243239993503
+    }
+  ],
+  "equity_usd": 107.2622432399935,
+  "realized_pnl_usd": 0.0,
+  "unrealized_pnl_usd": 7.262243239993503,
+  "day_pnl_usd": -0.09474234892658728,
+  "gap_jump": {
+    "from_date": "2026-06-08",
+    "mtm_date": "2026-08-31",
+    "method": "carry+MTM",
+    "note": "Speed-up jump: positions/cash carried; no agent orders in gap."
+  }
+}

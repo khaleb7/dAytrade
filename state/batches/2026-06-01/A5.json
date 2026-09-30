@@ -1,0 +1,17 @@
+{
+  "agent_id": "A5",
+  "as_of": "2026-06-01",
+  "orders": [
+    {
+      "side": "buy",
+      "symbol": "QQQ",
+      "notional_usd": 50.0
+    },
+    {
+      "side": "buy",
+      "symbol": "IWM",
+      "notional_usd": 20.0
+    }
+  ],
+  "thesis": "Fixture: speculative risk-on with QQQ/IWM."
+}

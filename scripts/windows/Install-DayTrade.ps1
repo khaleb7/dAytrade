@@ -12,6 +12,7 @@ param(
     [switch]$SkipTask,
     [switch]$StartNow,
     [switch]$Submit,
+    [switch]$DryRun,
     [switch]$VerifyOnly,
     [switch]$ForceReinstallDeps
 )
@@ -129,7 +130,7 @@ if (-not (Test-Path -LiteralPath $EnvFile)) {
     task_name = $TaskName
     env_file = $EnvFile
     python = ("{0} {1}" -f $py.Cmd, ($py.Args -join " ")).Trim()
-    submit_default = [bool]$Submit
+    submit_default = -not [bool]$DryRun
 } | ConvertTo-Json | Set-Content -LiteralPath $LocalConfig -Encoding ASCII
 Write-Ok ("Wrote " + $LocalConfig)
 
@@ -281,7 +282,8 @@ if (-not $SkipTask) {
             StoreRoot = $StoreRoot
             TaskName = $TaskName
         }
-        if ($Submit) { $regArgs["Submit"] = $true }
+        if ($DryRun -and -not $Submit) { $regArgs["DryRun"] = $true }
+        elseif ($Submit) { $regArgs["Submit"] = $true }
         & $reg @regArgs
         # Detect whether task exists now
         $existing = Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue
@@ -364,7 +366,7 @@ if ($taskRegistered) {
 } else {
     Write-Host "  2) .\Start-HourlyScheduler.ps1 -CatchUp   (or log off/on if Startup shortcut was installed)"
 }
-Write-Host "  3) Keep dry-run until first good hour; then reinstall with -Submit"
+Write-Host "  3) Paper submit is ON by default. Pass -DryRun on Start/Install to opt out."
 Write-Host (" Docs: " + $StoreRoot + "\docs\windows-scheduler.md")
 Write-Host (" Control plane: " + $StoreRoot + "\docs\control-plane.md")
 $envCheck = Get-Content -LiteralPath $EnvFile -Raw -ErrorAction SilentlyContinue

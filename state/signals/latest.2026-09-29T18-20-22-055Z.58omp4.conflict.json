@@ -1,0 +1,82 @@
+{
+  "fetched_at": "2026-09-29T18:19:23Z",
+  "source": "yfinance",
+  "note": "Signal-only context for agent packs. VIX/VXX/UVXY and futures are not tradeable. TLT/USO remain normal US ETFs under existing book rules if agents propose them.",
+  "signals": {
+    "vix": {
+      "label": "VIX",
+      "yahoo": "^VIX",
+      "group": "vol",
+      "unit": "index",
+      "level": 16.290001,
+      "change": 0.220001,
+      "change_pct": 1.369,
+      "as_of": "2026-09-29T05:00:00Z",
+      "ok": true,
+      "error": null
+    },
+    "us10y": {
+      "label": "US 10Y yield",
+      "yahoo": "^TNX",
+      "group": "bonds",
+      "unit": "pct",
+      "level": 5.266,
+      "change": 0.026,
+      "change_pct": 0.4962,
+      "as_of": "2026-09-29T05:00:00Z",
+      "ok": true,
+      "error": null
+    },
+    "us_tbill_13w": {
+      "label": "US 13W T-bill",
+      "yahoo": "^IRX",
+      "group": "bonds",
+      "unit": "pct",
+      "level": 4.08,
+      "change": 0.023,
+      "change_pct": 0.5669,
+      "as_of": "2026-09-29T05:00:00Z",
+      "ok": true,
+      "error": null
+    },
+    "tlt": {
+      "label": "TLT",
+      "yahoo": "TLT",
+      "group": "bonds",
+      "unit": "usd",
+      "level": 78.050003,
+      "change": -0.57,
+      "change_pct": -0.725,
+      "as_of": "2026-09-29T04:00:00Z",
+      "ok": true,
+      "error": null
+    },
+    "wti": {
+      "label": "WTI crude",
+      "yahoo": "CL=F",
+      "group": "oil",
+      "unit": "usd",
+      "level": 89.809998,
+      "change": -2.790001,
+      "change_pct": -3.013,
+      "as_of": "2026-09-29T04:00:00Z",
+      "ok": true,
+      "error": null
+    },
+    "uso": {
+      "label": "USO",
+      "yahoo": "USO",
+      "group": "oil",
+      "unit": "usd",
+      "level": 144.479996,
+      "change": -5.529999,
+      "change_pct": -3.6864,
+      "as_of": "2026-09-29T04:00:00Z",
+      "ok": true,
+      "error": null
+    }
+  },
+  "compact": "Market signals (context only \u2014 do not trade VIX/vol products or futures; TLT/USO OK only as normal US ETFs under shared book rules):\n- VIX: 16.29  \u0394 +0.22 / +1.37%  as_of=2026-09-29T05:00:00Z\n- US 10Y yield: 5.266%  \u0394 +0.026pt / +0.50%  as_of=2026-09-29T05:00:00Z\n- US 13W T-bill: 4.080%  \u0394 +0.023pt / +0.57%  as_of=2026-09-29T05:00:00Z\n- TLT: 78.05  \u0394 -0.57 / -0.72%  as_of=2026-09-29T04:00:00Z\n- WTI crude: 89.81  \u0394 -2.79 / -3.01%  as_of=2026-09-29T04:00:00Z\n- USO: 144.48  \u0394 -5.53 / -3.69%  as_of=2026-09-29T04:00:00Z",
+  "errors": {},
+  "bucket": "2026-09-29T14:00"
+}

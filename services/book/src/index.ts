@@ -13,10 +13,29 @@ import {
 const DEFAULT_BASE = "https://paper-api.alpaca.markets";
 const TARGET_EQUITY = 1000;
 const DEFAULT_OFFSET = -99000;
-const CASH_FLOOR_PCT = 15;
-const MAX_SINGLE_NAME_PCT = 35;
-const MAX_POSITIONS = 6;
+const CASH_FLOOR_PCT = 8;
+const MAX_SINGLE_NAME_PCT = 45;
+const MAX_POSITIONS = 7;
 const TICKER_RE = /^[A-Z][A-Z0-9.\-]{0,9}$/;
+const SIGNAL_ONLY_BLOCKLIST = new Set([
+  "VIX",
+  "VXX",
+  "UVXY",
+  "UVIX",
+  "SVIX",
+  "SVXY",
+  "VIXY",
+  "VIXM",
+  "VXZ",
+  "TVIX",
+]);
+
+export function isSignalOnlySymbol(symbol: string): boolean {
+  const up = symbol.toUpperCase().trim();
+  if (SIGNAL_ONLY_BLOCKLIST.has(up)) return true;
+  if (up.includes("=") || up.startsWith("^")) return true;
+  return false;
+}
 
 export interface AlpacaConfig {
   paper?: boolean;
@@ -239,6 +258,12 @@ function simulateFills(
     const symbol = o.symbol.toUpperCase();
     if (!TICKER_RE.test(symbol)) {
       errors.push(`orders[${i}]: invalid symbol`);
+      continue;
+    }
+    if (isSignalOnlySymbol(symbol)) {
+      errors.push(
+        `orders[${i}]: ${symbol} is signal-only / non-tradeable (VIX/vol products and futures blocked)`,
+      );
       continue;
     }
     const px = prices[symbol];

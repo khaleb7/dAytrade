@@ -1,0 +1,170 @@
+{
+  "as_of": "2026-09-29T09:30:00-04:00",
+  "day": "2026-09-29",
+  "hour_et": "09",
+  "minute_et": "30",
+  "slot": "0930",
+  "phase": "prep-then-settle",
+  "started_at": "2026-09-29T13:30:01Z",
+  "dry_run": false,
+  "steps": {
+    "news": {
+      "wrote": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\news.json",
+      "as_of": "2026-09-29T09:30:00-04:00",
+      "items": 71,
+      "mode": "cache",
+      "source_counts": {
+        "sec_edgar": 40,
+        "marketwatch": 25,
+        "politician_trades": 6
+      },
+      "cache_items_scanned": 3343,
+      "cutoff_utc": "2026-09-29T13:30:00Z",
+      "signals": {
+        "wrote": {
+          "latest": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\signals\\latest.json",
+          "hourly": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\signals.json"
+        },
+        "fetched_at": "2026-09-29T13:30:15Z",
+        "ok_count": 6,
+        "errors": {}
+      }
+    },
+    "reconcile": {
+      "equity_usd": 100000.12,
+      "sizing_equity_usd": 1000.1199999999953,
+      "positions": 1
+    },
+    "packs": {
+      "wrote": [
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\A1.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\A2.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\A3.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\A4.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\A5.md"
+      ]
+    },
+    "ready": {
+      "as_of": "2026-09-29T09:30:00-04:00",
+      "day": "2026-09-29",
+      "slot": "0930",
+      "packs": [
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\A1.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\A2.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\A3.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\A4.md",
+        "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\A5.md"
+      ],
+      "ready_at": "2026-09-29T13:30:16Z",
+      "next": "fanout then settle"
+    },
+    "fanout": {
+      "as_of": "2026-09-29T09:30:00-04:00",
+      "mode": "sdk_local",
+      "agents": [
+        {
+          "agent_id": "A1",
+          "model_id": "gpt-5.6-sol",
+          "status": "wrote",
+          "agentId": "agent-7e509553-c475-4b77-a5e8-ed52ca19c8ab",
+          "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\A1.json"
+        },
+        {
+          "agent_id": "A2",
+          "model_id": "claude-sonnet-5",
+          "status": "wrote",
+          "agentId": "agent-22db4400-7e25-4e3a-a133-58bd9e9c2826",
+          "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\A2.json"
+        },
+        {
+          "agent_id": "A3",
+          "model_id": "gemini-3.8-flash",
+          "status": "error",
+          "error": "fanout timeout",
+          "agentId": "agent-c4a5e34f-4e39-4371-9d0e-ba5af3052b23"
+        },
+        {
+          "agent_id": "A4",
+          "model_id": "claude-opus-5",
+          "status": "wrote",
+          "agentId": "agent-b77c5d31-29a2-4730-ba45-8b8340db74b9",
+          "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\A4.json"
+        },
+        {
+          "agent_id": "A5",
+          "model_id": "grok-4.7",
+          "status": "wrote",
+          "agentId": "agent-2d731d52-a260-476c-b669-c05c17279d71",
+          "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\A5.json"
+        }
+      ],
+      "finished_at": "2026-09-29T13:42:19Z"
+    },
+    "consensus": {
+      "wrote": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\0930\\consensus.json",
+      "orders": [
+        {
+          "side": "buy",
+          "symbol": "VTI",
+          "notional_usd": 100,
+          "votes": 2,
+          "agents": [
+            "A2",
+            "A4"
+          ]
+        }
+      ],
+      "no_consensus": false
+    },
+    "validate": {
+      "ok": true,
+      "errors": [],
+      "post_trade": {
+        "cash_usd": 750.0099999999948,
+        "positions": [
+          {
+            "symbol": "VTI",
+            "qty": 0.6644366401563148,
+            "avg_cost": 376.2435495758927,
+            "mark_price": 376.42
+          }
+        ],
+        "equity_usd": 1000.1172400876347
+      },
+      "sizing_view": true,
+      "equity_offset_usd": -99000,
+      "broker_cash_usd": 99850.01,
+      "broker_equity_usd": 100000.12
+    },
+    "submit": {
+      "dry_run": false,
+      "orders": [
+        {
+          "order": {
+            "side": "buy",
+            "symbol": "VTI",
+            "notional_usd": 100,
+            "votes": 2,
+            "agents": [
+              "A2",
+              "A4"
+            ]
+          },
+          "dry_run": false,
+          "status": "submitted",
+          "alpaca": {
+            "id": "d2f162a0-b9d5-4277-8468-f7bdca26d3de",
+            "status": "pending_new",
+            "symbol": "VTI"
+          }
+        }
+      ],
+      "note": "submitted to Alpaca paper"
+    },
+    "post_reconcile": {
+      "equity_usd": 99999.95,
+      "cash_usd": 99750.02
+    }
+  },
+  "finished_at": "2026-09-29T13:42:19Z"
+}

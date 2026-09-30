@@ -1085,13 +1085,14 @@ def slice_hour_from_cache(
     day: date,
     hour: int,
     *,
+    minute: int = 0,
     cache_root: Optional[Path] = None,
     cache_only: bool = True,
     per_source_cap: int = 40,
 ) -> Dict[str, Any]:
-    """Filter cache items with published strictly before this hour's ET start."""
-    cutoff = cutoff_utc(day, hour)
-    as_of = as_of_iso(day, hour)
+    """Filter cache items with published strictly before this tick's ET start."""
+    cutoff = cutoff_utc(day, hour, minute)
+    as_of = as_of_iso(day, hour, minute)
     lookback_floor = cutoff - timedelta(days=2)
     ptr_lookback_floor = cutoff - timedelta(days=14)
 
@@ -1167,20 +1168,24 @@ def build_hour_pack(
     utc: bool = False,
     fixture: Optional[Path] = None,
 ) -> Tuple[Path, Dict[str, Any]]:
-    day, hour, as_of = parse_hour_bucket(bucket, utc=utc)
-    out = hourly_news_path(day.isoformat(), hour)
+    day, hour, minute, slot, as_of = parse_hour_bucket(bucket, utc=utc)
+    out = hourly_news_path(day.isoformat(), slot)
     if fixture:
         data = json.loads(fixture.read_text())
         data["as_of"] = as_of
         data["date"] = day.isoformat()
         data["hour_et"] = f"{hour:02d}"
-        data.setdefault("cutoff_utc", _iso_z(cutoff_utc(day, hour)))
+        data["minute_et"] = f"{minute:02d}"
+        data["slot"] = slot
+        data.setdefault("cutoff_utc", _iso_z(cutoff_utc(day, hour, minute)))
         data.setdefault("mode", "fixture")
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(json.dumps(data, indent=2) + "\n")
         return out, data
 
-    pack = slice_hour_from_cache(day, hour, cache_root=cache_root, cache_only=cache_only)
+    pack = slice_hour_from_cache(
+        day, hour, minute=minute, cache_root=cache_root, cache_only=cache_only
+    )
     if cache_only and pack.get("cache_items_scanned", 0) == 0:
         raise FileNotFoundError(f"cache-only: no items in cache for build-hour {bucket}")
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -1380,11 +1385,11 @@ def main(argv: Optional[List[str]] = None) -> int:
         from hour_bucket import is_rth_consensus_hour
 
         try:
-            day_h, hour_h, as_of_h = parse_hour_bucket(args.bucket, utc=args.utc)
+            day_h, hour_h, minute_h, slot_h, as_of_h = parse_hour_bucket(args.bucket, utc=args.utc)
         except ValueError as e:
             print(f"error: {e}", file=sys.stderr)
             return 1
-        if not args.allow_non_rth and not is_rth_consensus_hour(day_h, hour_h):
+        if not args.allow_non_rth and not is_rth_consensus_hour(day_h, hour_h, minute_h):
             print(
                 f"error: {as_of_h} is outside RTH consensus hours (10–15 ET trading day); "
                 "pass --allow-non-rth to override",

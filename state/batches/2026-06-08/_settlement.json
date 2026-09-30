@@ -1,0 +1,46 @@
+{
+  "date": "2026-06-08",
+  "agents": [
+    {
+      "agent_id": "A1",
+      "accepted": true,
+      "errors": [],
+      "equity_usd": 99.98082464751775,
+      "day_pnl_usd": -0.0027421438793027164,
+      "journal": "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/agents/A1/journal/2026-06-08.json"
+    },
+    {
+      "agent_id": "A2",
+      "accepted": true,
+      "errors": [],
+      "equity_usd": 106.79240002385288,
+      "day_pnl_usd": 0.06517207839358719,
+      "journal": "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/agents/A2/journal/2026-06-08.json"
+    },
+    {
+      "agent_id": "A3",
+      "accepted": true,
+      "errors": [],
+      "equity_usd": 106.4896994251736,
+      "day_pnl_usd": 0.6924218237301432,
+      "journal": "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/agents/A3/journal/2026-06-08.json"
+    },
+    {
+      "agent_id": "A4",
+      "accepted": true,
+      "errors": [],
+      "equity_usd": 116.83688839167864,
+      "day_pnl_usd": 1.562134657442897,
+      "journal": "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/agents/A4/journal/2026-06-08.json"
+    },
+    {
+      "agent_id": "A5",
+      "accepted": true,
+      "errors": [],
+      "equity_usd": 135.10941543678123,
+      "day_pnl_usd": 1.9319687896094706,
+      "journal": "/cursor/stores/bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb/state/agents/A5/journal/2026-06-08.json"
+    }
+  ],
+  "settled_at": "2026-09-28T00:51:25.692875Z"
+}

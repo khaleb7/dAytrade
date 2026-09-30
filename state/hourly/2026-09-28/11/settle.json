@@ -1,0 +1,14 @@
+{
+  "as_of": "2026-09-28T11:00:00-04:00",
+  "day": "2026-09-28",
+  "hour_et": "11",
+  "phase": "prep-then-settle",
+  "started_at": "2026-09-28T15:00:58Z",
+  "dry_run": true,
+  "steps": {
+    "news": {
+      "error": "build-hour failed: Python was not found; run without arguments to install from the Microsoft Store, or disable this shortcut from Settings > Apps > Advanced app settings > App execution aliases.\r\n"
+    }
+  },
+  "error": "news build failed"
+}

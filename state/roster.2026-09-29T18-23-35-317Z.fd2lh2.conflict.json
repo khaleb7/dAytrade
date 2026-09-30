@@ -1,0 +1,19 @@
+{
+  "agents": {
+    "A1": {
+      "risk_label": "Medium aggressive",
+      "cash_floor_pct": 8,
+      "max_single_name_pct": 45,
+      "max_positions": 7,
+      "model_id": "grok-4.7"
+    }
+  },
+  "shared_rules": {
+    "universe": "US equities and ETFs only",
+    "long_only": true,
+    "fractional_shares": true,
+    "forbidden": ["options", "crypto", "OTC", "shorts"],
+    "batches_per_day": 1,
+    "invalid_batch_policy": "reject_whole_batch"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "as_of": "2026-09-29T14:30:00-04:00",
+  "mode": "sdk_local",
+  "started_at": "2026-09-29T18:30:12Z",
+  "timeout_ms": 1200000,
+  "agents": [
+    {
+      "agent_id": "A1",
+      "model_id": "grok-4.7",
+      "status": "wrote",
+      "agentId": "agent-2aef3798-8b5a-474e-929a-ea027c28f359",
+      "path": "C:\\Users\\josh\\AppData\\Local\\Cursor\\AgentStores\\cursor_agent_stores\\bc-7a9f3369-d383-44f7-b5ec-0d1ac69e76fb\\files\\state\\hourly\\2026-09-29\\1430\\A1.json",
+      "duration_ms": 369093
+    },
+    {
+      "agent_id": "A2",
+      "model_id": "?",
+      "status": "no_model",
+      "duration_ms": 0
+    },
+    {
+      "agent_id": "A3",
+      "model_id": "?",
+      "status": "no_model",
+      "duration_ms": 0
+    },
+    {
+      "agent_id": "A4",
+      "model_id": "?",
+      "status": "no_model",
+      "duration_ms": 0
+    },
+    {
+      "agent_id": "A5",
+      "model_id": "?",
+      "status": "no_model",
+      "duration_ms": 0
+    }
+  ],
+  "finished_at": "2026-09-29T18:36:21Z"
+}

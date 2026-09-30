@@ -1,0 +1,12 @@
+{
+  "agent_id": "A1",
+  "as_of": "2026-06-09",
+  "orders": [
+    {
+      "side": "buy",
+      "symbol": "VTI",
+      "notional_usd": 5.0
+    }
+  ],
+  "thesis": "Add a small 5% broad-market VTI sleeve: the pre-open pack reports an Iran deal, falling oil, and firmer US equity futures, providing a measured de-escalation signal while preserving roughly 85% cash."
+}

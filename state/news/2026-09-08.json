@@ -1,0 +1,377 @@
+{
+  "date": "2026-09-08",
+  "cutoff_utc": "2026-09-08T13:30:00Z",
+  "mode": "cache",
+  "fetched_at": "2026-09-28T01:08:14.089775Z",
+  "source_counts": {
+    "yahoo_finance": 40,
+    "politician_trades": 12
+  },
+  "cache_items_scanned": 3246,
+  "items": [
+    {
+      "source": "yahoo_finance",
+      "title": "Mirae Asset sets up Dubai office with fund licence approval",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/mirae-asset-sets-dubai-office-113538500.html",
+      "published": "2026-09-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Oracle Stock Keeps Falling While Wall Street Holds Firm&#x2014;Who's Right?",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/oracle-stock-keeps-falling-while-113456535.html",
+      "published": "2026-09-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Teen reading slumps to worst this century due to surge in screen time",
+      "url": "https://finance.yahoo.com/news/teen-reading-slumps-worst-century-111013754.html",
+      "published": "2026-09-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "OncoSil Medical secures funding for cancer device launch",
+      "url": "https://finance.yahoo.com/healthcare/articles/oncosil-medical-secures-funding-cancer-112746268.html",
+      "published": "2026-09-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Mistral AI raises &#x20AC;3 billion in Samsung-led Series D round",
+      "url": "https://finance.yahoo.com/technology/ai/articles/mistral-ai-raises-3-billion-111824280.html",
+      "published": "2026-09-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Micron vs. Sandisk: 1 Artificial Intelligence (AI) Memory Winner Is Down 20% and Clearly the Superior Buy Today",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/micron-vs-sandisk-1-artificial-113000528.html",
+      "published": "2026-09-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "OpenAI and Anthropic Want What SpaceX Got After Its IPO Despite Billions in Losses",
+      "url": "https://finance.yahoo.com/technology/ai/articles/openai-anthropic-want-spacex-got-112207013.html",
+      "published": "2026-09-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Novartis twin drug setbacks pile pressure on pipeline and CEO",
+      "url": "https://finance.yahoo.com/healthcare/articles/novartis-announces-trial-setback-del-060512323.html",
+      "published": "2026-09-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Dow futures drop as Iran war, Canada tariffs hit Wall Street",
+      "url": "https://finance.yahoo.com/markets/world-indices/articles/dow-futures-drop-iran-war-112756050.html",
+      "published": "2026-09-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Bitcoin and ethereum prices today, Tuesday, September 8, 2026: Crypto prices sliding as U.S.-Iran fighting continues",
+      "url": "https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-tuesday-september-8-2026-crypto-prices-sliding-as-us-iran-fighting-continues-113441984.html",
+      "published": "2026-09-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "September deadline looms to opt out of winter fuel payments, ICAEW warns",
+      "url": "https://finance.yahoo.com/economy/policy/articles/september-deadline-looms-opt-winter-112956329.html",
+      "published": "2026-09-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "EU regulators send early warning to Oracle ahead of earnings",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/eu-regulators-send-early-warning-000300590.html",
+      "published": "2026-09-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "The stock market's hot streak hints at more good times ahead",
+      "url": "https://finance.yahoo.com/markets/article/the-stock-markets-hot-streak-hints-at-more-good-times-ahead-114050175.html",
+      "published": "2026-09-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "IREN Limited Has Cratered Over 3 Months: A Top-Ranked Wall Street Name Says It's Due to Double",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/iren-limited-cratered-over-3-112449341.html",
+      "published": "2026-09-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Why Archer Aviation Skyrocketed 24.6% Last Month",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/why-archer-aviation-skyrocketed-24-112700287.html",
+      "published": "2026-09-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "2 Turnaround Stocks Wall Street Hates That I've Been Buying in 2026",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/2-turnaround-stocks-wall-street-112601912.html",
+      "published": "2026-09-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Anthropic ends talks on potential $6bn acquisition of Decart AI",
+      "url": "https://finance.yahoo.com/technology/ai/articles/anthropic-ends-talks-potential-6bn-113759986.html",
+      "published": "2026-09-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Multiplier Holdings acquires New Zealand advisory practice Greenhawk",
+      "url": "https://finance.yahoo.com/small-business/articles/multiplier-holdings-acquires-zealand-advisory-113417026.html",
+      "published": "2026-09-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Point72 to expand Japan team and investment allocation &#x2013; report",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/point72-expand-japan-team-investment-114015268.html",
+      "published": "2026-09-08T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Lloyd Doggett (TX37) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035401.pdf",
+      "published": "2026-09-08T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Lloyd Doggett, TX37, filing date 9/8/2026, DocID 20035401. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Mike Kelly (PA16) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035403.pdf",
+      "published": "2026-09-08T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Mike Kelly, PA16, filing date 9/8/2026, DocID 20035403. Official House Clerk disclosure."
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Baker Hughes (BKR) Lands Multi-Year Contract with Pakistan's OGDC",
+      "url": "https://finance.yahoo.com/energy/articles/baker-hughes-bkr-lands-multi-232500809.html",
+      "published": "2026-09-08T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "GeoPark's Venezuela Deal: Massive Opportunity or Risky Bet?",
+      "url": "https://finance.yahoo.com/energy/articles/geopark-venezuela-deal-massive-opportunity-231758960.html",
+      "published": "2026-09-08T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Chevron (CVX) Doubles Down on Venezuela with a $7 Billion Oil Bet",
+      "url": "https://finance.yahoo.com/energy/articles/chevron-cvx-doubles-down-venezuela-231939575.html",
+      "published": "2026-09-08T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "In a stalled exit market, sponsors are consolidating their way out",
+      "url": "https://finance.yahoo.com/small-business/articles/stalled-exit-market-sponsors-consolidating-112415745.html",
+      "published": "2026-09-07T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Tech companies look to Argentina's windswept Patagonia to build massive data centers",
+      "url": "https://finance.yahoo.com/technology/articles/tech-companies-look-argentina-windswept-100259741.html",
+      "published": "2026-09-07T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "ASIC reviews misconduct cases involving 'Big Four' operators",
+      "url": "https://finance.yahoo.com/economy/policy/articles/asic-reviews-misconduct-cases-involving-113451365.html",
+      "published": "2026-09-07T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "XRP Price Could Hit $60 if It Breaks $3.66 Resistance: Analyst",
+      "url": "https://finance.yahoo.com/markets/crypto/articles/xrp-price-could-hit-60-112215597.html",
+      "published": "2026-09-07T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Boomer beware: 5 big-ticket buys seniors regret in retirement &#x2014; and what you can do to avoid making these mistakes",
+      "url": "https://finance.yahoo.com/small-business/articles/boomer-beware-5-big-ticket-110500875.html",
+      "published": "2026-09-07T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Genesco raises FY27 profit target despite revenue slump",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/genesco-raises-fy27-profit-target-113010954.html",
+      "published": "2026-09-07T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Should You Avoid Nike Stock, Even at a 12-Year Low?",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/avoid-nike-stock-even-12-111900939.html",
+      "published": "2026-09-07T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Oracle Has Fallen Nearly 20% in 2026: One Wall Street Firm Says It's Going to Double and Then Some",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/oracle-fallen-nearly-20-2026-112546569.html",
+      "published": "2026-09-07T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Nvidia just sent a strong signal to AMD and Intel investors",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/nvidia-just-sent-strong-signal-110300677.html",
+      "published": "2026-09-07T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Iran and Ukraine wars: Why ship fuel is running short, and why it matters",
+      "url": "https://finance.yahoo.com/energy/articles/iran-ukraine-wars-why-ship-112627311.html",
+      "published": "2026-09-07T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Turkey lifts inflation forecast to 28.4% as Middle East conflict pushes outlook higher",
+      "url": "https://finance.yahoo.com/economy/policy/articles/turkey-lifts-inflation-forecast-28-061425473.html",
+      "published": "2026-09-07T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Ant International obtains Brazil payment institution licence",
+      "url": "https://finance.yahoo.com/markets/crypto/articles/ant-international-obtains-brazil-payment-073040418.html",
+      "published": "2026-09-07T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Workday (WDAY)'s AI Push is Easing Investor Fears, but its Own Guidance Tells a More Cautious Story",
+      "url": "https://finance.yahoo.com/technology/ai/articles/workday-wday-ai-push-easing-231129347.html",
+      "published": "2026-09-07T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "UK recruiters see first rise in permanent role hiring since 2022",
+      "url": "https://finance.yahoo.com/economy/articles/uk-recruiters-see-first-rise-230827818.html",
+      "published": "2026-09-07T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "SMS (TSE:2175) Has Rebounded Sharply, Is More Upside Still On The Table?",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/sms-tse-2175-rebounded-sharply-230806157.html",
+      "published": "2026-09-07T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "UK finance minister Healey seeks growth through decentralising power",
+      "url": "https://finance.yahoo.com/news/uk-finance-minister-healey-seeks-230504697.html",
+      "published": "2026-09-07T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Why GitLab Stock Soared 35% in August and Why It's Already Rocketed Higher",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/why-gitlab-stock-soared-35-072301167.html",
+      "published": "2026-09-06T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Why Quanex Stock Skyrocketed by 22% on Friday",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/why-quanex-stock-skyrocketed-22-233430917.html",
+      "published": "2026-09-06T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. David J. Taylor (OH02) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035392.pdf",
+      "published": "2026-09-05T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. David J. Taylor, OH02, filing date 9/5/2026, DocID 20035392. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Gilbert Cisneros (CA31) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035190.pdf",
+      "published": "2026-09-04T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Gilbert Cisneros, CA31, filing date 9/4/2026, DocID 20035190. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Rohit Khanna (CA17) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116328.pdf",
+      "published": "2026-09-04T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Rohit Khanna, CA17, filing date 9/4/2026, DocID 9116328. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Jonathan Jackson (IL01) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035370.pdf",
+      "published": "2026-09-03T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Jonathan Jackson, IL01, filing date 9/3/2026, DocID 20035370. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Cleo Fields (LA06) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035345.pdf",
+      "published": "2026-09-02T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Cleo Fields, LA06, filing date 9/2/2026, DocID 20035345. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. John J Mr McGuire III (VA05) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035367.pdf",
+      "published": "2026-09-02T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. John J Mr McGuire III, VA05, filing date 9/2/2026, DocID 20035367. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Michael Rulli (OH06) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035365.pdf",
+      "published": "2026-09-02T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Michael Rulli, OH06, filing date 9/2/2026, DocID 20035365. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Tony Wied (WI08) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/9116326.pdf",
+      "published": "2026-09-02T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Tony Wied, WI08, filing date 9/2/2026, DocID 9116326. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Donald Sternoff Beyer Jr (VA08) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035349.pdf",
+      "published": "2026-09-01T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Donald Sternoff Beyer Jr, VA08, filing date 9/1/2026, DocID 20035349. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Steve Cohen (TN09) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20035350.pdf",
+      "published": "2026-09-01T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Steve Cohen, TN09, filing date 9/1/2026, DocID 20035350. Official House Clerk disclosure."
+    }
+  ]
+}

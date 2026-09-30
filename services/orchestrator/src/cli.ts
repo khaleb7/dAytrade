@@ -7,18 +7,22 @@
  * Usage:
  *   npx tsx src/cli.ts --hour 2026-09-25T14 --phase prep --from-fixtures
  *   npx tsx src/cli.ts --loop --phase prep-then-settle --catch-up
- *   node dist/cli.js --hour … --phase settle --submit
+ *   node dist/cli.js --hour … --phase settle
+ *   node dist/cli.js --hour … --phase settle --dry-run
  */
-import { bucketFor, formatDay, loadEnvFile } from "@daytrade/shared";
+import { formatDay, loadEnvFile } from "@daytrade/shared";
 import { nextRthTickClean, runHour, runLoop, type Phase } from "./index.js";
 
 function usage(): never {
   console.error(`usage:
-  daytrade-orchestrator --hour YYYY-MM-DDTHH [--phase prep|fanout|settle|full|prep-then-settle]
-                        [--submit] [--skip-ingest] [--from-fixtures] [--allow-non-rth]
+  daytrade-orchestrator --hour YYYY-MM-DDTHH:MM [--phase prep|fanout|settle|full|prep-then-settle|day-end]
+                        [--dry-run] [--skip-ingest] [--from-fixtures] [--allow-non-rth]
                         [--proposal-wait-minutes N] [--env-file PATH]
-  daytrade-orchestrator --loop [--phase …] [--catch-up] [--submit] …
-  daytrade-orchestrator --next-tick`);
+  daytrade-orchestrator --loop [--phase …] [--catch-up] [--dry-run] …
+  daytrade-orchestrator --next-tick
+
+  RTH half-hour ticks 09:30–15:30 ET. Paper submit ON by default (--dry-run to skip).
+  After 15:30 settle, day-end analysis is written for next-session packs.`);
   process.exit(1);
 }
 
@@ -28,11 +32,12 @@ async function main(): Promise<void> {
 
   let hour: string | undefined;
   let phase: Phase = "prep-then-settle";
-  let submit = false;
+  // Paper account: submit by default; --dry-run to opt out
+  let submit = true;
   let skipIngest = false;
   let fromFixtures = false;
   let allowNonRth = false;
-  let proposalWaitMinutes = 20;
+  let proposalWaitMinutes: number | undefined;
   let envFile: string | undefined;
   let loop = false;
   let catchUp = false;
@@ -44,6 +49,7 @@ async function main(): Promise<void> {
     if (a === "--hour" && args[i + 1]) hour = args[++i];
     else if (a === "--phase" && args[i + 1]) phase = args[++i] as Phase;
     else if (a === "--submit") submit = true;
+    else if (a === "--dry-run" || a === "--no-submit") submit = false;
     else if (a === "--skip-ingest") skipIngest = true;
     else if (a === "--from-fixtures") fromFixtures = true;
     else if (a === "--allow-non-rth") allowNonRth = true;
@@ -63,6 +69,11 @@ async function main(): Promise<void> {
   }
 
   loadEnvFile(envFile);
+  // CLI flag wins; else DAYTRADE_PROPOSAL_WAIT_MINUTES; else 20
+  if (proposalWaitMinutes === undefined) {
+    const fromEnv = parseInt(process.env.DAYTRADE_PROPOSAL_WAIT_MINUTES || "", 10);
+    proposalWaitMinutes = Number.isFinite(fromEnv) && fromEnv >= 0 ? fromEnv : 20;
+  }
 
   if (nextTickOnly) {
     const n = nextRthTickClean();
@@ -70,9 +81,11 @@ async function main(): Promise<void> {
       JSON.stringify(
         {
           bucket: n.bucket,
+          slot: n.slot,
           when: n.when.toISOString(),
           day: formatDay(n.day),
           hour: n.hour,
+          minute: n.minute,
         },
         null,
         2,
@@ -95,9 +108,7 @@ async function main(): Promise<void> {
   if (!hour) {
     if (once || catchUp) {
       const n = nextRthTickClean();
-      // for --once without --hour, run the imminent/current bucket helper
-      const { day, hour: h } = n;
-      hour = bucketFor(day, h);
+      hour = n.bucket;
       console.error(`[orchestrator] --once using next bucket ${hour}`);
     } else {
       usage();

@@ -1,0 +1,12 @@
+{
+  "agent_id": "A1",
+  "as_of": "2026-09-09",
+  "orders": [
+    {
+      "side": "sell",
+      "symbol": "BND",
+      "qty": 0.13850415512465372
+    }
+  ],
+  "thesis": "Exit the small BND position: the pre-open pack reports the highest 30-year mortgage rate since June 2025, an ongoing bond-market sell-off, and near-$100 crude intensifying inflation risk; move fully to cash."
+}

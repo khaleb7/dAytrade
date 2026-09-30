@@ -1,24 +1,31 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import {
-  AGENT_IDS,
+  activeAgentIds,
   asOfIso,
   fixturesDir,
   hourlyDir,
   hourlyPackPath,
   hourlyProposalPath,
   isoZ,
+  loadRoster,
+  normalizeSlot,
+  parseSlot,
   promptsDir,
-  readJson,
   rosterPath,
   storeRoot,
   writeJson,
-  type Roster,
 } from "@daytrade/shared";
+import { drainSdkRun, ensureProposalFile } from "./proposalRecovery.js";
+
+/** Default fan-out budget for 30m RTH ticks. */
+export const DEFAULT_FANOUT_TIMEOUT_MS = 20 * 60 * 1000;
 
 export interface FanoutResult {
   as_of: string;
   mode: "sdk_local" | "fixtures";
+  started_at?: string;
+  timeout_ms?: number;
   agents: {
     agent_id: string;
     model_id: string;
@@ -26,18 +33,20 @@ export interface FanoutResult {
     agentId?: string;
     error?: string;
     path?: string;
+    duration_ms?: number;
   }[];
   finished_at: string;
 }
 
-function buildPrompt(agentId: string, day: string, hour: number): string {
+function buildPrompt(agentId: string, day: string, hourOrSlot: number | string): string {
   const system = fs.readFileSync(path.join(promptsDir(), "agent_system.md"), "utf8");
   const tier = fs.readFileSync(path.join(promptsDir(), `${agentId}.md`), "utf8");
-  const packPath = hourlyPackPath(day, hour, agentId);
+  const packPath = hourlyPackPath(day, hourOrSlot, agentId);
   const pack = fs.existsSync(packPath)
     ? fs.readFileSync(packPath, "utf8")
     : `(missing pack ${packPath})`;
-  const outRel = path.relative(storeRoot(), hourlyProposalPath(day, hour, agentId));
+  const outAbs = hourlyProposalPath(day, hourOrSlot, agentId);
+  const outRel = path.relative(storeRoot(), outAbs);
   return [
     system,
     "",
@@ -46,24 +55,28 @@ function buildPrompt(agentId: string, day: string, hour: number): string {
     pack,
     "",
     "## Output path (required)",
-    "Write ONLY valid JSON (no markdown fences) to this file relative to the store cwd:",
-    `\`${outRel}\``,
+    "You MUST persist the proposal with the Write tool (not chat-only).",
+    "Write ONLY valid JSON (no markdown fences) to exactly this path:",
+    `\`${outAbs}\``,
+    `(relative to store cwd: \`${outRel}\`)`,
     "",
     `agent_id must be "${agentId}". as_of must match the pack. Empty orders are OK.`,
   ].join("\n");
 }
 
-export function copyFixtureProposals(day: string, hour: number): FanoutResult {
+export function copyFixtureProposals(day: string, hourOrSlot: number | string): FanoutResult {
   const src = path.join(fixturesDir(), "hourly", "proposals");
-  const dest = hourlyDir(day, hour);
+  const dest = hourlyDir(day, hourOrSlot);
   fs.mkdirSync(dest, { recursive: true });
   const [y, m, d] = day.split("-").map(Number);
   const dayDate = new Date(Date.UTC(y!, m! - 1, d!));
-  const asOf = asOfIso(dayDate, hour);
+  const slot = normalizeSlot(hourOrSlot);
+  const { hour, minute } = parseSlot(slot);
+  const asOf = asOfIso(dayDate, hour, minute);
   const agents: FanoutResult["agents"] = [];
-  for (const aid of AGENT_IDS) {
+  for (const aid of activeAgentIds()) {
     const from = path.join(src, `${aid}.json`);
-    const to = hourlyProposalPath(day, hour, aid);
+    const to = hourlyProposalPath(day, hourOrSlot, aid);
     if (fs.existsSync(from)) {
       fs.copyFileSync(from, to);
       agents.push({ agent_id: aid, model_id: "fixture", status: "copied", path: to });
@@ -92,9 +105,33 @@ type SDKAgent = {
   close?: () => void | Promise<void>;
 };
 
+/** Map Cursor IDE/subagent slugs to SDK Agent.create model ids.
+ * Roster should use `grok-4.7` for trading fan-out (Composer is coding-only).
+ * Legacy vendor/Composer suffixes are still stripped if an old roster slips through.
+ */
+export function normalizeModelId(raw: string): string {
+  let id = (raw || "").trim();
+  if (!id) return id;
+  // Strip common thinking/effort suffixes used in IDE model pickers
+  id = id.replace(/-thinking-(?:low|medium|high|max|xhigh|minimal)$/i, "");
+  id = id.replace(/-(?:low|medium|high|max|xhigh|minimal|none|fast)$/i, "");
+  const aliases: Record<string, string> = {
+    // Cursor bucket
+    "composer-2.5-medium": "composer-2.5",
+    "composer-2-medium": "composer-2",
+    // Legacy (should not be in roster; kept for old conflict files)
+    "gpt-5.6-sol-medium": "gpt-5.6-sol",
+    "claude-sonnet-5-thinking-medium": "claude-sonnet-5",
+    "gemini-3.8-flash-medium": "gemini-3.8-flash",
+    "claude-opus-5-thinking-medium": "claude-opus-5",
+    "grok-4.7-medium": "grok-4.7",
+  };
+  return aliases[raw.trim()] || aliases[id] || id;
+}
+
 export async function fanoutLocalSdk(
   day: string,
-  hour: number,
+  hourOrSlot: number | string,
   opts: {
     fromFixtures?: boolean;
     timeoutMs?: number;
@@ -104,15 +141,26 @@ export async function fanoutLocalSdk(
     if (!process.env.CURSOR_API_KEY && !opts.fromFixtures) {
       console.warn("[fanout] CURSOR_API_KEY unset — using fixture proposals");
     }
-    return copyFixtureProposals(day, hour);
+    return copyFixtureProposals(day, hourOrSlot);
   }
 
-  const roster = readJson<Roster>(rosterPath());
+  const roster = loadRoster();
+  const aids = activeAgentIds(roster);
+  console.log(`[fanout] roster=${rosterPath()} agents=${aids.join(",") || "(none)"}`);
+  if (!aids.length) {
+    throw new Error(`no agents with model_id in roster: ${rosterPath()}`);
+  }
   const [y, m, d] = day.split("-").map(Number);
   const dayDate = new Date(Date.UTC(y!, m! - 1, d!));
-  const asOf = asOfIso(dayDate, hour);
+  const slot = normalizeSlot(hourOrSlot);
+  const { hour, minute } = parseSlot(slot);
+  const asOf = asOfIso(dayDate, hour, minute);
   const root = storeRoot();
-  const timeoutMs = opts.timeoutMs ?? 20 * 60 * 1000;
+  // 30-min cadence: default 20 min fan-out budget
+  const timeoutMs = opts.timeoutMs ?? DEFAULT_FANOUT_TIMEOUT_MS;
+  const startedAt = isoZ();
+  const startedMs = Date.now();
+  console.log(`[fanout] timeout_ms=${timeoutMs} (~${Math.round(timeoutMs / 60000)}m)`);
 
   const sdk = await import("@cursor/sdk");
   const Agent = (sdk as unknown as { Agent: { create: (o: unknown) => Promise<SDKAgent> } }).Agent;
@@ -120,13 +168,21 @@ export async function fanoutLocalSdk(
   const agentsOut: FanoutResult["agents"] = [];
 
   await Promise.all(
-    AGENT_IDS.map(async (aid) => {
-      const modelId = roster.agents[aid]?.model_id;
+    aids.map(async (aid) => {
+      const rawModel = roster.agents[aid]?.model_id || "";
+      const modelId = normalizeModelId(rawModel);
+      const t0 = Date.now();
+      // activeAgentIds already requires model_id; empty after normalize is still a hard skip
       if (!modelId) {
-        agentsOut.push({ agent_id: aid, model_id: "?", status: "no_model" });
+        agentsOut.push({ agent_id: aid, model_id: "?", status: "no_model", duration_ms: 0 });
         return;
       }
-      const prompt = buildPrompt(aid, day, hour);
+      if (rawModel && rawModel !== modelId) {
+        console.warn(`[fanout] ${aid}: normalized model ${rawModel} -> ${modelId}`);
+      }
+      const outPath = hourlyProposalPath(day, hourOrSlot, aid);
+      fs.mkdirSync(path.dirname(outPath), { recursive: true });
+      const prompt = buildPrompt(aid, day, hourOrSlot);
       let agent: SDKAgent | undefined;
       try {
         agent = await Agent.create({
@@ -135,28 +191,28 @@ export async function fanoutLocalSdk(
           local: { cwd: root },
         });
         const run = await agent.send(prompt);
-        await Promise.race([
-          (async () => {
-            if (typeof run.wait === "function") await run.wait();
-            else if (typeof run.stream === "function") {
-              for await (const _ of run.stream()) {
-                /* drain */
-              }
-            }
-          })(),
-          new Promise((_, rej) =>
-            setTimeout(() => rej(new Error("fanout timeout")), timeoutMs),
-          ),
-        ]);
-        const outPath = hourlyProposalPath(day, hour, aid);
-        const status = fs.existsSync(outPath) ? "wrote" : "completed_no_file";
-        agentsOut.push({
-          agent_id: aid,
-          model_id: modelId,
-          status,
-          agentId: agent.agentId,
-          path: outPath,
-        });
+        const capture = await drainSdkRun(run, timeoutMs);
+        const recovered = ensureProposalFile(outPath, aid, day, slot, asOf, capture);
+        if (recovered.ok) {
+          agentsOut.push({
+            agent_id: aid,
+            model_id: modelId,
+            status: recovered.source === "existing" ? "wrote" : `wrote_${recovered.source}`,
+            agentId: agent.agentId,
+            path: outPath,
+            duration_ms: Date.now() - t0,
+          });
+        } else {
+          agentsOut.push({
+            agent_id: aid,
+            model_id: modelId,
+            status: "error",
+            error: recovered.error,
+            agentId: agent.agentId,
+            path: outPath,
+            duration_ms: Date.now() - t0,
+          });
+        }
       } catch (e) {
         agentsOut.push({
           agent_id: aid,
@@ -164,6 +220,7 @@ export async function fanoutLocalSdk(
           status: "error",
           error: e instanceof Error ? e.message : String(e),
           agentId: agent?.agentId,
+          duration_ms: Date.now() - t0,
         });
       } finally {
         try {
@@ -179,10 +236,16 @@ export async function fanoutLocalSdk(
   const result: FanoutResult = {
     as_of: asOf,
     mode: "sdk_local",
+    started_at: startedAt,
+    timeout_ms: timeoutMs,
     agents: agentsOut,
     finished_at: isoZ(),
   };
-  writeJson(path.join(hourlyDir(day, hour), "fanout.json"), result);
+  console.log(
+    `[fanout] done in ${Date.now() - startedMs}ms — ` +
+      agentsOut.map((a) => `${a.agent_id}=${a.status}/${a.duration_ms ?? "?"}ms`).join(" "),
+  );
+  writeJson(path.join(hourlyDir(day, hourOrSlot), "fanout.json"), result);
   return result;
 }
 

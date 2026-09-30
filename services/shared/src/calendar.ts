@@ -85,6 +85,12 @@ export function nextTradingDay(d: Date): Date {
   return cur;
 }
 
+export function previousTradingDay(d: Date): Date {
+  let cur = new Date(d.getTime() - 86400000);
+  while (!isTradingDay(cur)) cur = new Date(cur.getTime() - 86400000);
+  return cur;
+}
+
 /** Mon=0 … Sun=6 matching Python trading_calendar._nth_weekday */
 export function nthWeekdayPython(year: number, month: number, weekday: number, n: number): Date {
   return nthWeekday(year, month, weekday, n);

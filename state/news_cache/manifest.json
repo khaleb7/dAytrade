@@ -1,0 +1,35 @@
+{
+  "updated_at": "2026-09-30T16:30:10.943810Z",
+  "item_count": 3459,
+  "by_source": {
+    "reuters": 1,
+    "yahoo_finance": 2232,
+    "marketwatch": 103,
+    "sec_edgar": 208,
+    "politician_trades": 915
+  },
+  "published_min": "2024-11-20",
+  "published_max": "2026-09-30",
+  "layout": {
+    "items": "items.jsonl",
+    "gaps": "gaps.jsonl",
+    "ingest_log": "ingest_log.jsonl",
+    "fields": [
+      "source",
+      "title",
+      "url",
+      "published",
+      "summary",
+      "ingested_at",
+      "ingest_id"
+    ]
+  },
+  "last_live_ingest": {
+    "ingest_id": "20260930T163001Z",
+    "via": "live_feeds",
+    "items_added": 5,
+    "errors": [
+      "reuters: <urlopen error [Errno 11001] getaddrinfo failed>"
+    ]
+  }
+}

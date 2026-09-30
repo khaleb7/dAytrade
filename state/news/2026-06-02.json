@@ -1,0 +1,408 @@
+{
+  "date": "2026-06-02",
+  "cutoff_utc": "2026-06-02T13:30:00Z",
+  "mode": "cache",
+  "fetched_at": "2026-09-28T00:25:27.123759Z",
+  "source_counts": {
+    "yahoo_finance": 40,
+    "marketwatch": 2,
+    "politician_trades": 12,
+    "reuters": 1,
+    "sec_edgar": 1
+  },
+  "cache_items_scanned": 3212,
+  "items": [
+    {
+      "source": "yahoo_finance",
+      "title": "Tech stocks today : Google stock falls on plans to raise $80 billion , Nvidia CEO blesses Marvell stock",
+      "url": "https://finance.yahoo.com/sectors/technology/live/tech-stocks-today-google-stock-falls-on-plans-to-raise-80-billion-nvidia-ceo-blesses-marvell-stock-100000832.html",
+      "published": "2026-06-02T13:00:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Nebius Is Targeting 540 % Data Center Revenue Growth by Year - End . 2 Reasons the Stock Could Still Be Undervalued .",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/nebius-targeting-540-data-center-121600450.html",
+      "published": "2026-06-02T13:00:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "marketwatch",
+      "title": "Josh Rosenberg on AI , growth strategy and the future of convenience services",
+      "url": "https://www.vendingmarketwatch.com/management/podcast/55381016/josh-rosenberg-on-ai-growth-strategy-and-the-future-of-convenience-services",
+      "published": "2026-06-02T13:00:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "STMicro Raises Data Center Target on AI Demand",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/stmicro-raises-data-center-target-122507059.html",
+      "published": "2026-06-02T12:45:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Gold prices today , Tuesday , June 2 : Prices continue to hover in the $4 , 500 range",
+      "url": "https://finance.yahoo.com/personal-finance/investing/article/gold-prices-today-tuesday-june-2-prices-continue-to-hover-in-the-4500-range-122218314.html",
+      "published": "2026-06-02T12:45:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Marvell Rises After AI Switch Launch",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/marvell-rises-ai-switch-launch-122149145.html",
+      "published": "2026-06-02T12:45:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Blackstone Raises $13 . 1 Billion for Asia Fund",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/blackstone-raises-13-1-billion-122320310.html",
+      "published": "2026-06-02T12:45:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Revolut plans to add 200 jobs in France",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/revolut-plans-add-200-jobs-115829826.html",
+      "published": "2026-06-02T12:30:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Why SoFi Stock Soared 13 % in May",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/why-sofi-stock-soared-13-115715380.html",
+      "published": "2026-06-02T12:30:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "The cybersecurity workers employers want are in short supply",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/cybersecurity-workers-employers-want-short-120007297.html",
+      "published": "2026-06-02T12:30:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Credo Revenue Tripled in FY2026 but Shares Fall",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/credos-revenue-tripled-fy2026-shares-121005677.html",
+      "published": "2026-06-02T12:30:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Nvidia Says Supply Is in Place for AI Demand Growth",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/nvidia-says-supply-place-ai-120613607.html",
+      "published": "2026-06-02T12:30:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "AMD Joins DriveNets Funding Round",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/amd-joins-drivenets-funding-round-120718820.html",
+      "published": "2026-06-02T12:30:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Kingstone Companies , Inc ( KINS ) Stock Forecasts",
+      "url": "https://finance.yahoo.com/research/reports/ARGUS_47201_TopBottomInsiderActivity_1780395804000",
+      "published": "2026-06-02T12:30:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Alphabet plans $80bn equity raise as Berkshire invests $10bn",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/alphabet-plans-80bn-equity-raise-115643423.html",
+      "published": "2026-06-02T12:30:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Danish Crown to cut hundreds of jobs",
+      "url": "https://finance.yahoo.com/sectors/healthcare/articles/danish-crown-cut-hundreds-jobs-120547175.html",
+      "published": "2026-06-02T12:30:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Victoria Secret Q1 2026 earnings beat , raises full - year guidance",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/victorias-secret-q1-2026-earnings-113704350.html",
+      "published": "2026-06-02T12:15:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Gibraltar Industries , Inc . ( ROCK ) Stock Forecasts",
+      "url": "https://finance.yahoo.com/research/reports/ARGUS_47200_InsiderActivity_1780395804000",
+      "published": "2026-06-02T12:15:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Factbox - China carmakers expand their presence in Europe",
+      "url": "https://finance.yahoo.com/news/factbox-chinas-carmakers-expand-presence-112507521.html",
+      "published": "2026-06-02T12:15:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Scripbox buys Bluechip Capital mutual fund arm in India",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/scripbox-buys-bluechip-capital-mutual-114942179.html",
+      "published": "2026-06-02T12:15:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Developers win deals for $3 . 5bn of Mecca projects",
+      "url": "https://finance.yahoo.com/economy/policy/articles/developers-win-deals-3-5bn-114803527.html",
+      "published": "2026-06-02T12:15:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Alaska Airlines is opening the largest lounge in America . Here how much youll need to spend to enjoy its premium fare",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/alaska-airlines-opening-largest-lounge-113500234.html",
+      "published": "2026-06-02T12:00:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Dollar in tight range as traders eye Middle East , US data",
+      "url": "https://finance.yahoo.com/news/dollar-steady-traders-await-progress-005211265.html",
+      "published": "2026-06-02T12:00:00Z",
+      "summary": "English"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "My mom is on Social Security and needs assisted living, but can't afford any non-Medicaid options. What else can we do?",
+      "url": "https://finance.yahoo.com/sectors/healthcare/articles/mom-social-security-needs-assisted-113500915.html",
+      "published": "2026-06-02T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "3 Dividend Stocks to Buy and Hold Forever",
+      "url": "https://finance.yahoo.com/sectors/healthcare/articles/3-dividend-stocks-buy-hold-072000717.html",
+      "published": "2026-06-02T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Luxury brands seek to lure America's AI super-rich",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/luxury-brands-seek-lure-americas-040653983.html",
+      "published": "2026-06-02T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "SK Hynix plans to double wafer capacity in next five years, group chairman says",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/sk-hynix-plans-double-wafer-071536085.html",
+      "published": "2026-06-02T08:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Virginia Foxx (NC05) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034670.pdf",
+      "published": "2026-06-02T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Virginia Foxx, NC05, filing date 6/2/2026, DocID 20034670. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Kevin Hern (OK01) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034695.pdf",
+      "published": "2026-06-02T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Kevin Hern, OK01, filing date 6/2/2026, DocID 20034695. Official House Clerk disclosure."
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Intuitive Surgical Stock: Is ISRG Underperforming the Healthcare Sector?",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/intuitive-surgical-stock-isrg-underperforming-155629726.html",
+      "published": "2026-06-02T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Is RTX Corporation Stock Outperforming the Dow?",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/rtx-corporation-stock-outperforming-dow-154901572.html",
+      "published": "2026-06-02T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Mixed or Offshore Upstream E&P Stocks Q1 Results: Benchmarking Tidewater (NYSE:TDW)",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/mixed-offshore-upstream-e-p-233651249.html",
+      "published": "2026-06-02T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Is Uber Technologies Stock Underperforming the Dow?",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/uber-technologies-stock-underperforming-dow-155827005.html",
+      "published": "2026-06-02T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "How Is Union Pacific's Stock Performance Compared to Other Transportation Stocks?",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/union-pacific-stock-performance-compared-155256098.html",
+      "published": "2026-06-02T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Why a Wealth Manager Made a $3 Million Bet on a 6.4% Yielding Senior Loan ETF",
+      "url": "https://finance.yahoo.com/markets/options/articles/why-wealth-manager-made-3-232734459.html",
+      "published": "2026-06-02T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Industrial Packaging Stocks Q1 Earnings Review: Graphic Packaging Holding (NYSE:GPK) Shines",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/industrial-packaging-stocks-q1-earnings-232851342.html",
+      "published": "2026-06-02T00:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Is Western Digital (WDC) One of the Best Future Tech Stocks to Buy According to Billionaires?",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/western-digital-wdc-one-best-112258900.html",
+      "published": "2026-06-01T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Ukraine's MHP buys majority stake in poultry producer Nitsiakos",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/ukraine-mhp-buys-majority-stake-113411332.html",
+      "published": "2026-06-01T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Petra Diamonds initiates Finsch rescue amid market downturn",
+      "url": "https://finance.yahoo.com/markets/commodities/articles/petra-diamonds-initiates-finsch-rescue-111947866.html",
+      "published": "2026-06-01T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Berkshire Hathaway acquires Taylor Morrison for $8.5 billion",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/berkshire-hathaway-acquires-taylor-morrison-111312698.html",
+      "published": "2026-06-01T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Palo Alto Networks (PANW) Completes Acquisition of AI Gateway Provider Portkey",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/palo-alto-networks-panw-completes-112329938.html",
+      "published": "2026-06-01T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Why IEF's Next 12 Months Hinge on One Inflation Number",
+      "url": "https://finance.yahoo.com/economy/policy/articles/why-ief-next-12-months-111843346.html",
+      "published": "2026-06-01T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "3 More Things I Learned from the SpaceX IPO Prospectus",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/3-more-things-learned-spacex-112700655.html",
+      "published": "2026-06-01T12:00:00Z",
+      "summary": ""
+    },
+    {
+      "source": "reuters",
+      "title": "Futures steady ahead of open",
+      "url": "https://example.com/reuters/1",
+      "published": "2026-06-01T10:00:00Z",
+      "summary": "US equity futures little changed pre-market."
+    },
+    {
+      "source": "marketwatch",
+      "title": "Bond yields ease overnight",
+      "url": "https://example.com/mw/1",
+      "published": "2026-06-01T08:30:00Z",
+      "summary": "Treasuries bid; risk assets calm."
+    },
+    {
+      "source": "sec_edgar",
+      "title": "8-K: sample issuer announces routine update",
+      "url": "https://www.sec.gov/example",
+      "published": "2026-06-01T07:00:00Z",
+      "summary": "Material event filing (fixture)."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Christian D. Menefee (TX18) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034099.pdf",
+      "published": "2026-06-01T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Christian D. Menefee, TX18, filing date 6/1/2026, DocID 20034099. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Daniel Webster (FL11) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034562.pdf",
+      "published": "2026-06-01T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Daniel Webster, FL11, filing date 6/1/2026, DocID 20034562. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Ed Case (HI01) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034668.pdf",
+      "published": "2026-05-31T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Ed Case, HI01, filing date 5/31/2026, DocID 20034668. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Max Miller (OH07) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034651.pdf",
+      "published": "2026-05-29T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Max Miller, OH07, filing date 5/29/2026, DocID 20034651. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. David J. Taylor (OH02) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034650.pdf",
+      "published": "2026-05-28T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. David J. Taylor, OH02, filing date 5/28/2026, DocID 20034650. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Jonathan Jackson (IL01) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034519.pdf",
+      "published": "2026-05-27T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Jonathan Jackson, IL01, filing date 5/27/2026, DocID 20034519. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Suzan K. DelBene (WA01) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034615.pdf",
+      "published": "2026-05-26T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Suzan K. DelBene, WA01, filing date 5/26/2026, DocID 20034615. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Jake Auchincloss (MA04) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034622.pdf",
+      "published": "2026-05-22T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Jake Auchincloss, MA04, filing date 5/22/2026, DocID 20034622. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Thomas H. Kean Jr (NJ07) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034616.pdf",
+      "published": "2026-05-22T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Thomas H. Kean Jr, NJ07, filing date 5/22/2026, DocID 20034616. Official House Clerk disclosure."
+    },
+    {
+      "source": "politician_trades",
+      "title": "House PTR: Hon. Daniel Meuser (PA09) filed periodic transaction report",
+      "url": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034547.pdf",
+      "published": "2026-05-21T04:00:00Z",
+      "summary": "STOCK Act Periodic Transaction Report \u2014 Hon. Daniel Meuser, PA09, filing date 5/21/2026, DocID 20034547. Official House Clerk disclosure."
+    }
+  ]
+}

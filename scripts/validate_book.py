@@ -1,6 +1,7 @@
-"""Validate consensus orders against shared book caps (15% / 35% / 6).
+"""Validate proposal orders against shared book caps (8% / 45% / 7).
 
 Whole-batch reject on any failure — no partial submit.
+Single-agent (A1) medium-aggressive profile; shared caps match roster.
 """
 from __future__ import annotations
 
@@ -11,12 +12,18 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from paths import BOOK_PORTFOLIO
-from validate_batch import TICKER_RE, equity_at_prices, positions_map, simulate_fills
+from validate_batch import (
+    TICKER_RE,
+    equity_at_prices,
+    is_signal_only_symbol,
+    positions_map,
+    simulate_fills,
+)
 
-# Shared book caps (balanced-tier defaults for the single Alpaca account)
-CASH_FLOOR_PCT = 15.0
-MAX_SINGLE_NAME_PCT = 35.0
-MAX_POSITIONS = 6
+# Shared book caps — medium-aggressive (aligned with A1 roster)
+CASH_FLOOR_PCT = 8.0
+MAX_SINGLE_NAME_PCT = 45.0
+MAX_POSITIONS = 7
 
 
 def load_json(path: Path) -> Any:
@@ -116,6 +123,11 @@ def validate_book(
             continue
         if not isinstance(symbol, str) or not TICKER_RE.match(symbol.upper()):
             errors.append(f"orders[{i}]: invalid symbol {symbol!r}")
+            continue
+        if is_signal_only_symbol(str(symbol)):
+            errors.append(
+                f"orders[{i}]: {symbol} is signal-only / non-tradeable (VIX/vol products and futures blocked)"
+            )
             continue
         entry: Dict[str, Any] = {"side": side, "symbol": symbol.upper()}
         if side == "buy":
