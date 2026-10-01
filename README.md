@@ -5,7 +5,7 @@ Three Linux containers on Kubernetes. Newstracker is the only writer of the news
 | App | What it does | How it runs |
 | --- | --- | --- |
 | [Newstracker](apps/newstracker/README.md) | Polls RSS, SEC EDGAR, and Alpaca minute and daily bars into SQLite | Always-on Deployment |
-| [Daytrader](apps/daytrader/README.md) | Paper growth sleeve, 45% QQQ and 40% VTI, on NYSE half-hours. A down close does not sell. The Cursor agent can veto. Live submits wait until 20 sessions are scored against doing nothing | CronJob |
+| [Daytrader](apps/daytrader/README.md) | Paper growth sleeve, 45% QQQ and 40% VTI, on NYSE half-hours. A down close does not sell. Through 2026-10-02 the CronJob instead runs a scalp of the Newstracker watchlist. The Cursor agent can veto the sleeve. Sleeve submits wait until 20 sessions are scored against doing nothing | CronJob |
 | [SouperMarket](apps/soupermarket/README.md) | Entertainment only. Daily paper, Souper Intelligence, with three commentaries. It does not place or suggest orders | Always-on Deployment |
 
 Alpaca trading stays on the paper API. Secrets stay out of the repo and come from the `daytrade-secrets` Secret.

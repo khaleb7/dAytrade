@@ -23,6 +23,10 @@ The CronJob schedule is `0,30 9-16 * * 1-5` in `America/New_York`, with `concurr
 
 The agent wait defaults to 20 minutes (`DAYTRADE_PROPOSAL_WAIT_MINUTES`).
 
+## Scalp, through 2026-10-02
+
+`DAYTRADE_MODE=scalp` replaces the sleeve on sessions on or before `DAYTRADE_SCALP_UNTIL` (default `2026-10-02`). The sleeve code stays in place and runs again on the next session. The scalp buys from the Newstracker watchlist except the shares already held when the mode starts (the reserved VTI lot). A name qualifies when its last print is above both the session open and the prior close. Headlines that mention the ticker are preferred when more names qualify than there are free slots. The book still caps at 7 positions and an 8% cash floor. Buys are notional. After the fill, a day limit sell rests at 1% above the fill. The 16:00 ET fire sells any experiment lot whose mark is at or above its average cost, and leaves a loser with a GTC limit at that same 1% price. The agent veto and the 20-session gate are not used. Ticks append to `DAYTRADE_SCALP_SCOREBOARD` (`/data/scoreboard-scalp.json`), so these sessions do not unlock sleeve submits.
+
 ## Environment
 
 | Name | Default |
@@ -38,6 +42,10 @@ The agent wait defaults to 20 minutes (`DAYTRADE_PROPOSAL_WAIT_MINUTES`).
 | `DAYTRADE_GAP_CUT` | `0` (off; a positive fraction sells a held name down at least that far from the prior close) |
 | `DAYTRADE_SPREAD_BPS` | `5` |
 | `DAYTRADE_MIN_SCORED_SESSIONS` | `20` |
+| `DAYTRADE_MODE` | unset; `scalp` runs the watchlist experiment through `DAYTRADE_SCALP_UNTIL` |
+| `DAYTRADE_SCALP_UNTIL` | `2026-10-02` |
+| `DAYTRADE_SCALP_SCOREBOARD` | `/data/scoreboard-scalp.json` |
+| `DAYTRADE_SCALP_RESERVE` | `/data/scalp-reserve.json` |
 | `APCA_API_KEY_ID` | required to reconcile and submit |
 | `APCA_API_SECRET_KEY` | required to reconcile and submit |
 | `APCA_API_BASE_URL` | `https://paper-api.alpaca.markets` |
