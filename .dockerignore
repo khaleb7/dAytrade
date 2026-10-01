@@ -1,0 +1,6 @@
+.git
+state
+**/node_modules
+**/dist
+**/*.db
+**/*.db-*

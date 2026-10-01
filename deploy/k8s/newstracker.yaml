@@ -1,0 +1,102 @@
+# Build from the repo root:
+#   docker build -f apps/newstracker/Dockerfile -t newstracker:latest .
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: newstracker-data
+  namespace: daytrade
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: newstracker
+  namespace: daytrade
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: newstracker
+  template:
+    metadata:
+      labels:
+        app: newstracker
+    spec:
+      # The Service named newstracker injects NEWSTRACKER_PORT=tcp://<ip>:8080.
+      # The process reads that name as its listen port.
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        fsGroup: 65532
+      containers:
+        - name: newstracker
+          image: newstracker:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: NEWSTRACKER_PORT
+              value: "8080"
+            - name: NEWSTRACKER_DB
+              value: /data/newstracker.db
+            - name: APCA_API_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: daytrade-secrets
+                  key: APCA_API_KEY_ID
+            - name: APCA_API_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: daytrade-secrets
+                  key: APCA_API_SECRET_KEY
+            - name: DAYTRADE_DISCORD_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: daytrade-secrets
+                  key: DAYTRADE_DISCORD_WEBHOOK_URL
+                  optional: true
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 3
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              memory: 512Mi
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: newstracker-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: newstracker
+  namespace: daytrade
+spec:
+  selector:
+    app: newstracker
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http

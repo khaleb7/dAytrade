@@ -25,10 +25,12 @@ Thumbs.db
 scripts/**/*.log
 state/scheduler/status.json
 
-# Node (services workspaces)
+# Node (services workspaces and the Daytrader image)
 services/**/node_modules/
 services/node_modules/
 services/**/dist/
+apps/**/node_modules/
+apps/**/dist/
 
 # Large append-only cache (optional local; rebuild via ingest)
 state/news_cache/items.jsonl

@@ -1,0 +1,106 @@
+# Build from the repo root:
+#   docker build -f apps/soupermarket/Dockerfile -t soupermarket:latest .
+# The site serves filed editions. A new edition is written after 17:00 America/New_York.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: soupermarket-data
+  namespace: daytrade
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: soupermarket
+  namespace: daytrade
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: soupermarket
+  template:
+    metadata:
+      labels:
+        app: soupermarket
+    spec:
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        fsGroup: 65532
+      containers:
+        - name: soupermarket
+          image: soupermarket:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: SOUPER_DB
+              value: /data/souper.db
+            - name: NEWSTRACKER_URL
+              value: http://newstracker.daytrade.svc.cluster.local:8080
+            - name: SOUPER_PUBLISH_HOUR_ET
+              value: "17"
+            - name: SOUPER_WORK
+              value: /work
+            - name: SOUPER_MODEL
+              value: composer-2.5
+            - name: CURSOR_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: daytrade-secrets
+                  key: CURSOR_API_KEY
+            - name: DAYTRADE_DISCORD_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: daytrade-secrets
+                  key: DAYTRADE_DISCORD_WEBHOOK_URL
+                  optional: true
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 3
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: work
+              mountPath: /work
+          resources:
+            requests:
+              cpu: 100m
+              memory: 512Mi
+            limits:
+              memory: 2Gi
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: soupermarket-data
+        - name: work
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: soupermarket
+  namespace: daytrade
+spec:
+  selector:
+    app: soupermarket
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http

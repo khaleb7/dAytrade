@@ -1,0 +1,75 @@
+# Build from the repo root:
+#   docker build -f apps/daytrader/Dockerfile -t daytrader:latest .
+# Fires every 30 minutes from 09:00–16:30 ET on weekdays.
+# The process exits 0 unless the wall clock is an NYSE RTH tick (09:30–15:30).
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: daytrader
+  namespace: daytrade
+spec:
+  schedule: "0,30 9-16 * * 1-5"
+  timeZone: America/New_York
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      activeDeadlineSeconds: 1500
+      template:
+        spec:
+          restartPolicy: Never
+          enableServiceLinks: false
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65532
+            fsGroup: 65532
+          containers:
+            - name: daytrader
+              image: daytrader:latest
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: NEWSTRACKER_URL
+                  value: http://newstracker.daytrade.svc.cluster.local:8080
+                - name: DAYTRADE_WORK
+                  value: /work
+                - name: DAYTRADE_MODEL
+                  value: grok-4.7
+                - name: DAYTRADE_PROPOSAL_WAIT_MINUTES
+                  value: "20"
+                - name: APCA_API_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: daytrade-secrets
+                      key: APCA_API_KEY_ID
+                - name: APCA_API_SECRET_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: daytrade-secrets
+                      key: APCA_API_SECRET_KEY
+                - name: CURSOR_API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: daytrade-secrets
+                      key: CURSOR_API_KEY
+                - name: DAYTRADE_DISCORD_WEBHOOK_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: daytrade-secrets
+                      key: DAYTRADE_DISCORD_WEBHOOK_URL
+                      optional: true
+                - name: APCA_API_BASE_URL
+                  value: https://paper-api.alpaca.markets
+              volumeMounts:
+                - name: work
+                  mountPath: /work
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 256Mi
+                limits:
+                  memory: 2Gi
+          volumes:
+            - name: work
+              emptyDir: {}
