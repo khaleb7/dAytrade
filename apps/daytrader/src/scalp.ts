@@ -21,7 +21,10 @@ export const SCALP_WATCHLIST = [
 
 const CASH_FLOOR = 0.08;
 const MAX_POSITIONS = 7;
+const MAX_NEW_PER_TICK = 2;
+const CLIP = 0.15;
 const TAKE_PROFIT = 1.01;
+const STOP = 0.995;
 
 export interface ScalpPick {
   symbol: string;
@@ -29,11 +32,15 @@ export interface ScalpPick {
   headlined: boolean;
 }
 
-export function scalpActive(session: string): boolean {
-  const mode = (process.env.DAYTRADE_MODE || "").trim().toLowerCase();
-  if (mode !== "scalp") return false;
-  const until = (process.env.DAYTRADE_SCALP_UNTIL || "2026-10-02").trim() || "2026-10-02";
-  return session <= until;
+/** Scalp is the daytrade. The QQQ/VTI sleeve runs only when DAYTRADE_MODE is not scalp. */
+export function scalpActive(_session?: string): boolean {
+  return (process.env.DAYTRADE_MODE || "").trim().toLowerCase() === "scalp";
+}
+
+/** 09:30 and 10:00 are the opening rush. New buys start at 10:30. */
+export function scalpEntriesOpen(hour: number, minute: number): boolean {
+  if (hour > 10) return true;
+  return hour === 10 && minute >= 30;
 }
 
 export function armScalpScoreboard(): void {
@@ -107,21 +114,25 @@ export function selectScalpBuys(
     if (a.headlined !== b.headlined) return a.headlined ? -1 : 1;
     return b.gain - a.gain;
   });
-  return picks.slice(0, slots);
+  return picks.slice(0, Math.min(slots, MAX_NEW_PER_TICK));
 }
 
 export function scalpSlots(positionCount: number): number {
   return Math.max(0, MAX_POSITIONS - positionCount);
 }
 
-/** Equal slices of the cash above the 8% floor. Pennies left over stay in cash. */
+/** Fixed clip, 15% of equity, and only as many as the cash floor allows. The rest of the cash stays for later ticks. */
 export function scalpNotionals(cash: number, equity: number, count: number): number[] {
   if (count <= 0 || !(equity > 0)) return [];
-  const deploy = cash - CASH_FLOOR * equity;
-  if (!(deploy >= 1)) return [];
-  const each = Math.floor((deploy / count) * 100) / 100;
-  if (each < 1) return [];
-  return Array.from({ length: count }, () => each);
+  const clip = Math.floor(equity * CLIP * 100) / 100;
+  let left = cash - CASH_FLOOR * equity;
+  if (!(clip >= 1) || !(left >= clip)) return [];
+  const notionals: number[] = [];
+  for (let i = 0; i < count && left >= clip; i++) {
+    notionals.push(clip);
+    left -= clip;
+  }
+  return notionals;
 }
 
 export function scalpBuyOrders(picks: ScalpPick[], cash: number, equity: number): Order[] {
@@ -131,6 +142,28 @@ export function scalpBuyOrders(picks: ScalpPick[], cash: number, equity: number)
     orders.push({ side: "buy", symbol: picks[i].symbol, notional_usd: notionals[i] });
   }
   return orders;
+}
+
+export interface StopPlan {
+  symbol: string;
+  qty: number;
+}
+
+/** A scalp down 0.5% from its average cost is closed so that cash can take a later setup. */
+export function stopPlans(
+  positions: Position[],
+  reserved: Record<string, number>,
+  marks: Record<string, number>,
+): StopPlan[] {
+  const plans: StopPlan[] = [];
+  for (const position of positions) {
+    const qty = experimentQty(position, reserved);
+    if (!(qty > 1e-8) || !(position.avg_cost > 0)) continue;
+    const mark = marks[position.symbol] ?? position.mark_price;
+    if (!(mark > 0) || mark > position.avg_cost * STOP) continue;
+    plans.push({ symbol: position.symbol, qty });
+  }
+  return plans;
 }
 
 export interface FlattenPlan {

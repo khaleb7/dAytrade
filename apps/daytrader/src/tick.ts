@@ -18,8 +18,10 @@ import {
   restLimit,
   scalpActive,
   scalpBuyOrders,
+  scalpEntriesOpen,
   scalpSlots,
   selectScalpBuys,
+  stopPlans,
 } from "./scalp.js";
 import { minScoredSessions, recordTick, scorePending, scoredSessions } from "./scoreboard.js";
 import { fetchContext } from "./tracker.js";
@@ -52,7 +54,7 @@ function positionMarks(book: Book, quotes: Quote[]): Record<string, number> {
   return marksFrom(quotes, marks);
 }
 
-/** 16:00 ET flatten. Winners are sold. Losers keep a GTC limit 1% above cost. */
+/** 15:55 ET flatten, while the regular session is still open. Green lots that have not reached +1% are sold. Losers keep a GTC limit 1% above cost. */
 async function runScalpClose(env: TickEnv, day: Date, snapped: { hour: number; minute: number }): Promise<number> {
   armScalpScoreboard();
   const slot = slotKey(snapped.hour, snapped.minute);
@@ -110,8 +112,9 @@ async function runScalpClose(env: TickEnv, day: Date, snapped: { hour: number; m
           lines.push(`gtc ${plan.symbol} @ ${plan.limit} id=${id}`);
         } catch (err) {
           const message = err instanceof Error ? err.message : String(err);
-          lines.push(`gtc ${plan.symbol} failed: ${message}`);
           console.error(`[daytrader] gtc failed ${plan.symbol}: ${message}`);
+          const id = await restLimit(plan.symbol, plan.qty, plan.limit, "day");
+          lines.push(`gtc ${plan.symbol} failed; day limit ${plan.limit} id=${id}`);
         }
       }
     } catch (err) {
@@ -140,9 +143,15 @@ async function runScalpSession(
   const slot = slotKey(snapped.hour, snapped.minute);
   const reserved = loadReserve(book.positions);
   const held = new Set(book.positions.filter((p) => p.qty > 0).map((p) => p.symbol.toUpperCase()));
-  const picks = selectScalpBuys(quotes, articles, held, scalpSlots(held.size));
-  const orders = scalpBuyOrders(picks, book.cash_usd, book.equity_usd);
-  const reason = describePicks(picks);
+  const stops = stopPlans(book.positions, reserved, marks);
+  const entriesOpen = scalpEntriesOpen(snapped.hour, snapped.minute);
+  const picks = entriesOpen ? selectScalpBuys(quotes, articles, held, scalpSlots(held.size)) : [];
+  const buys = scalpBuyOrders(picks, book.cash_usd, book.equity_usd);
+  const orders: Order[] = [
+    ...stops.map((plan) => ({ side: "sell" as const, symbol: plan.symbol, qty: plan.qty })),
+    ...buys,
+  ];
+  const reason = entriesOpen ? describePicks(picks) : "no new buys before 10:30 ET";
   console.log(`[daytrader] scalp ${reason} orders=${orders.length}`);
   const verdict = validateOrders(orders, book, marks);
   const accepted = verdict.ok ? (verdict.hold ? [] : orders) : [];
@@ -155,7 +164,7 @@ async function runScalpSession(
     positions: book.positions.filter((p) => p.qty > 0).map((p) => ({ symbol: p.symbol, qty: p.qty })),
     marks,
     orders: accepted,
-    rule_notes: [reason],
+    rule_notes: [reason, ...stops.map((plan) => `stop ${plan.symbol}`)],
     agent_decision: "scalp",
     agent_reason: reason,
     dry_run: env.dryRun || !verdict.ok,
@@ -183,7 +192,12 @@ async function runScalpSession(
   }
   for (const order of accepted) {
     try {
-      lines.push(await buyThenLimit(order));
+      if (order.side === "sell") {
+        const id = await marketSellExperiment(order.symbol, order.qty);
+        lines.push(`stop ${order.symbol} id=${id}`);
+      } else {
+        lines.push(await buyThenLimit(order));
+      }
     } catch (err) {
       failed += 1;
       const message = err instanceof Error ? err.message : String(err);
@@ -204,8 +218,8 @@ export async function runTick(env: TickEnv): Promise<number> {
   if (
     scalpActive(session) &&
     snapped &&
-    snapped.hour === 16 &&
-    snapped.minute === 0 &&
+    snapped.hour === 15 &&
+    snapped.minute === 55 &&
     isTradingDay(et.day)
   ) {
     return runScalpClose(env, et.day, snapped);

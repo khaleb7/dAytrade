@@ -1,16 +1,18 @@
 # Daytrader
 
-One CronJob tick. It reads Newstracker and the Alpaca paper account, builds a pre-declared order batch, and lets a local Cursor agent accept or reject that batch. Caps still apply. Sells only close or reduce a position. The agent does not add symbols.
+One CronJob tick. With `DAYTRADE_MODE=scalp` it day-trades the Newstracker watchlist. Without that mode it builds the 45% QQQ / 40% VTI sleeve and lets a local Cursor agent accept or reject that batch. Caps still apply. Sells only close or reduce a position. The agent does not add symbols.
 
 The image is a Node 22 build followed by `gcr.io/distroless/nodejs22-debian12`. The entrypoint is `/nodejs/bin/node dist/cli.js`. The agent writes under `DAYTRADE_WORK` (an emptyDir at `/work` in the cluster).
 
 ## When it trades
 
-The CronJob schedule is `0,30 9-16 * * 1-5` in `America/New_York`, with `concurrencyPolicy: Forbid`. The process exits 0 unless the clock is an NYSE regular-session tick from 09:30 through 15:30, snapped to `:00` or `:30`. Weekends, the holiday list in `src/calendar.ts`, and the 09:00 and 16:00 fires exit 0. The first live tick of a session is 09:30.
+The CronJob schedule is `0,30,55 9-15 * * 1-5` in `America/New_York`, with `concurrencyPolicy: Forbid`. The process exits 0 unless the clock is an NYSE regular-session tick from 09:30 through 15:30, snapped to `:00` or `:30`. Weekends, the holiday list in `src/calendar.ts`, and the 09:00 and `:55` fires other than the scalp close exit 0. The first live tick of a session is 09:30.
 
 `activeDeadlineSeconds` is 1500. `backoffLimit` is 1.
 
-## Tick
+## Sleeve tick
+
+This path runs when `DAYTRADE_MODE` is not `scalp`.
 
 1. `GET` Newstracker `/v1/context` at the tick cutoff, with `since` set to the previous tick. Articles in the pack were published inside that window.
 2. `GET` Alpaca paper `/v2/account` and `/v2/positions`. Market data stays on Newstracker; this process does not call `data.alpaca.markets`.
@@ -23,9 +25,9 @@ The CronJob schedule is `0,30 9-16 * * 1-5` in `America/New_York`, with `concurr
 
 The agent wait defaults to 20 minutes (`DAYTRADE_PROPOSAL_WAIT_MINUTES`).
 
-## Scalp, through 2026-10-02
+## Scalp
 
-`DAYTRADE_MODE=scalp` replaces the sleeve on sessions on or before `DAYTRADE_SCALP_UNTIL` (default `2026-10-02`). The sleeve code stays in place and runs again on the next session. The scalp buys from the Newstracker watchlist except the shares already held when the mode starts (the reserved VTI lot). A name qualifies when its last print is above both the session open and the prior close. Headlines that mention the ticker are preferred when more names qualify than there are free slots. The book still caps at 7 positions and an 8% cash floor. Buys are notional. After the fill, a day limit sell rests at 1% above the fill. The 16:00 ET fire sells any experiment lot whose mark is at or above its average cost, and leaves a loser with a GTC limit at that same 1% price. The agent veto and the 20-session gate are not used. Ticks append to `DAYTRADE_SCALP_SCOREBOARD` (`/data/scoreboard-scalp.json`), so these sessions do not unlock sleeve submits.
+`DAYTRADE_MODE=scalp` is the daytrade. The 45% QQQ / 40% VTI sleeve remains in the code for a buy-and-stay book and runs only when that mode is unset. The scalp buys from the Newstracker watchlist except the shares already held when the mode starts (the reserved VTI lot). New buys start at 10:30 ET, after the opening rush. A name qualifies when its last print is above both the session open and the prior close. At most two new names are taken on a tick, headlines first, and each buy is 15% of equity so later ticks still have cash. A scalp down 0.5% from its average cost is sold on the next tick. After a fill, a day limit sell rests at 1% above the fill. The 15:55 ET fire sells any scalp whose mark is still at or above its average cost. The agent veto and the 20-session gate are not used. Ticks append to `DAYTRADE_SCALP_SCOREBOARD` (`/data/scoreboard-scalp.json`).
 
 ## Environment
 
@@ -42,8 +44,7 @@ The agent wait defaults to 20 minutes (`DAYTRADE_PROPOSAL_WAIT_MINUTES`).
 | `DAYTRADE_GAP_CUT` | `0` (off; a positive fraction sells a held name down at least that far from the prior close) |
 | `DAYTRADE_SPREAD_BPS` | `5` |
 | `DAYTRADE_MIN_SCORED_SESSIONS` | `20` |
-| `DAYTRADE_MODE` | unset; `scalp` runs the watchlist experiment through `DAYTRADE_SCALP_UNTIL` |
-| `DAYTRADE_SCALP_UNTIL` | `2026-10-02` |
+| `DAYTRADE_MODE` | unset runs the QQQ/VTI sleeve; `scalp` is the daytrade |
 | `DAYTRADE_SCALP_SCOREBOARD` | `/data/scoreboard-scalp.json` |
 | `DAYTRADE_SCALP_RESERVE` | `/data/scalp-reserve.json` |
 | `APCA_API_KEY_ID` | required to reconcile and submit |
