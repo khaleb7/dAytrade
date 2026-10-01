@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import type { Order, Proposal } from "./types.js";
+import type { Verdict } from "./types.js";
 
 export type StreamCapture = {
   text: string;
@@ -36,10 +36,10 @@ export function absorbStreamEvent(ev: unknown, cap: StreamCapture): void {
   }
 }
 
-function looksLikeProposal(obj: unknown): obj is Record<string, unknown> {
+function looksLikeVerdict(obj: unknown): obj is Record<string, unknown> {
   const o = asRecord(obj);
   if (!o) return false;
-  return typeof o.agent_id === "string" && Array.isArray(o.orders) && typeof o.thesis === "string";
+  return o.decision === "accept" || o.decision === "reject";
 }
 
 export function extractProposalJson(text: string): Record<string, unknown> | null {
@@ -50,7 +50,7 @@ export function extractProposalJson(text: string): Record<string, unknown> | nul
   while ((m = fenceRe.exec(trimmed))) {
     try {
       const parsed = JSON.parse(m[1]!.trim()) as unknown;
-      if (looksLikeProposal(parsed)) return parsed;
+      if (looksLikeVerdict(parsed)) return parsed;
     } catch {
       /* next fence */
     }
@@ -67,10 +67,10 @@ export function extractProposalJson(text: string): Record<string, unknown> | nul
         depth--;
         if (depth === 0) {
           const slice = trimmed.slice(start, i + 1);
-          if (!slice.includes('"orders"')) break;
+          if (!slice.includes('"decision"')) break;
           try {
             const parsed = JSON.parse(slice) as unknown;
-            if (looksLikeProposal(parsed)) return parsed;
+            if (looksLikeVerdict(parsed)) return parsed;
           } catch {
             break;
           }
@@ -81,46 +81,31 @@ export function extractProposalJson(text: string): Record<string, unknown> | nul
   return null;
 }
 
-function normalizeOrders(raw: unknown): Order[] {
-  if (!Array.isArray(raw)) return [];
-  const orders: Order[] = [];
-  for (const item of raw) {
-    const o = asRecord(item);
-    if (!o) continue;
-    const side = String(o.side || "").toLowerCase();
-    const symbol = String(o.symbol || "").toUpperCase();
-    if (!symbol) continue;
-    if (side === "buy") {
-      orders.push({ side: "buy", symbol, notional_usd: Number(o.notional_usd) });
-    } else if (side === "sell") {
-      orders.push({ side: "sell", symbol, qty: Number(o.qty) });
-    }
-  }
-  return orders;
-}
-
-export function toProposal(raw: Record<string, unknown>, asOf: string): Proposal {
+export function toVerdict(raw: Record<string, unknown>, asOf: string): Verdict {
+  const decision = raw.decision === "reject" ? "reject" : "accept";
+  const thesis =
+    typeof raw.reason === "string" ? raw.reason : typeof raw.thesis === "string" ? raw.thesis : "";
   return {
     agent_id: "A1",
     as_of: typeof raw.as_of === "string" && raw.as_of ? raw.as_of : asOf,
-    orders: normalizeOrders(raw.orders),
-    thesis: typeof raw.thesis === "string" ? raw.thesis : "",
+    decision,
+    thesis,
   };
 }
 
-export function readProposalFile(filePath: string, asOf: string): Proposal | null {
+export function readProposalFile(filePath: string, asOf: string): Verdict | null {
   if (!fs.existsSync(filePath)) return null;
   try {
     const parsed = JSON.parse(fs.readFileSync(filePath, "utf8")) as unknown;
-    if (!looksLikeProposal(parsed)) return null;
-    return toProposal(parsed, asOf);
+    if (!looksLikeVerdict(parsed)) return null;
+    return toVerdict(parsed, asOf);
   } catch {
     return null;
   }
 }
 
 /** Prefer a file the agent wrote, then a write-tool payload, then JSON in the stream. */
-export function recoverProposal(workDir: string, asOf: string, capture: StreamCapture): Proposal | null {
+export function recoverProposal(workDir: string, asOf: string, capture: StreamCapture): Verdict | null {
   const canonical = path.join(workDir, "A1.json");
   const existing = readProposalFile(canonical, asOf);
   if (existing) return existing;
@@ -128,10 +113,10 @@ export function recoverProposal(workDir: string, asOf: string, capture: StreamCa
     if (!w.path.replace(/\\/g, "/").endsWith("A1.json")) continue;
     try {
       const parsed = JSON.parse(w.fileText) as unknown;
-      if (!looksLikeProposal(parsed)) continue;
+      if (!looksLikeVerdict(parsed)) continue;
       fs.mkdirSync(workDir, { recursive: true });
       fs.writeFileSync(canonical, JSON.stringify(parsed, null, 2));
-      return toProposal(parsed, asOf);
+      return toVerdict(parsed, asOf);
     } catch {
       /* try the next write */
     }
@@ -140,5 +125,5 @@ export function recoverProposal(workDir: string, asOf: string, capture: StreamCa
   if (!fromText) return null;
   fs.mkdirSync(workDir, { recursive: true });
   fs.writeFileSync(canonical, JSON.stringify(fromText, null, 2));
-  return toProposal(fromText, asOf);
+  return toVerdict(fromText, asOf);
 }

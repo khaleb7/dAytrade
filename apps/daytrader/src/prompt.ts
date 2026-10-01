@@ -1,13 +1,16 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import type { Book, TrackerContext } from "./types.js";
+import type { Book, Order, TrackerContext } from "./types.js";
 
 export function buildPrompt(opts: {
   promptsDir: string;
   asOf: string;
   cutoffUtc: string;
+  sinceUtc: string;
   book: Book;
   context: TrackerContext;
+  orders: Order[];
+  ruleNotes: string[];
   workDir: string;
 }): string {
   const system = fs.readFileSync(path.join(opts.promptsDir, "agent_system.md"), "utf8");
@@ -17,25 +20,34 @@ export function buildPrompt(opts: {
 
 ${a1}
 
-# Hourly input pack — ${opts.asOf}
+# Tick pack — ${opts.asOf}
 
-You propose orders for the shared Alpaca paper book. Valid orders are submitted after cap checks. Empty orders are a hold.
+The rule batch below is the only order set. Accept it, or reject it and hold. Do not add symbols.
 
 ## Meta
 
 - as_of: ${opts.asOf} (tick start, America/New_York)
 - agent_id: A1
-- Cutoff (UTC): ${opts.cutoffUtc} — use only news with published before this instant
+- Cutoff (UTC): ${opts.cutoffUtc}
+- News window starts (UTC): ${opts.sinceUtc} — headlines in this pack were published after the previous tick and before the cutoff
 - Shared book caps: cash floor 8%, max name 45%, max 7 positions
 - Sizing equity is about $1000 (equity_offset already applied)
 
-## News and latest bars (from Newstracker)
+## Rule batch
+
+${opts.ruleNotes.join("\n") || "hold"}
 
 \`\`\`json
-${JSON.stringify({ articles: opts.context.articles, bars: opts.context.bars }, null, 2)}
+${JSON.stringify(opts.orders, null, 2)}
 \`\`\`
 
-Do not invent headlines or prices. Bars are context for marks already observed before the cutoff.
+## New wire and session quotes
+
+\`\`\`json
+${JSON.stringify({ articles: opts.context.articles, quotes: opts.context.quotes }, null, 2)}
+\`\`\`
+
+Do not invent headlines or prices. \`last\` is the latest trade before the cutoff. \`prior_close\` is the previous session's close.
 
 ## Shared book (sizing view)
 
@@ -51,13 +63,11 @@ Write raw JSON to \`${proposalPath}\` and do not wrap it in markdown. Shape:
 {
   "agent_id": "A1",
   "as_of": "${opts.asOf}",
-  "orders": [],
-  "thesis": "…"
+  "decision": "accept",
+  "reason": "…"
 }
 \`\`\`
 
-Buys: {"side":"buy","symbol":"VTI","notional_usd":50.0}
-Sells close or reduce a long: {"side":"sell","symbol":"AAPL","qty":0.15}
-No shorts. No options, crypto, OTC, or VIX products.
+\`decision\` is \`accept\` or \`reject\`.
 `;
 }

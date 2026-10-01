@@ -51,7 +51,15 @@ class Handler(BaseHTTPRequestHandler):
                 if lookback < 1 or lookback > 14:
                     self._send(400, {"error": "lookback_days must be 1..14"})
                     return
-            self._send(200, self.store.context(as_of, lookback_days=lookback))
+            since = None
+            raw_since = (qs.get("since") or [""])[0].strip()
+            if raw_since:
+                try:
+                    since = parse_iso(raw_since)
+                except ValueError:
+                    self._send(400, {"error": "since must be ISO-8601"})
+                    return
+            self._send(200, self.store.context(as_of, lookback_days=lookback, since=since))
             return
         self._send(404, {"error": "not found"})
 

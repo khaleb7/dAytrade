@@ -1,5 +1,5 @@
 import { CursorAgentError, Agent } from "@cursor/sdk";
-import type { Proposal } from "./types.js";
+import type { Verdict } from "./types.js";
 import { absorbStreamEvent, recoverProposal, type StreamCapture } from "./proposal.js";
 
 type SdkRun = {
@@ -14,7 +14,7 @@ export async function runAgent(opts: {
   asOf: string;
   modelId: string;
   timeoutMs: number;
-}): Promise<Proposal> {
+}): Promise<Verdict | null> {
   const apiKey = process.env.CURSOR_API_KEY || "";
   if (!apiKey) throw new Error("Missing CURSOR_API_KEY");
   const agent = await Agent.create({
@@ -44,9 +44,7 @@ export async function runAgent(opts: {
         setTimeout(() => reject(new Error("fanout timeout")), opts.timeoutMs),
       ),
     ]);
-    const proposal = recoverProposal(opts.workDir, opts.asOf, capture);
-    if (!proposal) throw new Error("A1 proposal missing");
-    return proposal;
+    return recoverProposal(opts.workDir, opts.asOf, capture);
   } catch (err) {
     if (err instanceof CursorAgentError) {
       throw new Error(`Cursor agent did not start: ${err.message}`);

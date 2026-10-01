@@ -57,6 +57,8 @@ def poll_once(store: Store, cfg: Config) -> str:
         store.upsert_articles(result.articles)
     if result.bars:
         store.upsert_bars(result.bars)
+    if result.sessions:
+        store.upsert_sessions(result.sessions)
     store.mark_source(
         source_id,
         next_eligible_at=_eligible_after(cfg, kind, result.error, result.retry_after_s),

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import xml.etree.ElementTree as ET
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from typing import Any
@@ -12,7 +12,9 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
 
+from .clock import et_day
 from .config import USER_AGENT, Config
+from .db import parse_iso
 
 
 @dataclass
@@ -23,6 +25,7 @@ class FetchResult:
     error: str | None
     retry_after_s: float | None
     not_modified: bool = False
+    sessions: list[dict[str, Any]] = field(default_factory=list)
 
 
 def _parse_ts(text: str | None) -> datetime | None:
@@ -171,16 +174,10 @@ def fetch_feed(url: str, source: str, etag: str | None) -> FetchResult:
     return FetchResult(parse_feed(body, source), [], hdrs.get("etag"), None, None)
 
 
-def fetch_bars(cfg: Config, symbol: str) -> FetchResult:
-    if not cfg.alpaca_configured:
-        return FetchResult([], [], None, "alpaca keys unset", None)
-    query = urlencode(
-        {
-            "timeframe": "1Min",
-            "limit": "5",
-            "feed": cfg.alpaca_feed,
-        }
-    )
+def _alpaca_bars(
+    cfg: Config, symbol: str, timeframe: str, limit: str
+) -> tuple[list[dict[str, Any]] | None, str | None, float | None]:
+    query = urlencode({"timeframe": timeframe, "limit": limit, "feed": cfg.alpaca_feed})
     url = f"{cfg.alpaca_data_url}/v2/stocks/{quote(symbol)}/bars?{query}"
     headers = {
         "APCA-API-KEY-ID": cfg.alpaca_key,
@@ -190,22 +187,21 @@ def fetch_bars(cfg: Config, symbol: str) -> FetchResult:
     try:
         status, body, hdrs = http_get(url, headers=headers, timeout=20)
     except (URLError, TimeoutError, OSError) as e:
-        return FetchResult([], [], None, str(e), None)
+        return None, str(e), None
     if _rate_limited(status, body):
-        return FetchResult([], [], None, f"HTTP {status}", _retry_after(hdrs.get("retry-after")))
+        return None, f"HTTP {status}", _retry_after(hdrs.get("retry-after"))
     if status >= 400:
-        return FetchResult([], [], None, f"HTTP {status}", None)
+        return None, f"HTTP {status}", None
     try:
         payload = json.loads(body.decode("utf-8"))
     except json.JSONDecodeError:
-        return FetchResult([], [], None, "invalid json", None)
-    raw_bars = payload.get("bars") or []
-    bars: list[dict[str, Any]] = []
-    for bar in raw_bars:
+        return None, "invalid json", None
+    rows: list[dict[str, Any]] = []
+    for bar in payload.get("bars") or []:
         ts = bar.get("t")
         if not ts:
             continue
-        bars.append(
+        rows.append(
             {
                 "symbol": symbol,
                 "ts": str(ts).replace("+00:00", "Z"),
@@ -216,4 +212,33 @@ def fetch_bars(cfg: Config, symbol: str) -> FetchResult:
                 "volume": bar.get("v"),
             }
         )
-    return FetchResult([], bars, None, None, None)
+    return rows, None, None
+
+
+def fetch_bars(cfg: Config, symbol: str) -> FetchResult:
+    if not cfg.alpaca_configured:
+        return FetchResult([], [], None, "alpaca keys unset", None)
+    daily, err, retry = _alpaca_bars(cfg, symbol, "1Day", "3")
+    if err or daily is None:
+        return FetchResult([], [], None, err or "daily bars missing", retry)
+    minutes, err, retry = _alpaca_bars(cfg, symbol, "1Min", "5")
+    if err or minutes is None:
+        return FetchResult([], [], None, err or "minute bars missing", retry)
+    sessions: list[dict[str, Any]] = []
+    for bar in daily:
+        try:
+            day = et_day(parse_iso(bar["ts"]))
+        except ValueError:
+            continue
+        sessions.append(
+            {
+                "symbol": symbol,
+                "day": day,
+                "open": bar.get("open"),
+                "high": bar.get("high"),
+                "low": bar.get("low"),
+                "close": bar.get("close"),
+                "volume": bar.get("volume"),
+            }
+        )
+    return FetchResult([], minutes, None, None, None, sessions=sessions)

@@ -2,6 +2,19 @@
 #   docker build -f apps/daytrader/Dockerfile -t daytrader:latest .
 # Fires every 30 minutes from 09:00–16:30 ET on weekdays.
 # The process exits 0 unless the wall clock is an NYSE RTH tick (09:30–15:30).
+# Live submits stay off until DAYTRADE_MIN_SCORED_SESSIONS scored sessions exist.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: daytrader-scoreboard
+  namespace: daytrade
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -38,6 +51,20 @@ spec:
                   value: grok-4.7
                 - name: DAYTRADE_PROPOSAL_WAIT_MINUTES
                   value: "20"
+                - name: DAYTRADE_SCOREBOARD
+                  value: /data/scoreboard.json
+                - name: DAYTRADE_CORE_SYMBOL
+                  value: VTI
+                - name: DAYTRADE_CORE_WEIGHT
+                  value: "0.25"
+                - name: DAYTRADE_REBALANCE_BAND
+                  value: "0.05"
+                - name: DAYTRADE_GAP_CUT
+                  value: "0.03"
+                - name: DAYTRADE_SPREAD_BPS
+                  value: "5"
+                - name: DAYTRADE_MIN_SCORED_SESSIONS
+                  value: "20"
                 - name: APCA_API_KEY_ID
                   valueFrom:
                     secretKeyRef:
@@ -64,6 +91,8 @@ spec:
               volumeMounts:
                 - name: work
                   mountPath: /work
+                - name: scoreboard
+                  mountPath: /data
               resources:
                 requests:
                   cpu: 100m
@@ -73,3 +102,6 @@ spec:
           volumes:
             - name: work
               emptyDir: {}
+            - name: scoreboard
+              persistentVolumeClaim:
+                claimName: daytrader-scoreboard

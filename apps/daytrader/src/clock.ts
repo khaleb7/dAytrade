@@ -78,3 +78,18 @@ export function cutoffUtc(day: Date, hour: number, minute: number): Date {
 export function slotKey(hour: number, minute: number): string {
   return `${String(hour).padStart(2, "0")}${String(minute).padStart(2, "0")}`;
 }
+
+/** Cutoff of the previous RTH tick. 09:30 looks back to the prior session's 15:30. */
+export function previousCutoff(day: Date, hour: number, minute: number): Date {
+  if (hour === 9 && minute === 30) {
+    let d = new Date(day.getTime() - 86400000);
+    while (!isTradingDay(d)) d = new Date(d.getTime() - 86400000);
+    return cutoffUtc(d, 15, 30);
+  }
+  if (minute >= 30) return cutoffUtc(day, hour, 0);
+  return cutoffUtc(day, hour - 1, 30);
+}
+
+export function sessionDate(day: Date): string {
+  return day.toISOString().slice(0, 10);
+}

@@ -1,5 +1,7 @@
 # SouperMarket
 
+Entertainment only. It does not place orders and Daytrader does not read it.
+
 Daily webpage called Souper Intelligence. After 17:00 America/New_York it files one edition for that Eastern date and serves it, plus every earlier edition.
 
 The image installs `cursor-sdk` in a build stage, then runs on `gcr.io/distroless/python3-debian12` with `PYTHONPATH=/opt/pydeps:/app`. Distroless has no shell, and the SDK bridge launcher is `#!/usr/bin/env sh`, so the image also copies a static `sh` and `env`. The columnists need a writable cwd; the Deployment mounts an emptyDir at `/work`.

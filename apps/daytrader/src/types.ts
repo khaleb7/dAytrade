@@ -33,6 +33,13 @@ export interface Proposal {
   thesis: string;
 }
 
+export interface Verdict {
+  agent_id: string;
+  as_of: string;
+  decision: "accept" | "reject";
+  thesis: string;
+}
+
 export interface NewsArticle {
   source: string;
   title: string;
@@ -51,8 +58,19 @@ export interface Bar {
   volume: number | null;
 }
 
+export interface Quote {
+  symbol: string;
+  session_open: number | null;
+  session_high: number | null;
+  session_low: number | null;
+  last: number | null;
+  prior_close: number | null;
+  last_ts: string | null;
+}
+
 export interface TrackerContext {
   as_of: string;
   articles: NewsArticle[];
   bars: Bar[];
+  quotes: Quote[];
 }
