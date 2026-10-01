@@ -14,6 +14,8 @@ Older `scripts/` and `services/` are the previous control plane. They are not wh
 
 ## Build
 
+Details, including the Rancher Desktop `k8s.io` namespace, are in [docs/distroless-images.md](docs/distroless-images.md).
+
 From this directory (the git root), with nerdctl or Docker:
 
 ```sh
