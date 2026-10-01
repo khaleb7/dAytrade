@@ -103,6 +103,23 @@ function applyOrders(
   return { cash: nextCash, positions: next.filter((p) => p.qty > 1e-8) };
 }
 
+/** One session: strategy book minus the untouched book, divided by entry equity. */
+export function sessionExcess(input: {
+  cash: number;
+  positions: ScorePosition[];
+  orders: Order[];
+  entryMarks: Record<string, number>;
+  nextMarks: Record<string, number>;
+  bps?: number;
+}): number | null {
+  const entry = markValue(input.cash, input.positions, input.entryMarks, input.entryMarks);
+  if (!(entry > 0)) return null;
+  const hold = markValue(input.cash, input.positions, input.nextMarks, input.entryMarks);
+  const applied = applyOrders(input.cash, input.positions, input.orders, input.entryMarks, input.bps ?? spreadBps());
+  const strategy = markValue(applied.cash, applied.positions, input.nextMarks, input.entryMarks);
+  return (strategy - hold) / entry;
+}
+
 /** Mark the latest unscored tick with prices observed now. Excess is strategy minus hold. */
 export function scorePending(marksNow: Record<string, number>): number | null {
   const rows = load();

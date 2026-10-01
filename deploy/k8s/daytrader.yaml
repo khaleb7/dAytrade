@@ -53,14 +53,12 @@ spec:
                   value: "20"
                 - name: DAYTRADE_SCOREBOARD
                   value: /data/scoreboard.json
-                - name: DAYTRADE_CORE_SYMBOL
-                  value: VTI
-                - name: DAYTRADE_CORE_WEIGHT
-                  value: "0.25"
+                - name: DAYTRADE_TARGETS
+                  value: "QQQ:0.45,VTI:0.40"
                 - name: DAYTRADE_REBALANCE_BAND
                   value: "0.05"
                 - name: DAYTRADE_GAP_CUT
-                  value: "0.03"
+                  value: "0"
                 - name: DAYTRADE_SPREAD_BPS
                   value: "5"
                 - name: DAYTRADE_MIN_SCORED_SESSIONS

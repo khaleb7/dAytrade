@@ -1,11 +1,16 @@
 import type { Book, Order, Quote } from "./types.js";
 
+export interface Target {
+  symbol: string;
+  weight: number;
+}
+
 export interface RuleConfig {
-  coreSymbol: string;
-  coreWeight: number;
+  targets: Target[];
   band: number;
   gapCut: number;
   cashFloor: number;
+  maxName: number;
 }
 
 export interface RulePlan {
@@ -13,14 +18,40 @@ export interface RulePlan {
   notes: string[];
 }
 
+const GROWTH_TARGETS = "QQQ:0.45,VTI:0.40";
+
 export function ruleConfigFromEnv(): RuleConfig {
+  const maxName = 0.45;
+  const cashFloor = 0.08;
+  const rawTargets = (process.env.DAYTRADE_TARGETS || "").trim();
+  const single =
+    process.env.DAYTRADE_CORE_SYMBOL || process.env.DAYTRADE_CORE_WEIGHT
+      ? `${process.env.DAYTRADE_CORE_SYMBOL || "VTI"}:${process.env.DAYTRADE_CORE_WEIGHT || "0.25"}`
+      : "";
   return {
-    coreSymbol: (process.env.DAYTRADE_CORE_SYMBOL || "VTI").trim().toUpperCase() || "VTI",
-    coreWeight: num("DAYTRADE_CORE_WEIGHT", 0.25),
+    targets: parseTargets(rawTargets || single || GROWTH_TARGETS, maxName, 1 - cashFloor),
     band: num("DAYTRADE_REBALANCE_BAND", 0.05),
-    gapCut: num("DAYTRADE_GAP_CUT", 0.03),
-    cashFloor: 0.08,
+    gapCut: num("DAYTRADE_GAP_CUT", 0),
+    cashFloor,
+    maxName,
   };
+}
+
+function parseTargets(raw: string, maxName: number, maxSum: number): Target[] {
+  const targets: Target[] = [];
+  for (const part of raw.split(",")) {
+    const [sym, weightRaw] = part.split(":");
+    const symbol = (sym || "").trim().toUpperCase();
+    const weight = Number(weightRaw);
+    if (!symbol || !Number.isFinite(weight) || weight <= 0) continue;
+    targets.push({ symbol, weight: Math.min(weight, maxName) });
+  }
+  const sum = targets.reduce((n, t) => n + t.weight, 0);
+  if (sum > maxSum && sum > 0) {
+    const scale = maxSum / sum;
+    for (const target of targets) target.weight *= scale;
+  }
+  return targets;
 }
 
 function num(name: string, fallback: number): number {
@@ -51,7 +82,7 @@ export function buildRuleOrders(book: Book, quotes: Quote[], cfg: RuleConfig): R
   const gapped = new Set<string>();
   for (const quote of quotes) {
     if (quote.prior_close == null || quote.last == null || !(quote.prior_close > 0)) continue;
-    if (quote.last <= quote.prior_close * (1 - cfg.gapCut)) gapped.add(quote.symbol);
+    if (cfg.gapCut > 0 && quote.last <= quote.prior_close * (1 - cfg.gapCut)) gapped.add(quote.symbol);
   }
   for (const position of book.positions) {
     if (!(position.qty > 0) || !gapped.has(position.symbol)) continue;
@@ -59,45 +90,67 @@ export function buildRuleOrders(book: Book, quotes: Quote[], cfg: RuleConfig): R
     notes.push(`gap cut ${position.symbol}`);
   }
 
-  if (gapped.has(cfg.coreSymbol)) {
-    notes.push(`core ${cfg.coreSymbol} gapped; rebalance stands aside`);
-    if (orders.length === 0) notes.push("hold");
-    return { orders, notes };
+  const qty = new Map<string, number>();
+  for (const position of book.positions) {
+    if (position.qty > 0) qty.set(position.symbol, position.qty);
+  }
+  let cash = book.cash_usd;
+  for (const order of orders) {
+    if (order.side !== "sell") continue;
+    const px = priceOf(order.symbol, quotes, marks);
+    if (px == null) continue;
+    cash += order.qty * px;
+    qty.set(order.symbol, Math.max(0, (qty.get(order.symbol) ?? 0) - order.qty));
   }
 
-  const px = priceOf(cfg.coreSymbol, quotes, marks);
-  if (px == null) {
-    notes.push(`no price for ${cfg.coreSymbol}`);
-    return { orders, notes };
-  }
-  const held = book.positions.find((p) => p.symbol === cfg.coreSymbol);
-  const currentMv = held && held.qty > 0 ? held.qty * px : 0;
-  const weight = currentMv / equity;
-  if (Math.abs(weight - cfg.coreWeight) <= cfg.band) {
-    notes.push(`core ${cfg.coreSymbol} within band`);
-    return { orders, notes };
-  }
-  const targetMv = cfg.coreWeight * equity;
-  if (currentMv > targetMv) {
-    const qty = (currentMv - targetMv) / px;
-    const sellQty = Math.min(qty, held?.qty ?? 0);
-    if (sellQty > 0) {
-      orders.push({ side: "sell", symbol: cfg.coreSymbol, qty: sellQty });
-      notes.push(`rebalance sell ${cfg.coreSymbol}`);
+  const buys: { symbol: string; notional: number }[] = [];
+  for (const target of cfg.targets) {
+    if (gapped.has(target.symbol)) {
+      notes.push(`${target.symbol} gapped; rebalance stands aside`);
+      continue;
     }
-    return { orders, notes };
+    const px = priceOf(target.symbol, quotes, marks);
+    if (px == null) {
+      notes.push(`no price for ${target.symbol}`);
+      continue;
+    }
+    const heldQty = qty.get(target.symbol) ?? 0;
+    const currentMv = heldQty * px;
+    const weight = currentMv / equity;
+    if (Math.abs(weight - target.weight) <= cfg.band) {
+      notes.push(`${target.symbol} within band`);
+      continue;
+    }
+    const targetMv = target.weight * equity;
+    if (currentMv > targetMv) {
+      const sellQty = Math.min((currentMv - targetMv) / px, heldQty);
+      if (sellQty > 0) {
+        orders.push({ side: "sell", symbol: target.symbol, qty: sellQty });
+        notes.push(`rebalance sell ${target.symbol}`);
+        cash += sellQty * px;
+        qty.set(target.symbol, heldQty - sellQty);
+      }
+      continue;
+    }
+    buys.push({ symbol: target.symbol, notional: targetMv - currentMv });
   }
-  let buy = targetMv - currentMv;
-  const room = book.cash_usd - cfg.cashFloor * equity;
-  if (buy > room) {
-    notes.push("buy capped by cash floor");
-    buy = room;
+
+  for (const buy of buys) {
+    let notional = buy.notional;
+    const room = cash - cfg.cashFloor * equity;
+    if (notional > room) {
+      notes.push(`${buy.symbol} buy capped by cash floor`);
+      notional = room;
+    }
+    if (notional < 1) {
+      notes.push(`stand aside: cash floor (${buy.symbol})`);
+      continue;
+    }
+    const rounded = Math.round(notional * 100) / 100;
+    orders.push({ side: "buy", symbol: buy.symbol, notional_usd: rounded });
+    notes.push(`rebalance buy ${buy.symbol}`);
+    cash -= rounded;
   }
-  if (buy < 1) {
-    notes.push("stand aside: cash floor");
-    return { orders, notes };
-  }
-  orders.push({ side: "buy", symbol: cfg.coreSymbol, notional_usd: Math.round(buy * 100) / 100 });
-  notes.push(`rebalance buy ${cfg.coreSymbol}`);
+  if (orders.length === 0 && !notes.some((n) => n.includes("within band"))) notes.push("hold");
   return { orders, notes };
 }

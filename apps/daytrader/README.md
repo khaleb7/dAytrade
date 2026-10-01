@@ -16,7 +16,7 @@ The CronJob schedule is `0,30 9-16 * * 1-5` in `America/New_York`, with `concurr
 2. `GET` Alpaca paper `/v2/account` and `/v2/positions`. Market data stays on Newstracker; this process does not call `data.alpaca.markets`.
 3. Size the book with `equity_offset_usd`, default `-99000`, so a ~$100,000 paper account is treated as about $1,000.
 4. Score the previous tick against doing nothing. Excess return is the simulated rule batch minus the untouched book, after `DAYTRADE_SPREAD_BPS` (default 5) on traded notional. The row is appended to `DAYTRADE_SCOREBOARD`.
-5. Build the rule batch. The passive core is `DAYTRADE_CORE_SYMBOL` at `DAYTRADE_CORE_WEIGHT` (default VTI at 25%). Rebalance when the weight is outside `DAYTRADE_REBALANCE_BAND` (default 5 percentage points). A name still held that is down `DAYTRADE_GAP_CUT` (default 3%) from the prior close is sold, and that symbol is not bought back on the same tick. A buy that would break the 8% cash floor is cut or dropped.
+5. Build the rule batch. The growth sleeve is `DAYTRADE_TARGETS` (default `QQQ:0.45,VTI:0.40`, so about 15% cash). Each name is capped at 45%, and the weights are scaled down if they would break the 8% cash floor. Rebalance when a target is outside `DAYTRADE_REBALANCE_BAND` (default 5 percentage points). A down close does not sell. `DAYTRADE_GAP_CUT` defaults to `0`, which leaves that path off; a value above zero sells a held name down at least that far from the prior close and skips buying it back on the same tick. A buy that would break the cash floor is cut or dropped. QQQ is bought before VTI when cash is short.
 6. Run one local Cursor agent (`Agent.create`, model `grok-4.7` unless `DAYTRADE_MODEL` is set). It writes `accept` or `reject`. A reject clears the batch. A missing or failed verdict leaves the rules in place.
 7. Reject the batch if it breaks the caps: 8% cash floor, 45% in one name, 7 positions. Signal-only symbols such as VIX are blocked.
 8. `POST /v2/orders` only when orders remain, `DAYTRADE_DRY_RUN` is not `1`, and the scoreboard has at least `DAYTRADE_MIN_SCORED_SESSIONS` distinct sessions (default 20). Until then the tick is a dry run. Buys use notional. Sells use quantity.
@@ -33,10 +33,9 @@ The agent wait defaults to 20 minutes (`DAYTRADE_PROPOSAL_WAIT_MINUTES`).
 | `DAYTRADE_PROPOSAL_WAIT_MINUTES` | `20` |
 | `DAYTRADE_DRY_RUN` | unset; `1` skips submit. Submit also stays off until enough sessions are scored |
 | `DAYTRADE_SCOREBOARD` | `/data/scoreboard.json` |
-| `DAYTRADE_CORE_SYMBOL` | `VTI` |
-| `DAYTRADE_CORE_WEIGHT` | `0.25` |
+| `DAYTRADE_TARGETS` | `QQQ:0.45,VTI:0.40` |
 | `DAYTRADE_REBALANCE_BAND` | `0.05` |
-| `DAYTRADE_GAP_CUT` | `0.03` |
+| `DAYTRADE_GAP_CUT` | `0` (off; a positive fraction sells a held name down at least that far from the prior close) |
 | `DAYTRADE_SPREAD_BPS` | `5` |
 | `DAYTRADE_MIN_SCORED_SESSIONS` | `20` |
 | `APCA_API_KEY_ID` | required to reconcile and submit |
