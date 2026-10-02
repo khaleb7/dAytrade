@@ -1,6 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { cancelOrder, listOpenOrders, submitLimitSell, submitOrder, waitForFill } from "./alpaca.js";
+import { isTradingDay } from "./calendar.js";
 import type { NewsArticle, Order, Position, Quote } from "./types.js";
 import { isSignalOnlySymbol } from "./validate.js";
 
@@ -25,6 +26,8 @@ const MAX_NEW_PER_TICK = 2;
 const CLIP = 0.15;
 const TAKE_PROFIT = 1.01;
 const STOP = 0.995;
+/** A name already this far above the session open has run. Leave it. */
+const MAX_OPEN_GAIN = 0.004;
 
 export interface ScalpPick {
   symbol: string;
@@ -41,6 +44,13 @@ export function scalpActive(_session?: string): boolean {
 export function scalpEntriesOpen(hour: number, minute: number): boolean {
   if (hour > 10) return true;
   return hour === 10 && minute >= 30;
+}
+
+/** 15:00 and 15:30 are the last hour. No new buys when the next day is a weekend or an NYSE holiday. */
+export function scalpBuysOpen(day: Date, hour: number, minute: number): boolean {
+  if (!scalpEntriesOpen(hour, minute)) return false;
+  if (hour < 15) return true;
+  return isTradingDay(new Date(day.getTime() + 86400000));
 }
 
 export function armScalpScoreboard(): void {
@@ -89,24 +99,44 @@ function mentions(symbol: string, articles: NewsArticle[]): boolean {
   return articles.some((article) => re.test(`${article.title} ${article.summary}`));
 }
 
+export interface ScalpSelection {
+  picks: ScalpPick[];
+  /** Directional qualifiers that are already more than 0.40% above the session open. */
+  extended: string[];
+  /** Sold already today, so not bought again. */
+  reentry: string[];
+}
+
 export function selectScalpBuys(
   quotes: Quote[],
   articles: NewsArticle[],
   held: Set<string>,
   slots: number,
-): ScalpPick[] {
-  if (slots <= 0) return [];
+  soldToday: Set<string> = new Set(),
+): ScalpSelection {
+  if (slots <= 0) return { picks: [], extended: [], reentry: [] };
   const bySymbol = new Map(quotes.map((quote) => [quote.symbol.toUpperCase(), quote]));
   const picks: ScalpPick[] = [];
+  const extended: string[] = [];
+  const reentry: string[] = [];
   for (const symbol of SCALP_WATCHLIST) {
     if (held.has(symbol) || isSignalOnlySymbol(symbol)) continue;
+    if (soldToday.has(symbol)) {
+      reentry.push(symbol);
+      continue;
+    }
     const quote = bySymbol.get(symbol);
     if (!quote || quote.last == null || !(quote.last > 0)) continue;
     if (quote.session_open == null || !(quote.session_open > 0) || !(quote.last > quote.session_open)) continue;
     if (quote.prior_close == null || !(quote.prior_close > 0) || !(quote.last > quote.prior_close)) continue;
+    const gain = quote.last / quote.session_open - 1;
+    if (gain > MAX_OPEN_GAIN) {
+      extended.push(symbol);
+      continue;
+    }
     picks.push({
       symbol,
-      gain: quote.last / quote.session_open - 1,
+      gain,
       headlined: mentions(symbol, articles),
     });
   }
@@ -114,18 +144,24 @@ export function selectScalpBuys(
     if (a.headlined !== b.headlined) return a.headlined ? -1 : 1;
     return b.gain - a.gain;
   });
-  return picks.slice(0, Math.min(slots, MAX_NEW_PER_TICK));
+  return { picks: picks.slice(0, Math.min(slots, MAX_NEW_PER_TICK)), extended, reentry };
 }
 
 export function scalpSlots(positionCount: number): number {
   return Math.max(0, MAX_POSITIONS - positionCount);
 }
 
-/** Fixed clip, 15% of equity, and only as many as the cash floor allows. The rest of the cash stays for later ticks. */
-export function scalpNotionals(cash: number, equity: number, count: number): number[] {
+/** Before 13:00 ET one clip stays unspent so the afternoon still has a buy. */
+export function holdAfternoonClip(hour: number): boolean {
+  return hour < 13;
+}
+
+/** Fixed clip, 15% of equity, and only as many as the cash floor allows. Before 13:00 one extra clip is held back. */
+export function scalpNotionals(cash: number, equity: number, count: number, holdClip = false): number[] {
   if (count <= 0 || !(equity > 0)) return [];
   const clip = Math.floor(equity * CLIP * 100) / 100;
   let left = cash - CASH_FLOOR * equity;
+  if (holdClip) left -= clip;
   if (!(clip >= 1) || !(left >= clip)) return [];
   const notionals: number[] = [];
   for (let i = 0; i < count && left >= clip; i++) {
@@ -135,8 +171,8 @@ export function scalpNotionals(cash: number, equity: number, count: number): num
   return notionals;
 }
 
-export function scalpBuyOrders(picks: ScalpPick[], cash: number, equity: number): Order[] {
-  const notionals = scalpNotionals(cash, equity, picks.length);
+export function scalpBuyOrders(picks: ScalpPick[], cash: number, equity: number, holdClip = false): Order[] {
+  const notionals = scalpNotionals(cash, equity, picks.length, holdClip);
   const orders: Order[] = [];
   for (let i = 0; i < notionals.length; i++) {
     orders.push({ side: "buy", symbol: picks[i].symbol, notional_usd: notionals[i] });
@@ -147,6 +183,17 @@ export function scalpBuyOrders(picks: ScalpPick[], cash: number, equity: number)
 export interface StopPlan {
   symbol: string;
   qty: number;
+}
+
+/** Overnight scalps, sold at 09:30 and 10:00 into the opening rush. The reserved lot is not an overnight scalp. */
+export function openExitPlans(positions: Position[], reserved: Record<string, number>): StopPlan[] {
+  const plans: StopPlan[] = [];
+  for (const position of positions) {
+    const qty = experimentQty(position, reserved);
+    if (!(qty > 1e-8)) continue;
+    plans.push({ symbol: position.symbol, qty });
+  }
+  return plans;
 }
 
 /** A scalp down 0.5% from its average cost is closed so that cash can take a later setup. */
@@ -195,11 +242,20 @@ export function flattenPlans(
   return plans;
 }
 
-export function describePicks(picks: ScalpPick[]): string {
-  if (!picks.length) return "no name is up versus the open and the prior close";
-  return picks
-    .map((pick) => `${pick.symbol} ${(pick.gain * 100).toFixed(2)}%${pick.headlined ? " headline" : ""}`)
-    .join(", ");
+export function describePicks(picks: ScalpPick[], extended: string[] = [], reentry: string[] = []): string {
+  const chosen = picks.length
+    ? picks
+        .map((pick) => `${pick.symbol} ${(pick.gain * 100).toFixed(2)}%${pick.headlined ? " headline" : ""}`)
+        .join(", ")
+    : extended.length
+      ? "no name is within 0.40% of the open"
+      : reentry.length
+        ? "no new name is inside the entry band"
+        : "no name is up versus the open and the prior close";
+  const extra: string[] = [];
+  if (extended.length) extra.push(`extended ${extended.join(", ")}`);
+  if (reentry.length) extra.push(`reentry ${reentry.join(", ")}`);
+  return extra.length ? `${chosen}; ${extra.join("; ")}` : chosen;
 }
 
 async function cancelSells(symbol: string): Promise<void> {
@@ -220,9 +276,21 @@ export async function restLimit(
   return String(placed.id || "");
 }
 
+/** Cancel the resting day sell, then wait until Alpaca has released the shares. A fixed pause left the sell held_for_orders. */
+async function waitUntilSellsClear(symbol: string, timeoutMs = 8000): Promise<void> {
+  const upper = symbol.toUpperCase();
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() <= deadline) {
+    const open = await listOpenOrders();
+    if (!open.some((order) => order.symbol === upper && order.side === "sell")) return;
+    await new Promise((resolve) => setTimeout(resolve, 400));
+  }
+  throw new Error(`${upper} sell still open after cancel`);
+}
+
 export async function marketSellExperiment(symbol: string, qty: number): Promise<string> {
   await cancelSells(symbol);
-  await new Promise((resolve) => setTimeout(resolve, 300));
+  await waitUntilSellsClear(symbol);
   const placed = await submitOrder({ side: "sell", symbol, qty });
   return String(placed.id || "");
 }

@@ -77,7 +77,7 @@ export async function reconcile(): Promise<Book> {
     };
   });
   return {
-    broker: "alpaca_paper",
+    broker: baseUrl() === "https://api.alpaca.markets" ? "alpaca_live" : "alpaca_paper",
     account_id: acct.id ? String(acct.id) : undefined,
     cash_usd: Number(acct.cash || 0),
     equity_usd: Number(acct.equity || 0),
@@ -156,6 +156,24 @@ export async function waitForFill(id: string, timeoutMs = 20000): Promise<Broker
   }
   if (last && last.filledQty > 0) return last;
   throw new Error(`order ${id} not filled`);
+}
+
+/** Symbols with a sell fill since `since`. A same-day re-entry is banned from these names. */
+export async function sessionSellSymbols(since: Date): Promise<Set<string>> {
+  const after = encodeURIComponent(since.toISOString());
+  const raw = (await alpacaRequest(
+    "GET",
+    `/v2/account/activities/FILL?after=${after}&page_size=100&direction=desc`,
+  )) as unknown;
+  const symbols = new Set<string>();
+  if (!Array.isArray(raw)) return symbols;
+  for (const row of raw) {
+    const item = row as Record<string, unknown>;
+    if (String(item.side || "").toLowerCase() !== "sell") continue;
+    const symbol = String(item.symbol || "").toUpperCase();
+    if (symbol) symbols.add(symbol);
+  }
+  return symbols;
 }
 
 export async function listOpenOrders(): Promise<BrokerOrder[]> {

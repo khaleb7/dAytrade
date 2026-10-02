@@ -71,6 +71,8 @@ spec:
                   value: /data/scoreboard-scalp.json
                 - name: DAYTRADE_SCALP_RESERVE
                   value: /data/scalp-reserve.json
+                - name: DAYTRADE_EQUITY_OFFSET_USD
+                  value: "0"
                 - name: APCA_API_KEY_ID
                   valueFrom:
                     secretKeyRef:
@@ -93,7 +95,7 @@ spec:
                       key: DAYTRADE_DISCORD_WEBHOOK_URL
                       optional: true
                 - name: APCA_API_BASE_URL
-                  value: https://paper-api.alpaca.markets
+                  value: https://api.alpaca.markets
               volumeMounts:
                 - name: work
                   mountPath: /work

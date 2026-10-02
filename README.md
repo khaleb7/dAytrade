@@ -5,10 +5,10 @@ Three Linux containers on Kubernetes. Newstracker is the only writer of the news
 | App | What it does | How it runs |
 | --- | --- | --- |
 | [Newstracker](apps/newstracker/README.md) | Polls RSS, SEC EDGAR, and Alpaca minute and daily bars into SQLite | Always-on Deployment |
-| [Daytrader](apps/daytrader/README.md) | Paper scalp of the Newstracker watchlist. Entries start at 10:30 ET, each clip is 15% of the book, and a 0.5% loss is sold so a later setup can be taken. The 45% QQQ / 40% VTI sleeve stays in the code and runs only when `DAYTRADE_MODE` is not `scalp` | CronJob |
+| [Daytrader](apps/daytrader/README.md) | Cash-account scalp of the Newstracker watchlist. Overnight lots sell at 09:30 and 10:00 ET. Buys start at 10:30, stay within 0.40% of the open, and skip a name already sold today. One 15% clip is held until 13:00, and the last hour before a weekend or holiday does not buy. A 0.5% loss is sold so a later setup can be taken. The QQQ/VTI sleeve runs only when `DAYTRADE_MODE` is not `scalp` | CronJob |
 | [SouperMarket](apps/soupermarket/README.md) | Entertainment only. Daily paper, Souper Intelligence, with three commentaries. It does not place or suggest orders | Always-on Deployment |
 
-Alpaca trading stays on the paper API. Secrets stay out of the repo and come from the `daytrade-secrets` Secret.
+Daytrader submits to `https://api.alpaca.markets` with `DAYTRADE_EQUITY_OFFSET_USD=0`. Newstracker still reads `https://data.alpaca.markets`. Secrets stay out of the repo and come from the `daytrade-secrets` Secret.
 
 Older `scripts/` and `services/` are the previous control plane. They are not what the cluster runs.
 

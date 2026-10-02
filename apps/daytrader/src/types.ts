@@ -7,7 +7,7 @@ export interface Position {
 }
 
 export interface Book {
-  broker: "alpaca_paper";
+  broker: "alpaca_paper" | "alpaca_live";
   account_id?: string;
   cash_usd: number;
   equity_usd: number;

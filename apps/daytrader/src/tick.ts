@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { reconcile, sizingBook, submitOrder } from "./alpaca.js";
+import { reconcile, sessionSellSymbols, sizingBook, submitOrder } from "./alpaca.js";
 import { isTradingDay } from "./calendar.js";
 import { asOfIso, cutoffUtc, isRthTick, nowEt, previousCutoff, sessionDate, slotKey, snapTick } from "./clock.js";
 import { notifyDiscord } from "./discord.js";
@@ -14,10 +14,13 @@ import {
   flattenPlans,
   loadReserve,
   marketSellExperiment,
+  openExitPlans,
   rearmUncovered,
   restLimit,
   scalpActive,
+  holdAfternoonClip,
   scalpBuyOrders,
+  scalpBuysOpen,
   scalpEntriesOpen,
   scalpSlots,
   selectScalpBuys,
@@ -143,15 +146,39 @@ async function runScalpSession(
   const slot = slotKey(snapped.hour, snapped.minute);
   const reserved = loadReserve(book.positions);
   const held = new Set(book.positions.filter((p) => p.qty > 0).map((p) => p.symbol.toUpperCase()));
-  const stops = stopPlans(book.positions, reserved, marks);
   const entriesOpen = scalpEntriesOpen(snapped.hour, snapped.minute);
-  const picks = entriesOpen ? selectScalpBuys(quotes, articles, held, scalpSlots(held.size)) : [];
-  const buys = scalpBuyOrders(picks, book.cash_usd, book.equity_usd);
+  const buysOpen = scalpBuysOpen(day, snapped.hour, snapped.minute);
+  const exits = entriesOpen ? [] : openExitPlans(book.positions, reserved);
+  const stops = entriesOpen ? stopPlans(book.positions, reserved, marks) : [];
+  let soldToday = new Set<string>();
+  let reentryCheckFailed = false;
+  if (buysOpen) {
+    try {
+      soldToday = await sessionSellSymbols(cutoffUtc(day, 0, 0));
+    } catch (err) {
+      reentryCheckFailed = true;
+      const message = err instanceof Error ? err.message : String(err);
+      console.error(`[daytrader] reentry check failed: ${message}`);
+    }
+  }
+  const selection = buysOpen
+    ? selectScalpBuys(quotes, articles, held, scalpSlots(held.size), soldToday)
+    : { picks: [], extended: [], reentry: [] };
+  const picks = selection.picks;
+  const holdClip = buysOpen && holdAfternoonClip(snapped.hour);
+  const buys = scalpBuyOrders(picks, book.cash_usd, book.equity_usd, holdClip);
   const orders: Order[] = [
+    ...exits.map((plan) => ({ side: "sell" as const, symbol: plan.symbol, qty: plan.qty })),
     ...stops.map((plan) => ({ side: "sell" as const, symbol: plan.symbol, qty: plan.qty })),
     ...buys,
   ];
-  const reason = entriesOpen ? describePicks(picks) : "no new buys before 10:30 ET";
+  const reason = !entriesOpen
+    ? exits.length
+      ? `open exit ${exits.map((plan) => plan.symbol).join(", ")}`
+      : "no overnight scalp to sell"
+    : buysOpen
+      ? describePicks(picks, selection.extended, selection.reentry)
+      : "no new buys in the last hour before a weekend or holiday";
   console.log(`[daytrader] scalp ${reason} orders=${orders.length}`);
   const verdict = validateOrders(orders, book, marks);
   const accepted = verdict.ok ? (verdict.hold ? [] : orders) : [];
@@ -164,7 +191,13 @@ async function runScalpSession(
     positions: book.positions.filter((p) => p.qty > 0).map((p) => ({ symbol: p.symbol, qty: p.qty })),
     marks,
     orders: accepted,
-    rule_notes: [reason, ...stops.map((plan) => `stop ${plan.symbol}`)],
+    rule_notes: [
+      reason,
+      ...exits.map((plan) => `open exit ${plan.symbol}`),
+      ...stops.map((plan) => `stop ${plan.symbol}`),
+      ...(holdClip ? ["holding one clip until 13:00"] : []),
+      ...(reentryCheckFailed ? ["reentry check failed"] : []),
+    ],
     agent_decision: "scalp",
     agent_reason: reason,
     dry_run: env.dryRun || !verdict.ok,
@@ -181,20 +214,22 @@ async function runScalpSession(
   }
   const lines: string[] = [];
   let failed = 0;
-  try {
-    const rearmed = await rearmUncovered(book.positions, reserved);
-    lines.push(...rearmed);
-  } catch (err) {
-    failed += 1;
-    const message = err instanceof Error ? err.message : String(err);
-    lines.push(`rearm failed: ${message}`);
-    console.error(`[daytrader] rearm failed: ${message}`);
+  if (entriesOpen) {
+    try {
+      const rearmed = await rearmUncovered(book.positions, reserved);
+      lines.push(...rearmed);
+    } catch (err) {
+      failed += 1;
+      const message = err instanceof Error ? err.message : String(err);
+      lines.push(`rearm failed: ${message}`);
+      console.error(`[daytrader] rearm failed: ${message}`);
+    }
   }
   for (const order of accepted) {
     try {
       if (order.side === "sell") {
         const id = await marketSellExperiment(order.symbol, order.qty);
-        lines.push(`stop ${order.symbol} id=${id}`);
+        lines.push(`${entriesOpen ? "stop" : "open exit"} ${order.symbol} id=${id}`);
       } else {
         lines.push(await buyThenLimit(order));
       }
