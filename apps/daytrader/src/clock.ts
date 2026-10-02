@@ -48,10 +48,11 @@ export function nowEt(now = new Date()): EtNow {
   };
 }
 
-/** Cron fires at :00 and :30; allow a few minutes of scheduler lag. */
+/** Cron fires at :00, :30, and :55; allow a few minutes of scheduler lag. */
 export function snapTick(hour: number, minute: number): { hour: number; minute: number } | null {
   if (minute < 5) return { hour, minute: 0 };
   if (minute >= 30 && minute < 35) return { hour, minute: 30 };
+  if (minute >= 55) return { hour, minute: 55 };
   return null;
 }
 
