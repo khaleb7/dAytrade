@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { reconcile, sessionSellSymbols, sizingBook, submitOrder } from "./alpaca.js";
+import { latestTrades, reconcile, sessionSellSymbols, sizingBook, submitOrder } from "./alpaca.js";
 import { isTradingDay } from "./calendar.js";
 import { asOfIso, cutoffUtc, isRthTick, nowEt, previousCutoff, sessionDate, slotKey, snapTick } from "./clock.js";
 import { notifyDiscord } from "./discord.js";
@@ -8,6 +8,7 @@ import { runAgent } from "./fanout.js";
 import { buildPrompt } from "./prompt.js";
 import { buildRuleOrders, ruleConfigFromEnv } from "./rules.js";
 import {
+  applyFreshLast,
   armScalpScoreboard,
   buyThenLimit,
   describePicks,
@@ -164,7 +165,23 @@ async function runScalpSession(
   const selection = buysOpen
     ? selectScalpBuys(quotes, articles, held, scalpSlots(held.size), soldToday)
     : { picks: [], extended: [], reentry: [] };
-  const picks = selection.picks;
+  let picks = selection.picks;
+  let leftBand: string[] = [];
+  let requoteFailed = false;
+  if (buysOpen && picks.length) {
+    try {
+      const freshLast = await latestTrades(picks.map((pick) => pick.symbol));
+      const requoted = applyFreshLast(picks, quotes, freshLast);
+      picks = requoted.picks;
+      leftBand = requoted.leftBand;
+      for (const [symbol, px] of Object.entries(freshLast)) marks[symbol] = px;
+    } catch (err) {
+      requoteFailed = true;
+      picks = [];
+      const message = err instanceof Error ? err.message : String(err);
+      console.error(`[daytrader] requote failed: ${message}`);
+    }
+  }
   const holdClip = buysOpen && holdAfternoonClip(snapped.hour);
   const heldValue: Record<string, number> = {};
   for (const position of book.positions) {
@@ -184,7 +201,16 @@ async function runScalpSession(
       ? `open exit ${exits.map((plan) => plan.symbol).join(", ")}`
       : "no overnight scalp to sell"
     : buysOpen
-      ? describePicks(picks, selection.extended, selection.reentry)
+      ? picks.length
+        ? [
+            describePicks(picks, selection.extended, selection.reentry),
+            leftBand.length ? `requote left band ${leftBand.join(", ")}` : "",
+          ]
+            .filter(Boolean)
+            .join("; ")
+        : leftBand.length
+          ? `requote left band ${leftBand.join(", ")}`
+          : describePicks(picks, selection.extended, selection.reentry)
       : "no new buys in the last hour before a weekend or holiday";
   console.log(`[daytrader] scalp ${reason} orders=${orders.length}`);
   const verdict = validateOrders(orders, book, marks);
@@ -204,6 +230,7 @@ async function runScalpSession(
       ...stops.map((plan) => `stop ${plan.symbol}`),
       ...(holdClip ? ["holding one clip until 13:00"] : []),
       ...(reentryCheckFailed ? ["reentry check failed"] : []),
+      ...(requoteFailed ? ["requote failed"] : []),
     ],
     agent_decision: "scalp",
     agent_reason: reason,
