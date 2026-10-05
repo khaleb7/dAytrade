@@ -166,7 +166,14 @@ async function runScalpSession(
     : { picks: [], extended: [], reentry: [] };
   const picks = selection.picks;
   const holdClip = buysOpen && holdAfternoonClip(snapped.hour);
-  const buys = scalpBuyOrders(picks, book.cash_usd, book.equity_usd, holdClip);
+  const heldValue: Record<string, number> = {};
+  for (const position of book.positions) {
+    if (!(position.qty > 0)) continue;
+    const px = marks[position.symbol] ?? position.mark_price;
+    const mv = position.market_value > 0 ? position.market_value : position.qty * px;
+    if (mv > 0) heldValue[position.symbol.toUpperCase()] = mv;
+  }
+  const buys = scalpBuyOrders(picks, book.cash_usd, book.equity_usd, holdClip, heldValue);
   const orders: Order[] = [
     ...exits.map((plan) => ({ side: "sell" as const, symbol: plan.symbol, qty: plan.qty })),
     ...stops.map((plan) => ({ side: "sell" as const, symbol: plan.symbol, qty: plan.qty })),

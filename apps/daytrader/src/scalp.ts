@@ -18,12 +18,27 @@ export const SCALP_WATCHLIST = [
   "AMZN",
   "GOOGL",
   "META",
+  "DIA",
+  "XLF",
+  "XLE",
+  "GLD",
+  "TSLA",
+  "AVGO",
+  "AMD",
+  "JPM",
+  "V",
+  "LLY",
+  "COST",
+  "XOM",
+  "WMT",
+  "NFLX",
 ] as const;
 
 const CASH_FLOOR = 0.08;
 const MAX_POSITIONS = 7;
 const MAX_NEW_PER_TICK = 2;
 const CLIP = 0.15;
+const MAX_NAME_PCT = 0.45;
 const TAKE_PROFIT = 1.01;
 const STOP = 0.995;
 /** A name already this far above the session open has run. Leave it. */
@@ -114,13 +129,13 @@ export function selectScalpBuys(
   slots: number,
   soldToday: Set<string> = new Set(),
 ): ScalpSelection {
-  if (slots <= 0) return { picks: [], extended: [], reentry: [] };
   const bySymbol = new Map(quotes.map((quote) => [quote.symbol.toUpperCase(), quote]));
-  const picks: ScalpPick[] = [];
+  const fresh: ScalpPick[] = [];
+  const adding: ScalpPick[] = [];
   const extended: string[] = [];
   const reentry: string[] = [];
   for (const symbol of SCALP_WATCHLIST) {
-    if (held.has(symbol) || isSignalOnlySymbol(symbol)) continue;
+    if (isSignalOnlySymbol(symbol)) continue;
     if (soldToday.has(symbol)) {
       reentry.push(symbol);
       continue;
@@ -134,17 +149,18 @@ export function selectScalpBuys(
       extended.push(symbol);
       continue;
     }
-    picks.push({
-      symbol,
-      gain,
-      headlined: mentions(symbol, articles),
-    });
+    const pick = { symbol, gain, headlined: mentions(symbol, articles) };
+    if (held.has(symbol)) adding.push(pick);
+    else fresh.push(pick);
   }
-  picks.sort((a, b) => {
+  const rank = (a: ScalpPick, b: ScalpPick) => {
     if (a.headlined !== b.headlined) return a.headlined ? -1 : 1;
     return b.gain - a.gain;
-  });
-  return { picks: picks.slice(0, Math.min(slots, MAX_NEW_PER_TICK)), extended, reentry };
+  };
+  fresh.sort(rank);
+  adding.sort(rank);
+  const picks = [...fresh.slice(0, Math.min(Math.max(0, slots), MAX_NEW_PER_TICK)), ...adding].sort(rank);
+  return { picks, extended, reentry };
 }
 
 export function scalpSlots(positionCount: number): number {
@@ -156,26 +172,33 @@ export function holdAfternoonClip(hour: number): boolean {
   return hour < 13;
 }
 
-/** Fixed clip, 15% of equity, and only as many as the cash floor allows. Before 13:00 one extra clip is held back. */
-export function scalpNotionals(cash: number, equity: number, count: number, holdClip = false): number[] {
-  if (count <= 0 || !(equity > 0)) return [];
+/** One clip is 15% of equity. A name that still qualifies can take more clips, up to 45% of equity. */
+export function scalpBuyOrders(
+  picks: ScalpPick[],
+  cash: number,
+  equity: number,
+  holdClip = false,
+  heldValue: Record<string, number> = {},
+): Order[] {
+  if (!picks.length || !(equity > 0)) return [];
   const clip = Math.floor(equity * CLIP * 100) / 100;
   let left = cash - CASH_FLOOR * equity;
   if (holdClip) left -= clip;
   if (!(clip >= 1) || !(left >= clip)) return [];
-  const notionals: number[] = [];
-  for (let i = 0; i < count && left >= clip; i++) {
-    notionals.push(clip);
-    left -= clip;
-  }
-  return notionals;
-}
-
-export function scalpBuyOrders(picks: ScalpPick[], cash: number, equity: number, holdClip = false): Order[] {
-  const notionals = scalpNotionals(cash, equity, picks.length, holdClip);
+  const added: Record<string, number> = {};
   const orders: Order[] = [];
-  for (let i = 0; i < notionals.length; i++) {
-    orders.push({ side: "buy", symbol: picks[i].symbol, notional_usd: notionals[i] });
+  let progressed = true;
+  while (progressed && left >= clip) {
+    progressed = false;
+    for (const pick of picks) {
+      const have = (heldValue[pick.symbol] ?? 0) + (added[pick.symbol] ?? 0);
+      if (have + clip > MAX_NAME_PCT * equity + 1e-6) continue;
+      if (left < clip) break;
+      orders.push({ side: "buy", symbol: pick.symbol, notional_usd: clip });
+      added[pick.symbol] = (added[pick.symbol] ?? 0) + clip;
+      left -= clip;
+      progressed = true;
+    }
   }
   return orders;
 }
@@ -304,8 +327,8 @@ export async function buyThenLimit(order: Order): Promise<string> {
   const qty = filled.filledQty;
   if (!(px > 0) || !(qty > 0)) throw new Error(`${order.symbol} fill missing price or qty`);
   const limit = limitPrice(px);
-  const sellId = await restLimit(order.symbol, qty, limit, "day");
-  return `${order.symbol} filled ${qty} @ ${px} limit ${limit} id=${sellId}`;
+  const placedSell = await submitLimitSell(order.symbol, qty, limit, "day");
+  return `${order.symbol} filled ${qty} @ ${px} limit ${limit} id=${String(placedSell.id || "")}`;
 }
 
 /** Day limit for an experiment lot that has no working sell. Covers an expired day order or a rejected GTC. */
