@@ -28,6 +28,36 @@ async function alpacaRequest(method: string, apiPath: string, body?: unknown): P
   return JSON.parse(text) as unknown;
 }
 
+const DATA_BASE = "https://data.alpaca.markets";
+
+/** Latest IEX trade for the names about to be bought. Session open and prior close stay on Newstracker. */
+export async function latestTrades(symbols: string[]): Promise<Record<string, number>> {
+  const unique = [...new Set(symbols.map((symbol) => symbol.toUpperCase()).filter(Boolean))];
+  if (!unique.length) return {};
+  const key = process.env.APCA_API_KEY_ID || "";
+  const secret = process.env.APCA_API_SECRET_KEY || "";
+  if (!key || !secret) throw new Error("Missing APCA_API_KEY_ID / APCA_API_SECRET_KEY");
+  const base = (process.env.DAYTRADE_DATA_URL || DATA_BASE).replace(/\/$/, "");
+  const feed = (process.env.DAYTRADE_DATA_FEED || "iex").trim() || "iex";
+  const params = new URLSearchParams({ symbols: unique.join(","), feed });
+  const res = await fetch(`${base}/v2/stocks/trades/latest?${params}`, {
+    headers: {
+      "APCA-API-KEY-ID": key,
+      "APCA-API-SECRET-KEY": secret,
+      Accept: "application/json",
+    },
+  });
+  const text = await res.text();
+  if (!res.ok) throw new Error(`Alpaca data HTTP ${res.status}: ${text.slice(0, 180)}`);
+  const body = JSON.parse(text) as { trades?: Record<string, { p?: number }> };
+  const prices: Record<string, number> = {};
+  for (const [symbol, trade] of Object.entries(body.trades ?? {})) {
+    const px = Number(trade?.p);
+    if (px > 0) prices[symbol.toUpperCase()] = px;
+  }
+  return prices;
+}
+
 export function equityOffsetUsd(): number {
   const raw = process.env.DAYTRADE_EQUITY_OFFSET_USD;
   if (raw === undefined || raw.trim() === "") return DEFAULT_OFFSET;

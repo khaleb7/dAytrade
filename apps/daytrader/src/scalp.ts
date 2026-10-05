@@ -163,6 +163,43 @@ export function selectScalpBuys(
   return { picks, extended, reentry };
 }
 
+/** Drop names whose live print has left the entry band. Session open and prior close stay from Newstracker. */
+export function applyFreshLast(
+  picks: ScalpPick[],
+  quotes: Quote[],
+  freshLast: Record<string, number>,
+): { picks: ScalpPick[]; leftBand: string[] } {
+  const bySymbol = new Map(quotes.map((quote) => [quote.symbol.toUpperCase(), quote]));
+  const kept: ScalpPick[] = [];
+  const leftBand: string[] = [];
+  for (const pick of picks) {
+    const last = freshLast[pick.symbol];
+    const quote = bySymbol.get(pick.symbol);
+    const open = quote?.session_open;
+    const prior = quote?.prior_close;
+    const gain = open != null && open > 0 && last > 0 ? last / open - 1 : Number.NaN;
+    const inside =
+      last > 0 &&
+      open != null &&
+      open > 0 &&
+      last > open &&
+      prior != null &&
+      prior > 0 &&
+      last > prior &&
+      gain <= MAX_OPEN_GAIN;
+    if (!inside) {
+      leftBand.push(pick.symbol);
+      continue;
+    }
+    kept.push({ ...pick, gain });
+  }
+  kept.sort((a, b) => {
+    if (a.headlined !== b.headlined) return a.headlined ? -1 : 1;
+    return b.gain - a.gain;
+  });
+  return { picks: kept, leftBand };
+}
+
 export function scalpSlots(positionCount: number): number {
   return Math.max(0, MAX_POSITIONS - positionCount);
 }
