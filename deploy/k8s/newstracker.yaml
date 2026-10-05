@@ -46,6 +46,8 @@ spec:
               value: "8080"
             - name: NEWSTRACKER_DB
               value: /data/newstracker.db
+            - name: NEWSTRACKER_CYCLE_SLEEP
+              value: "15"
             - name: APCA_API_KEY_ID
               valueFrom:
                 secretKeyRef:

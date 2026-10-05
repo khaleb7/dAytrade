@@ -32,6 +32,20 @@ DEFAULT_SYMBOLS = (
     "AMZN",
     "GOOGL",
     "META",
+    "DIA",
+    "XLF",
+    "XLE",
+    "GLD",
+    "TSLA",
+    "AVGO",
+    "AMD",
+    "JPM",
+    "V",
+    "LLY",
+    "COST",
+    "XOM",
+    "WMT",
+    "NFLX",
 )
 
 

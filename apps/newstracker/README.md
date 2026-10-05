@@ -22,7 +22,7 @@ GET /v2/stocks/{symbol}/bars?timeframe=1Min&limit=5&feed=iex
 
 When an EDGAR source is due, it is taken before any RSS feed or bar symbol.
 
-Default symbols: `SPY, QQQ, IWM, VTI, TLT, USO, AAPL, MSFT, NVDA, AMZN, GOOGL, META`. If either Alpaca key is unset, bar sources are skipped and news still runs.
+Default symbols: `SPY, QQQ, IWM, VTI, TLT, USO, AAPL, MSFT, NVDA, AMZN, GOOGL, META, DIA, XLF, XLE, GLD, TSLA, AVGO, AMD, JPM, V, LLY, COST, XOM, WMT, NFLX`. If either Alpaca key is unset, bar sources are skipped and news still runs.
 
 Each request is a single attempt. The next eligible time is stored on the source:
 
@@ -33,7 +33,7 @@ Each request is a single attempt. The next eligible time is stored on the source
 | Other error | 300s |
 | HTTP 429 or a rate-limit body | 900s, or `Retry-After` if longer |
 
-The cycle sleep after every attempt defaults to 60s. Sources share one queue, so a bar and a feed are never fetched in the same cycle.
+The cycle sleep after every attempt defaults to 60s. The cluster sets it to 15s so the longer symbol list still refreshes inside a half hour. Sources share one queue, so a bar and a feed are never fetched in the same cycle.
 
 ## Store
 
