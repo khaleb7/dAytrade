@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { latestTrades, reconcile, sessionSellSymbols, sizingBook, submitOrder } from "./alpaca.js";
+import { latestTrades, minuteOpens, reconcile, sessionSellSymbols, sizingBook, submitOrder } from "./alpaca.js";
 import { isTradingDay } from "./calendar.js";
 import { asOfIso, cutoffUtc, isRthTick, nowEt, previousCutoff, sessionDate, slotKey, snapTick } from "./clock.js";
 import { notifyDiscord } from "./discord.js";
@@ -14,10 +14,11 @@ import {
   describePicks,
   flattenPlans,
   loadReserve,
+  limitNewNames,
   marketSellExperiment,
   openExitPlans,
   rearmUncovered,
-  restLimit,
+  requotePicks,
   scalpActive,
   holdAfternoonClip,
   scalpBuyOrders,
@@ -58,7 +59,7 @@ function positionMarks(book: Book, quotes: Quote[]): Record<string, number> {
   return marksFrom(quotes, marks);
 }
 
-/** 15:55 ET flatten, while the regular session is still open. Green lots that have not reached +1% are sold. Losers keep a GTC limit 1% above cost. */
+/** 15:55 ET flatten, while the regular session is still open. Every scalp still held is sold. */
 async function runScalpClose(env: TickEnv, day: Date, snapped: { hour: number; minute: number }): Promise<number> {
   armScalpScoreboard();
   const slot = slotKey(snapped.hour, snapped.minute);
@@ -70,13 +71,9 @@ async function runScalpClose(env: TickEnv, day: Date, snapped: { hour: number; m
   const marks = positionMarks(book, []);
   const excess = scorePending(marks);
   if (excess != null) console.log(`[daytrader] prior excess ${excess.toFixed(6)}`);
-  const plans = flattenPlans(book.positions, reserved, marks);
-  const sells: Order[] = plans
-    .filter((plan) => plan.marketSell)
-    .map((plan) => ({ side: "sell" as const, symbol: plan.symbol, qty: plan.qty }));
-  const notes = plans.map((plan) =>
-    plan.marketSell ? `flatten ${plan.symbol}` : `hold loser ${plan.symbol} limit ${plan.limit}`,
-  );
+  const plans = flattenPlans(book.positions, reserved);
+  const sells: Order[] = plans.map((plan) => ({ side: "sell" as const, symbol: plan.symbol, qty: plan.qty }));
+  const notes = plans.map((plan) => `flatten ${plan.symbol}`);
   const verdict = validateOrders(sells, book, marks);
   const accepted = verdict.ok ? sells : [];
   recordTick({
@@ -107,20 +104,8 @@ async function runScalpClose(env: TickEnv, day: Date, snapped: { hour: number; m
   let failed = 0;
   for (const plan of plans) {
     try {
-      if (plan.marketSell) {
-        const id = await marketSellExperiment(plan.symbol, plan.qty);
-        lines.push(`sold ${plan.symbol} id=${id}`);
-      } else {
-        try {
-          const id = await restLimit(plan.symbol, plan.qty, plan.limit, "gtc");
-          lines.push(`gtc ${plan.symbol} @ ${plan.limit} id=${id}`);
-        } catch (err) {
-          const message = err instanceof Error ? err.message : String(err);
-          console.error(`[daytrader] gtc failed ${plan.symbol}: ${message}`);
-          const id = await restLimit(plan.symbol, plan.qty, plan.limit, "day");
-          lines.push(`gtc ${plan.symbol} failed; day limit ${plan.limit} id=${id}`);
-        }
-      }
+      const id = await marketSellExperiment(plan.symbol, plan.qty);
+      lines.push(`sold ${plan.symbol} id=${id}`);
     } catch (err) {
       failed += 1;
       const message = err instanceof Error ? err.message : String(err);
@@ -165,15 +150,23 @@ async function runScalpSession(
   const selection = buysOpen
     ? selectScalpBuys(quotes, articles, held, scalpSlots(held.size), soldToday)
     : { picks: [], extended: [], reentry: [] };
+  const candidates = buysOpen ? requotePicks(selection, quotes, articles) : [];
   let picks = selection.picks;
   let leftBand: string[] = [];
   let requoteFailed = false;
-  if (buysOpen && picks.length) {
+  if (buysOpen && candidates.length) {
     try {
-      const freshLast = await latestTrades(picks.map((pick) => pick.symbol));
-      const requoted = applyFreshLast(picks, quotes, freshLast);
-      picks = requoted.picks;
-      leftBand = requoted.leftBand;
+      const freshLast = await latestTrades(candidates.map((pick) => pick.symbol));
+      let halfHour: Record<string, number> = {};
+      try {
+        halfHour = await minuteOpens(candidates.map((pick) => pick.symbol), previousCutoff(day, snapped.hour, snapped.minute));
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        console.error(`[daytrader] half-hour anchor failed: ${message}`);
+      }
+      const requoted = applyFreshLast(candidates, quotes, freshLast, halfHour);
+      picks = limitNewNames(requoted.picks, held, scalpSlots(held.size));
+      leftBand = requoted.leftBand.filter((symbol) => !picks.some((pick) => pick.symbol === symbol));
       for (const [symbol, px] of Object.entries(freshLast)) marks[symbol] = px;
     } catch (err) {
       requoteFailed = true;
@@ -196,6 +189,7 @@ async function runScalpSession(
     ...stops.map((plan) => ({ side: "sell" as const, symbol: plan.symbol, qty: plan.qty })),
     ...buys,
   ];
+  const stillExtended = selection.extended.filter((symbol) => !picks.some((pick) => pick.symbol === symbol));
   const reason = !entriesOpen
     ? exits.length
       ? `open exit ${exits.map((plan) => plan.symbol).join(", ")}`
@@ -203,14 +197,14 @@ async function runScalpSession(
     : buysOpen
       ? picks.length
         ? [
-            describePicks(picks, selection.extended, selection.reentry),
+            describePicks(picks, stillExtended, selection.reentry),
             leftBand.length ? `requote left band ${leftBand.join(", ")}` : "",
           ]
             .filter(Boolean)
             .join("; ")
         : leftBand.length
           ? `requote left band ${leftBand.join(", ")}`
-          : describePicks(picks, selection.extended, selection.reentry)
+          : describePicks(picks, stillExtended, selection.reentry)
       : "no new buys in the last hour before a weekend or holiday";
   console.log(`[daytrader] scalp ${reason} orders=${orders.length}`);
   const verdict = validateOrders(orders, book, marks);

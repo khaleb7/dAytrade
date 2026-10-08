@@ -48,6 +48,8 @@ export interface ScalpPick {
   symbol: string;
   gain: number;
   headlined: boolean;
+  /** Above the open cap, kept because the fresh trade is within 0.40% of the print from 30 minutes ago. */
+  halfHour?: boolean;
 }
 
 /** Scalp is the daytrade. The QQQ/VTI sleeve runs only when DAYTRADE_MODE is not scalp. */
@@ -126,7 +128,7 @@ export function selectScalpBuys(
   quotes: Quote[],
   articles: NewsArticle[],
   held: Set<string>,
-  slots: number,
+  _slots: number,
   soldToday: Set<string> = new Set(),
 ): ScalpSelection {
   const bySymbol = new Map(quotes.map((quote) => [quote.symbol.toUpperCase(), quote]));
@@ -159,15 +161,45 @@ export function selectScalpBuys(
   };
   fresh.sort(rank);
   adding.sort(rank);
-  const picks = [...fresh.slice(0, Math.min(Math.max(0, slots), MAX_NEW_PER_TICK)), ...adding].sort(rank);
-  return { picks, extended, reentry };
+  return { picks: [...fresh, ...adding].sort(rank), extended, reentry };
 }
 
-/** Drop names whose live print has left the entry band. Session open and prior close stay from Newstracker. */
+/** Stored qualifiers plus names already above the open cap. The fresh check decides which ones stay. */
+export function requotePicks(selection: ScalpSelection, quotes: Quote[], articles: NewsArticle[]): ScalpPick[] {
+  const bySymbol = new Map(quotes.map((quote) => [quote.symbol.toUpperCase(), quote]));
+  const have = new Set(selection.picks.map((pick) => pick.symbol));
+  const extra: ScalpPick[] = [];
+  for (const symbol of selection.extended) {
+    if (have.has(symbol)) continue;
+    const quote = bySymbol.get(symbol);
+    const open = quote?.session_open;
+    const last = quote?.last;
+    const gain = open != null && open > 0 && last != null && last > 0 ? last / open - 1 : 0;
+    extra.push({ symbol, gain, headlined: mentions(symbol, articles) });
+  }
+  return [...selection.picks, ...extra];
+}
+
+/** At most two new names. Adding to a name already held does not use that slot. */
+export function limitNewNames(picks: ScalpPick[], held: Set<string>, slots: number): ScalpPick[] {
+  const rank = (a: ScalpPick, b: ScalpPick) => {
+    if (a.headlined !== b.headlined) return a.headlined ? -1 : 1;
+    return b.gain - a.gain;
+  };
+  const adding = picks.filter((pick) => held.has(pick.symbol)).sort(rank);
+  const fresh = picks.filter((pick) => !held.has(pick.symbol)).sort(rank);
+  return [...fresh.slice(0, Math.min(Math.max(0, slots), MAX_NEW_PER_TICK)), ...adding].sort(rank);
+}
+
+/**
+ * Keep a fresh trade that is above the open and the prior close when it is still within
+ * 0.40% of the open, or within 0.40% of the real print from 30 minutes ago.
+ */
 export function applyFreshLast(
   picks: ScalpPick[],
   quotes: Quote[],
   freshLast: Record<string, number>,
+  halfHour: Record<string, number> = {},
 ): { picks: ScalpPick[]; leftBand: string[] } {
   const bySymbol = new Map(quotes.map((quote) => [quote.symbol.toUpperCase(), quote]));
   const kept: ScalpPick[] = [];
@@ -178,20 +210,15 @@ export function applyFreshLast(
     const open = quote?.session_open;
     const prior = quote?.prior_close;
     const gain = open != null && open > 0 && last > 0 ? last / open - 1 : Number.NaN;
-    const inside =
-      last > 0 &&
-      open != null &&
-      open > 0 &&
-      last > open &&
-      prior != null &&
-      prior > 0 &&
-      last > prior &&
-      gain <= MAX_OPEN_GAIN;
-    if (!inside) {
+    const anchor = halfHour[pick.symbol];
+    const paced = anchor > 0 && last > 0 && last / anchor - 1 <= MAX_OPEN_GAIN;
+    const above =
+      last > 0 && open != null && open > 0 && last > open && prior != null && prior > 0 && last > prior;
+    if (!above || !(gain <= MAX_OPEN_GAIN || paced)) {
       leftBand.push(pick.symbol);
       continue;
     }
-    kept.push({ ...pick, gain });
+    kept.push({ ...pick, gain, halfHour: !(gain <= MAX_OPEN_GAIN) && paced });
   }
   kept.sort((a, b) => {
     if (a.headlined !== b.headlined) return a.headlined ? -1 : 1;
@@ -245,7 +272,7 @@ export interface StopPlan {
   qty: number;
 }
 
-/** Overnight scalps, sold at 09:30 and 10:00 into the opening rush. The reserved lot is not an overnight scalp. */
+/** A scalp the 15:55 close did not finish selling. Sold at 09:30 and 10:00. The reserved lot is not included. */
 export function openExitPlans(positions: Position[], reserved: Record<string, number>): StopPlan[] {
   const plans: StopPlan[] = [];
   for (const position of positions) {
@@ -273,31 +300,13 @@ export function stopPlans(
   return plans;
 }
 
-export interface FlattenPlan {
-  symbol: string;
-  qty: number;
-  limit: number;
-  /** Mark is at or above average cost, so the close sells it. */
-  marketSell: boolean;
-}
-
-export function flattenPlans(
-  positions: Position[],
-  reserved: Record<string, number>,
-  marks: Record<string, number>,
-): FlattenPlan[] {
-  const plans: FlattenPlan[] = [];
+/** Every scalp still held at 15:55 is sold. A loser is not carried into the next open. */
+export function flattenPlans(positions: Position[], reserved: Record<string, number>): StopPlan[] {
+  const plans: StopPlan[] = [];
   for (const position of positions) {
     const qty = experimentQty(position, reserved);
     if (!(qty > 1e-8)) continue;
-    const mark = marks[position.symbol] ?? position.mark_price;
-    if (!(mark > 0) || !(position.avg_cost > 0)) continue;
-    plans.push({
-      symbol: position.symbol,
-      qty,
-      limit: limitPrice(position.avg_cost),
-      marketSell: mark + 1e-9 >= position.avg_cost,
-    });
+    plans.push({ symbol: position.symbol, qty });
   }
   return plans;
 }
@@ -305,7 +314,10 @@ export function flattenPlans(
 export function describePicks(picks: ScalpPick[], extended: string[] = [], reentry: string[] = []): string {
   const chosen = picks.length
     ? picks
-        .map((pick) => `${pick.symbol} ${(pick.gain * 100).toFixed(2)}%${pick.headlined ? " headline" : ""}`)
+        .map(
+          (pick) =>
+            `${pick.symbol} ${(pick.gain * 100).toFixed(2)}%${pick.halfHour ? " half-hour" : ""}${pick.headlined ? " headline" : ""}`,
+        )
         .join(", ")
     : extended.length
       ? "no name is within 0.40% of the open"
