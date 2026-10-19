@@ -2,8 +2,8 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { latestTrades, minuteOpens, reconcile, sessionSellSymbols, sizingBook, submitOrder } from "./alpaca.js";
 import { isTradingDay } from "./calendar.js";
-import { asOfIso, cutoffUtc, isRthTick, nowEt, previousCutoff, sessionDate, slotKey, snapTick } from "./clock.js";
-import { notifyDiscord } from "./discord.js";
+import { asOfIso, cutoffUtc, isEodSummary, isRthTick, nowEt, previousCutoff, sessionDate, slotKey, snapTick } from "./clock.js";
+import { formatAccountSummary, notifyDiscord } from "./discord.js";
 import { runAgent } from "./fanout.js";
 import { buildPrompt } from "./prompt.js";
 import { buildRuleOrders, ruleConfigFromEnv } from "./rules.js";
@@ -20,6 +20,7 @@ import {
   rearmUncovered,
   requotePicks,
   scalpActive,
+  heldAddsOnly,
   holdAfternoonClip,
   scalpBuyOrders,
   scalpBuysOpen,
@@ -57,6 +58,22 @@ function positionMarks(book: Book, quotes: Quote[]): Record<string, number> {
     if (position.mark_price > 0) marks[position.symbol] = position.mark_price;
   }
   return marksFrom(quotes, marks);
+}
+
+/** 16:10 ET. Read the Alpaca account after the close and post it. No orders. */
+async function runEodSummary(): Promise<number> {
+  try {
+    const book = await reconcile();
+    const body = formatAccountSummary(book);
+    console.log(`[daytrader] eod summary\n${body}`);
+    await notifyDiscord("Daytrader close", body, (book.status || "ACTIVE") === "ACTIVE");
+    return 0;
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error(`[daytrader] eod summary failed: ${message}`);
+    await notifyDiscord("Daytrader close", "account read failed", false);
+    return 1;
+  }
 }
 
 /** 15:55 ET flatten, while the regular session is still open. Every scalp still held is sold. */
@@ -135,7 +152,6 @@ async function runScalpSession(
   const entriesOpen = scalpEntriesOpen(snapped.hour, snapped.minute);
   const buysOpen = scalpBuysOpen(day, snapped.hour, snapped.minute);
   const exits = entriesOpen ? [] : openExitPlans(book.positions, reserved);
-  const stops = entriesOpen ? stopPlans(book.positions, reserved, marks) : [];
   let soldToday = new Set<string>();
   let reentryCheckFailed = false;
   if (buysOpen) {
@@ -154,27 +170,50 @@ async function runScalpSession(
   let picks = selection.picks;
   let leftBand: string[] = [];
   let requoteFailed = false;
-  if (buysOpen && candidates.length) {
+  let stopQuoteFailed = false;
+  const quoteSymbols = [
+    ...new Set([
+      ...(buysOpen ? candidates.map((pick) => pick.symbol) : []),
+      ...(entriesOpen ? [...held] : []),
+    ]),
+  ];
+  let freshLast: Record<string, number> = {};
+  if (quoteSymbols.length) {
     try {
-      const freshLast = await latestTrades(candidates.map((pick) => pick.symbol));
-      let halfHour: Record<string, number> = {};
-      try {
-        halfHour = await minuteOpens(candidates.map((pick) => pick.symbol), previousCutoff(day, snapped.hour, snapped.minute));
-      } catch (err) {
-        const message = err instanceof Error ? err.message : String(err);
-        console.error(`[daytrader] half-hour anchor failed: ${message}`);
-      }
-      const requoted = applyFreshLast(candidates, quotes, freshLast, halfHour);
-      picks = limitNewNames(requoted.picks, held, scalpSlots(held.size));
-      leftBand = requoted.leftBand.filter((symbol) => !picks.some((pick) => pick.symbol === symbol));
+      freshLast = await latestTrades(quoteSymbols);
       for (const [symbol, px] of Object.entries(freshLast)) marks[symbol] = px;
     } catch (err) {
-      requoteFailed = true;
-      picks = [];
+      stopQuoteFailed = true;
+      if (buysOpen && candidates.length) {
+        requoteFailed = true;
+        picks = [];
+      }
       const message = err instanceof Error ? err.message : String(err);
-      console.error(`[daytrader] requote failed: ${message}`);
+      console.error(`[daytrader] fresh trade failed: ${message}`);
     }
   }
+  if (buysOpen && candidates.length && !requoteFailed) {
+    let halfHour: Record<string, number> = {};
+    try {
+      halfHour = await minuteOpens(candidates.map((pick) => pick.symbol), previousCutoff(day, snapped.hour, snapped.minute));
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error(`[daytrader] half-hour anchor failed: ${message}`);
+    }
+    const requoted = applyFreshLast(candidates, quotes, freshLast, halfHour);
+    picks = limitNewNames(requoted.picks, held, scalpSlots(held.size));
+    leftBand = requoted.leftBand.filter((symbol) => !picks.some((pick) => pick.symbol === symbol));
+  }
+  const stops = entriesOpen && !stopQuoteFailed ? stopPlans(book.positions, reserved, freshLast) : [];
+  if (stops.length) {
+    const stopped = new Set(stops.map((plan) => plan.symbol.toUpperCase()));
+    picks = picks.filter((pick) => !stopped.has(pick.symbol.toUpperCase()));
+  }
+  const saleBlocksNew = soldToday.size > 0 || reentryCheckFailed || stops.length > 0;
+  const clipBlocksNew = snapped.hour >= 13;
+  const skippedNew =
+    buysOpen && (saleBlocksNew || clipBlocksNew) ? picks.filter((pick) => !held.has(pick.symbol)) : [];
+  if (skippedNew.length) picks = heldAddsOnly(picks, held);
   const holdClip = buysOpen && holdAfternoonClip(snapped.hour);
   const heldValue: Record<string, number> = {};
   for (const position of book.positions) {
@@ -206,7 +245,19 @@ async function runScalpSession(
           ? `requote left band ${leftBand.join(", ")}`
           : describePicks(picks, stillExtended, selection.reentry)
       : "no new buys in the last hour before a weekend or holiday";
-  console.log(`[daytrader] scalp ${reason} orders=${orders.length}`);
+  const newNameWhy =
+    stops.length || soldToday.size > 0
+      ? "no new name after a sale"
+      : reentryCheckFailed
+        ? "no new name; reentry check failed"
+        : "13:00 clip does not open";
+  const newNameNote = skippedNew.length
+    ? `${newNameWhy} ${skippedNew.map((pick) => pick.symbol).join(", ")}`
+    : "";
+  const noted = [reason, newNameNote, stops.length ? `stop ${stops.map((plan) => plan.symbol).join(", ")}` : ""]
+    .filter(Boolean)
+    .join("; ");
+  console.log(`[daytrader] scalp ${noted} orders=${orders.length}`);
   const verdict = validateOrders(orders, book, marks);
   const accepted = verdict.ok ? (verdict.hold ? [] : orders) : [];
   recordTick({
@@ -223,11 +274,13 @@ async function runScalpSession(
       ...exits.map((plan) => `open exit ${plan.symbol}`),
       ...stops.map((plan) => `stop ${plan.symbol}`),
       ...(holdClip ? ["holding one clip until 13:00"] : []),
+      ...(newNameNote ? [newNameNote] : []),
       ...(reentryCheckFailed ? ["reentry check failed"] : []),
       ...(requoteFailed ? ["requote failed"] : []),
+      ...(stopQuoteFailed && entriesOpen ? ["stop quote failed"] : []),
     ],
     agent_decision: "scalp",
-    agent_reason: reason,
+    agent_reason: noted,
     dry_run: env.dryRun || !verdict.ok,
     excess: null,
   });
@@ -276,6 +329,13 @@ async function runScalpSession(
 /** One CronJob invocation. Exit 0 when the slot is not an RTH tick. */
 export async function runTick(env: TickEnv): Promise<number> {
   const et = nowEt(env.now);
+  if (isEodSummary(et.hour, et.minute)) {
+    if (!isTradingDay(et.day)) {
+      console.log("[daytrader] skip eod summary; not a trading day");
+      return 0;
+    }
+    return runEodSummary();
+  }
   const snapped = snapTick(et.hour, et.minute);
   const session = sessionDate(et.day);
   if (

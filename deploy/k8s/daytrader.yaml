@@ -113,3 +113,74 @@ spec:
             - name: scoreboard
               persistentVolumeClaim:
                 claimName: daytrader-scoreboard
+---
+# 16:10 ET. Posts the Alpaca account to Discord. Does not trade and does not mount the scoreboard.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: daytrader-eod
+  namespace: daytrade
+spec:
+  schedule: "10 16 * * 1-5"
+  timeZone: America/New_York
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      activeDeadlineSeconds: 180
+      template:
+        spec:
+          restartPolicy: Never
+          enableServiceLinks: false
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65532
+            fsGroup: 65532
+          containers:
+            - name: daytrader
+              image: daytrader:latest
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: NEWSTRACKER_URL
+                  value: http://newstracker.daytrade.svc.cluster.local:8080
+                - name: DAYTRADE_WORK
+                  value: /work
+                - name: DAYTRADE_MODEL
+                  value: grok-4.7
+                - name: DAYTRADE_PROPOSAL_WAIT_MINUTES
+                  value: "20"
+                - name: DAYTRADE_MODE
+                  value: scalp
+                - name: DAYTRADE_EQUITY_OFFSET_USD
+                  value: "0"
+                - name: APCA_API_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: daytrade-secrets
+                      key: APCA_API_KEY_ID
+                - name: APCA_API_SECRET_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: daytrade-secrets
+                      key: APCA_API_SECRET_KEY
+                - name: CURSOR_API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: daytrade-secrets
+                      key: CURSOR_API_KEY
+                - name: DAYTRADE_DISCORD_WEBHOOK_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: daytrade-secrets
+                      key: DAYTRADE_DISCORD_WEBHOOK_URL
+                      optional: true
+                - name: APCA_API_BASE_URL
+                  value: https://api.alpaca.markets
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 128Mi
+                limits:
+                  memory: 512Mi

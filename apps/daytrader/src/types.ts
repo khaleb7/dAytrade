@@ -11,6 +11,7 @@ export interface Book {
   account_id?: string;
   cash_usd: number;
   equity_usd: number;
+  last_equity_usd?: number;
   buying_power: number;
   positions: Position[];
   status?: string;

@@ -76,6 +76,11 @@ export function cutoffUtc(day: Date, hour: number, minute: number): Date {
   return new Date(Date.UTC(day.getUTCFullYear(), day.getUTCMonth(), day.getUTCDate(), hour + off, minute, 0));
 }
 
+/** 16:10 ET account summary, after the 15:55 sells can fill. A few minutes of scheduler lag still count. */
+export function isEodSummary(hour: number, minute: number): boolean {
+  return hour === 16 && minute >= 10 && minute < 25;
+}
+
 export function slotKey(hour: number, minute: number): string {
   return `${String(hour).padStart(2, "0")}${String(minute).padStart(2, "0")}`;
 }

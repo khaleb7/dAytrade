@@ -1,3 +1,44 @@
+import type { Book } from "./types.js";
+
+function money(n: number): string {
+  return `$${n.toFixed(2)}`;
+}
+
+function signedMoney(n: number): string {
+  const sign = n > 0 ? "+" : n < 0 ? "-" : "";
+  return `${sign}$${Math.abs(n).toFixed(2)}`;
+}
+
+function qtyLabel(qty: number): string {
+  const fixed = qty.toFixed(8);
+  return fixed.includes(".") ? fixed.replace(/0+$/, "").replace(/\.$/, "") : fixed;
+}
+
+/** Broker equity, day change, cash, and open positions. The account id is omitted. */
+export function formatAccountSummary(book: Book): string {
+  const lines = [book.status || "unknown", `equity ${money(book.equity_usd)}`];
+  const last = book.last_equity_usd;
+  if (last != null && last > 0) {
+    const delta = book.equity_usd - last;
+    const pct = (delta / last) * 100;
+    const pctSign = pct > 0 ? "+" : "";
+    lines.push(`day ${signedMoney(delta)} (${pctSign}${pct.toFixed(2)}%) from ${money(last)}`);
+  }
+  lines.push(`cash ${money(book.cash_usd)}`);
+  const open = book.positions.filter((position) => position.qty !== 0);
+  if (!open.length) {
+    lines.push("flat");
+  } else {
+    lines.push("positions");
+    for (const position of [...open].sort((a, b) => a.symbol.localeCompare(b.symbol))) {
+      lines.push(
+        `${position.symbol} ${qtyLabel(position.qty)} @ ${money(position.mark_price)} (${money(position.market_value)})`,
+      );
+    }
+  }
+  return lines.join("\n");
+}
+
 /** Optional Discord webhook. Missing URL or HTTP errors never fail the tick. */
 
 export async function notifyDiscord(title: string, body: string, ok: boolean): Promise<void> {

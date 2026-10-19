@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { cancelOrder, listOpenOrders, submitLimitSell, submitOrder, waitForFill } from "./alpaca.js";
+import { cancelOrder, listOpenOrders, submitLimitSell, submitOcoSell, submitOrder, waitForFill } from "./alpaca.js";
 import { isTradingDay } from "./calendar.js";
 import type { NewsArticle, Order, Position, Quote } from "./types.js";
 import { isSignalOnlySymbol } from "./validate.js";
@@ -43,6 +43,8 @@ const TAKE_PROFIT = 1.01;
 const STOP = 0.995;
 /** A name already this far above the session open has run. Leave it. */
 const MAX_OPEN_GAIN = 0.004;
+/** A half-hour pace that is already this far above the open is a chase. Leave it. */
+const MAX_HALF_HOUR_GAIN = 0.0125;
 
 export interface ScalpPick {
   symbol: string;
@@ -109,6 +111,17 @@ export function experimentQty(position: Position, reserved: Record<string, numbe
 
 export function limitPrice(entry: number): number {
   return Math.round(entry * TAKE_PROFIT * 100) / 100;
+}
+
+function stopPrice(entry: number): number {
+  return Math.round(entry * STOP * 100) / 100;
+}
+
+function exitCovered(sells: { orderClass: string; type: string }[]): boolean {
+  if (sells.some((order) => order.orderClass === "oco" || order.orderClass === "bracket")) return true;
+  const types = new Set(sells.map((order) => order.type));
+  if (types.has("limit") && (types.has("stop") || types.has("stop_limit"))) return true;
+  return types.has("limit");
 }
 
 function mentions(symbol: string, articles: NewsArticle[]): boolean {
@@ -211,7 +224,8 @@ export function applyFreshLast(
     const prior = quote?.prior_close;
     const gain = open != null && open > 0 && last > 0 ? last / open - 1 : Number.NaN;
     const anchor = halfHour[pick.symbol];
-    const paced = anchor > 0 && last > 0 && last / anchor - 1 <= MAX_OPEN_GAIN;
+    const paced =
+      anchor > 0 && last > 0 && last / anchor - 1 <= MAX_OPEN_GAIN && gain <= MAX_HALF_HOUR_GAIN;
     const above =
       last > 0 && open != null && open > 0 && last > open && prior != null && prior > 0 && last > prior;
     if (!above || !(gain <= MAX_OPEN_GAIN || paced)) {
@@ -231,9 +245,14 @@ export function scalpSlots(positionCount: number): number {
   return Math.max(0, MAX_POSITIONS - positionCount);
 }
 
-/** Before 13:00 ET one clip stays unspent so the afternoon still has a buy. */
+/** Before 13:00 ET one clip stays unspent. At 13:00 it can add to a name already held. */
 export function holdAfternoonClip(hour: number): boolean {
   return hour < 13;
+}
+
+/** A sale today, a stop on this tick, or the 13:00 clip leaves only names already held. */
+export function heldAddsOnly(picks: ScalpPick[], held: Set<string>): ScalpPick[] {
+  return picks.filter((pick) => held.has(pick.symbol));
 }
 
 /** One clip is 15% of equity. A name that still qualifies can take more clips, up to 45% of equity. */
@@ -283,17 +302,17 @@ export function openExitPlans(positions: Position[], reserved: Record<string, nu
   return plans;
 }
 
-/** A scalp down 0.5% from its average cost is closed so that cash can take a later setup. */
+/** A scalp down 0.5% from its average cost is closed. The mark must be a fresh trade from this tick. */
 export function stopPlans(
   positions: Position[],
   reserved: Record<string, number>,
-  marks: Record<string, number>,
+  freshLast: Record<string, number>,
 ): StopPlan[] {
   const plans: StopPlan[] = [];
   for (const position of positions) {
     const qty = experimentQty(position, reserved);
     if (!(qty > 1e-8) || !(position.avg_cost > 0)) continue;
-    const mark = marks[position.symbol] ?? position.mark_price;
+    const mark = freshLast[position.symbol.toUpperCase()];
     if (!(mark > 0) || mark > position.avg_cost * STOP) continue;
     plans.push({ symbol: position.symbol, qty });
   }
@@ -376,22 +395,40 @@ export async function buyThenLimit(order: Order): Promise<string> {
   const qty = filled.filledQty;
   if (!(px > 0) || !(qty > 0)) throw new Error(`${order.symbol} fill missing price or qty`);
   const limit = limitPrice(px);
-  const placedSell = await submitLimitSell(order.symbol, qty, limit, "day");
-  return `${order.symbol} filled ${qty} @ ${px} limit ${limit} id=${String(placedSell.id || "")}`;
+  const stop = stopPrice(px);
+  try {
+    const placedSell = await submitOcoSell(order.symbol, qty, limit, stop);
+    return `${order.symbol} filled ${qty} @ ${px} limit ${limit} stop ${stop} id=${String(placedSell.id || "")}`;
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error(`[daytrader] oco rejected ${order.symbol}: ${message}`);
+    const placedSell = await submitLimitSell(order.symbol, qty, limit, "day");
+    return `${order.symbol} filled ${qty} @ ${px} limit ${limit} oco rejected id=${String(placedSell.id || "")}`;
+  }
 }
 
 /** Day limit for an experiment lot that has no working sell. Covers an expired day order or a rejected GTC. */
 export async function rearmUncovered(positions: Position[], reserved: Record<string, number>): Promise<string[]> {
   const open = await listOpenOrders();
-  const covered = new Set(open.filter((order) => order.side === "sell").map((order) => order.symbol));
   const notes: string[] = [];
   for (const position of positions) {
     const qty = experimentQty(position, reserved);
     const symbol = position.symbol.toUpperCase();
-    if (!(qty > 1e-8) || covered.has(symbol) || !(position.avg_cost > 0)) continue;
+    if (!(qty > 1e-8) || !(position.avg_cost > 0)) continue;
+    const sells = open.filter((order) => order.side === "sell" && order.symbol === symbol);
+    if (exitCovered(sells)) continue;
     const limit = limitPrice(position.avg_cost);
-    const id = await restLimit(symbol, qty, limit, "day");
-    notes.push(`${symbol} rearmed day limit ${limit} id=${id}`);
+    const stop = stopPrice(position.avg_cost);
+    try {
+      if (sells.length) await cancelSells(symbol);
+      const placed = await submitOcoSell(symbol, qty, limit, stop);
+      notes.push(`${symbol} rearmed oco limit ${limit} stop ${stop} id=${String(placed.id || "")}`);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error(`[daytrader] oco rejected ${symbol}: ${message}`);
+      const id = await restLimit(symbol, qty, limit, "day");
+      notes.push(`${symbol} oco rejected, rearmed day limit ${limit} id=${id}`);
+    }
   }
   return notes;
 }

@@ -1,5 +1,6 @@
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
+import { isEodSummary, nowEt } from "./clock.js";
 import { notifyDiscord } from "./discord.js";
 import { runTick } from "./tick.js";
 
@@ -14,7 +15,10 @@ async function main(): Promise<void> {
     process.exit(1);
   }
   const waitMin = Number(process.env.DAYTRADE_PROPOSAL_WAIT_MINUTES || "20");
-  await notifyDiscord("Daytrader started", "Cron tick process is up.", true);
+  const et = nowEt();
+  if (!isEodSummary(et.hour, et.minute)) {
+    await notifyDiscord("Daytrader started", "Cron tick process is up.", true);
+  }
   const code = await runTick({
     newstrackerUrl,
     workDir: process.env.DAYTRADE_WORK || "/work",
