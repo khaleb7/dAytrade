@@ -115,7 +115,10 @@ export function validateOrders(
   if (sim.cash + 1e-9 < (CASH_FLOOR_PCT / 100) * sim.equity) {
     errors.push(`cash floor breached: cash=${sim.cash} < ${CASH_FLOOR_PCT}% of equity=${sim.equity}`);
   }
+  const heldQty = new Map(book.positions.map((p) => [p.symbol.toUpperCase(), p.qty]));
   for (const p of sim.positions) {
+    const prev = heldQty.get(p.symbol.toUpperCase()) ?? 0;
+    if (!(p.qty > prev + 1e-8)) continue;
     const price = px[p.symbol] ?? p.mark_price ?? p.avg_cost;
     const mv = p.qty * price;
     if (mv > (MAX_SINGLE_NAME_PCT / 100) * sim.equity + 1e-6) {

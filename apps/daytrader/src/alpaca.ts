@@ -147,6 +147,7 @@ export async function reconcile(): Promise<Book> {
     account_id: acct.id ? String(acct.id) : undefined,
     cash_usd: Number(acct.cash || 0),
     equity_usd: Number(acct.equity || 0),
+    last_equity_usd: Number(acct.last_equity || 0) > 0 ? Number(acct.last_equity) : undefined,
     buying_power: Number(acct.buying_power || 0),
     positions,
     status: String(acct.status || ""),
@@ -183,6 +184,7 @@ export interface BrokerOrder {
   qty: number;
   type: string;
   timeInForce: string;
+  orderClass: string;
 }
 
 function qtyString(qty: number): string {
@@ -201,6 +203,7 @@ function parseBrokerOrder(row: Record<string, unknown>): BrokerOrder {
     qty: Number(row.qty || 0),
     type: String(row.type || ""),
     timeInForce: String(row.time_in_force || ""),
+    orderClass: String(row.order_class || ""),
   };
 }
 
@@ -273,5 +276,27 @@ export async function submitLimitSell(
     time_in_force: timeInForce,
     qty: qtyString(qty),
     limit_price: limitPrice.toFixed(2),
+  })) as Record<string, unknown>;
+}
+
+/** Day OCO: +1% limit and a 0.5% stop. Fractional shares may reject this; the caller falls back to the limit. */
+export async function submitOcoSell(
+  symbol: string,
+  qty: number,
+  limitPrice: number,
+  stopPrice: number,
+): Promise<Record<string, unknown>> {
+  if (!(qty > 0)) throw new Error("oco sell requires qty > 0");
+  if (!(limitPrice > 0) || !(stopPrice > 0)) throw new Error("oco sell requires a limit and a stop");
+  if (!(stopPrice < limitPrice)) throw new Error("oco stop must be below the limit");
+  return (await alpacaRequest("POST", "/v2/orders", {
+    symbol: symbol.toUpperCase(),
+    qty: qtyString(qty),
+    side: "sell",
+    type: "limit",
+    time_in_force: "day",
+    order_class: "oco",
+    take_profit: { limit_price: limitPrice.toFixed(2) },
+    stop_loss: { stop_price: stopPrice.toFixed(2) },
   })) as Record<string, unknown>;
 }
