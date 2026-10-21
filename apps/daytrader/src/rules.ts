@@ -66,7 +66,7 @@ function priceOf(symbol: string, quotes: Quote[], marks: Record<string, number>)
   return mark != null && mark > 0 ? mark : null;
 }
 
-/** Pre-declared orders. The agent may veto the batch. It does not add names. */
+/** Pre-declared orders for the sleeve targets. */
 export function buildRuleOrders(book: Book, quotes: Quote[], cfg: RuleConfig): RulePlan {
   const notes: string[] = [];
   const orders: Order[] = [];

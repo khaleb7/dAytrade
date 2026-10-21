@@ -1,65 +1,39 @@
-"""Newspaper site. Reads editions; the publisher is the only writer."""
+"""Day recap site. Reads the account; never writes an order."""
 
 from __future__ import annotations
 
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from urllib.parse import urlparse
 
-from .html import render_issue, render_waiting
-from .store import Store
+from .config import Config
+from .recap import page
 
 
 class Handler(BaseHTTPRequestHandler):
-    store: Store
-    publish_hour: int
+    config: Config
 
     def log_message(self, fmt: str, *args: object) -> None:
         return
 
-    def _html(self, code: int, page: str) -> None:
-        body = page.encode("utf-8")
+    def _send(self, code: int, body: bytes, content_type: str) -> None:
         self.send_response(code)
-        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Content-Type", content_type)
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
 
-    def _json(self, code: int, payload: bytes) -> None:
-        self.send_response(code)
-        self.send_header("Content-Type", "application/json")
-        self.send_header("Content-Length", str(len(payload)))
-        self.end_headers()
-        self.wfile.write(payload)
-
     def do_GET(self) -> None:  # noqa: N802
-        path = urlparse(self.path).path
+        path = self.path.split("?", 1)[0]
         if path == "/health":
-            dates = self.store.dates()
-            body = f'{{"ok": true, "issues": {len(dates)}}}'.encode("utf-8")
-            self._json(200, body)
+            self._send(200, b'{"ok": true}', "application/json")
             return
-        dates = self.store.dates()
-        if path in ("/", "/issues"):
-            latest = self.store.latest()
-            if latest is None:
-                self._html(200, render_waiting(self.publish_hour))
-                return
-            self._html(200, render_issue(latest, dates))
+        if path in ("/", "/recap"):
+            self._send(200, page(self.config).encode("utf-8"), "text/html; charset=utf-8")
             return
-        if path.startswith("/issues/"):
-            edition = path.removeprefix("/issues/").strip("/")
-            issue = self.store.get(edition)
-            if issue is None:
-                self._html(404, render_waiting(self.publish_hour))
-                return
-            self._html(200, render_issue(issue, dates))
-            return
-        self._html(404, render_waiting(self.publish_hour))
+        self._send(404, b'{"ok": false}', "application/json")
 
 
-def serve(store: Store, bind: str, port: int, publish_hour: int) -> ThreadingHTTPServer:
-    Handler.store = store
-    Handler.publish_hour = publish_hour
-    server = ThreadingHTTPServer((bind, port), Handler)
-    print(f"[souper] http://{bind}:{port}", flush=True)
+def serve(cfg: Config) -> ThreadingHTTPServer:
+    Handler.config = cfg
+    server = ThreadingHTTPServer((cfg.bind, cfg.port), Handler)
+    print(f"[souper] http://{cfg.bind}:{cfg.port}", flush=True)
     return server

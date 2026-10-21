@@ -185,6 +185,7 @@ export interface BrokerOrder {
   type: string;
   timeInForce: string;
   orderClass: string;
+  stopPrice: number;
 }
 
 function qtyString(qty: number): string {
@@ -204,6 +205,7 @@ function parseBrokerOrder(row: Record<string, unknown>): BrokerOrder {
     type: String(row.type || ""),
     timeInForce: String(row.time_in_force || ""),
     orderClass: String(row.order_class || ""),
+    stopPrice: Number(row.stop_price || 0),
   };
 }
 
@@ -243,6 +245,39 @@ export async function sessionSellSymbols(since: Date): Promise<Set<string>> {
     if (symbol) symbols.add(symbol);
   }
   return symbols;
+}
+
+/** Stop sells that filled since `since`. A filled circuit-breaker stop keeps that name from being bought back. */
+export async function filledStopSells(since: Date): Promise<Set<string>> {
+  const after = encodeURIComponent(since.toISOString());
+  const raw = (await alpacaRequest("GET", `/v2/orders?status=closed&after=${after}&limit=100&nested=true`)) as unknown;
+  const symbols = new Set<string>();
+  if (!Array.isArray(raw)) return symbols;
+  for (const row of raw) {
+    const order = parseBrokerOrder(row as Record<string, unknown>);
+    if (order.side !== "sell" || order.status !== "filled") continue;
+    if (order.type !== "stop" && order.type !== "stop_limit") continue;
+    if (order.symbol) symbols.add(order.symbol);
+  }
+  return symbols;
+}
+
+/** Day stop sell at the circuit-breaker line. Fractional qty may be rejected; the tick then sells at market. */
+export async function submitStopSell(
+  symbol: string,
+  qty: number,
+  stopPrice: number,
+): Promise<Record<string, unknown>> {
+  if (!(qty > 0)) throw new Error("stop sell requires qty > 0");
+  if (!(stopPrice > 0)) throw new Error("stop sell requires stop price > 0");
+  return (await alpacaRequest("POST", "/v2/orders", {
+    symbol: symbol.toUpperCase(),
+    side: "sell",
+    type: "stop",
+    time_in_force: "day",
+    qty: qtyString(qty),
+    stop_price: stopPrice.toFixed(2),
+  })) as Record<string, unknown>;
 }
 
 export async function listOpenOrders(): Promise<BrokerOrder[]> {

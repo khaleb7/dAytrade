@@ -2,9 +2,10 @@
 #   docker build -f apps/daytrader/Dockerfile -t daytrader:latest .
 # Fires at :00 and :30 from 09:00–15:30 ET, plus :55, on weekdays.
 # The process exits 0 unless the wall clock is an NYSE RTH tick (09:30–15:30).
-# DAYTRADE_MODE=scalp is the daytrade and also trades the 15:55 ET fire.
-# Sleeve submits stay off until DAYTRADE_MIN_SCORED_SESSIONS scored sessions exist.
-# The scalp writes /data/scoreboard-scalp.json and does not count toward that gate.
+# The sleeve is the daytrade. DAYTRADE_MODE is unset, so the 15:55 fire does not trade.
+# Fifteen live sessions are credited on /data/scoreboard.json.
+# DAYTRADE_MIN_SCORED_SESSIONS is 15, so the next session can submit.
+# DAYTRADE_BREAKER=0.07 sells a sleeve name that trades 7% under its session open.
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -61,12 +62,12 @@ spec:
                   value: "0.05"
                 - name: DAYTRADE_GAP_CUT
                   value: "0"
+                - name: DAYTRADE_BREAKER
+                  value: "0.07"
                 - name: DAYTRADE_SPREAD_BPS
                   value: "5"
                 - name: DAYTRADE_MIN_SCORED_SESSIONS
-                  value: "20"
-                - name: DAYTRADE_MODE
-                  value: scalp
+                  value: "15"
                 - name: DAYTRADE_SCALP_SCOREBOARD
                   value: /data/scoreboard-scalp.json
                 - name: DAYTRADE_SCALP_RESERVE
@@ -151,8 +152,6 @@ spec:
                   value: grok-4.7
                 - name: DAYTRADE_PROPOSAL_WAIT_MINUTES
                   value: "20"
-                - name: DAYTRADE_MODE
-                  value: scalp
                 - name: DAYTRADE_EQUITY_OFFSET_USD
                   value: "0"
                 - name: APCA_API_KEY_ID
