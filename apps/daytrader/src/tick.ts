@@ -1,11 +1,21 @@
 import * as fs from "node:fs";
-import * as path from "node:path";
-import { latestTrades, minuteOpens, reconcile, sessionSellSymbols, sizingBook, submitOrder } from "./alpaca.js";
+import {
+  cancelOrder,
+  filledStopSells,
+  latestTrades,
+  listOpenOrders,
+  minuteOpens,
+  reconcile,
+  sessionSellSymbols,
+  sizingBook,
+  submitOrder,
+  submitStopSell,
+  waitForFill,
+} from "./alpaca.js";
+import { breached, breakerGap, linePrice, loadBreaker, planBreaker, saveBreaker, type BreakerMemory } from "./breaker.js";
 import { isTradingDay } from "./calendar.js";
 import { asOfIso, cutoffUtc, isEodSummary, isRthTick, nowEt, previousCutoff, sessionDate, slotKey, snapTick } from "./clock.js";
 import { formatAccountSummary, notifyDiscord } from "./discord.js";
-import { runAgent } from "./fanout.js";
-import { buildPrompt } from "./prompt.js";
 import { buildRuleOrders, ruleConfigFromEnv } from "./rules.js";
 import {
   applyFreshLast,
@@ -326,6 +336,117 @@ async function runScalpSession(
   return failed === 0 ? 0 : 1;
 }
 
+function sleeveSymbols(): string[] {
+  return ruleConfigFromEnv().targets.map((target) => target.symbol);
+}
+
+async function cancelStopSells(symbol: string): Promise<void> {
+  const open = await listOpenOrders();
+  for (const order of open) {
+    if (order.symbol !== symbol.toUpperCase() || order.side !== "sell") continue;
+    if (order.type !== "stop" && order.type !== "stop_limit") continue;
+    await cancelOrder(order.id);
+  }
+}
+
+/** Circuit-breaker sells go out before the rebalance. */
+async function submitBreakerSells(
+  sells: Order[],
+  book: Book,
+  marks: Record<string, number>,
+  slot: string,
+  dryRun: boolean,
+): Promise<number> {
+  if (!sells.length) return 0;
+  const verdict = validateOrders(sells, book, marks);
+  if (!verdict.ok) {
+    console.log(`[daytrader] breaker rejected ${verdict.errors.join("; ")}`);
+    await notifyDiscord(`Daytrader ${slot} breaker rejected`, verdict.errors.join("\n"), false);
+    return sells.length;
+  }
+  if (dryRun) {
+    console.log(`[daytrader] breaker dry-run ${sells.length}`);
+    await notifyDiscord(`Daytrader ${slot} breaker dry-run`, JSON.stringify(sells), true);
+    return 0;
+  }
+  let failed = 0;
+  const lines: string[] = [];
+  for (const order of sells) {
+    if (order.side !== "sell") continue;
+    try {
+      await cancelStopSells(order.symbol);
+      const resp = await submitOrder(order);
+      lines.push(`${order.symbol} id=${String(resp.id || "")}`);
+      console.log(`[daytrader] breaker sell ${order.symbol} id=${String(resp.id || "")}`);
+    } catch (err) {
+      failed += 1;
+      const message = err instanceof Error ? err.message : String(err);
+      lines.push(`${order.symbol} failed: ${message}`);
+      console.error(`[daytrader] breaker sell failed ${order.symbol}: ${message}`);
+    }
+  }
+  await notifyDiscord(`Daytrader ${slot} breaker`, lines.join("\n") || "no sell", failed === 0);
+  return failed;
+}
+
+/** Rest a day stop 7% under the session open. A rejected fractional stop leaves the half-hour sell as the backup. */
+async function armCircuitStops(
+  positions: Book["positions"],
+  quotes: Quote[],
+  memory: BreakerMemory,
+  gap: number,
+): Promise<void> {
+  if (!(gap > 0)) return;
+  const symbols = new Set(sleeveSymbols());
+  let open: Awaited<ReturnType<typeof listOpenOrders>> = [];
+  try {
+    open = await listOpenOrders();
+  } catch (err) {
+    console.error(`[daytrader] breaker stops unread: ${err instanceof Error ? err.message : String(err)}`);
+    return;
+  }
+  for (const order of open) {
+    if (order.side !== "sell" || (order.type !== "stop" && order.type !== "stop_limit")) continue;
+    if (!memory.tripped[order.symbol]) continue;
+    try {
+      await cancelOrder(order.id);
+    } catch (err) {
+      console.error(`[daytrader] breaker stop cancel failed ${order.symbol}: ${err instanceof Error ? err.message : String(err)}`);
+    }
+  }
+  for (const position of positions) {
+    const symbol = position.symbol.toUpperCase();
+    if (!symbols.has(symbol) || !(position.qty > 0) || memory.tripped[symbol]) continue;
+    const quote = quotes.find((item) => item.symbol.toUpperCase() === symbol);
+    if (!quote?.session_open || !(quote.session_open > 0) || breached(quote, gap)) continue;
+    const line = linePrice(quote.session_open, gap);
+    const stops = open.filter(
+      (order) =>
+        order.symbol === symbol &&
+        order.side === "sell" &&
+        (order.type === "stop" || order.type === "stop_limit"),
+    );
+    const match = stops.length === 1 && Math.abs(stops[0].qty - position.qty) < 1e-6 && Math.abs(stops[0].stopPrice - line) < 0.001;
+    if (match) continue;
+    let cleared = true;
+    for (const order of stops) {
+      try {
+        await cancelOrder(order.id);
+      } catch (err) {
+        cleared = false;
+        console.error(`[daytrader] breaker stop replace failed ${symbol}: ${err instanceof Error ? err.message : String(err)}`);
+      }
+    }
+    if (!cleared) continue;
+    try {
+      const resp = await submitStopSell(symbol, position.qty, line);
+      console.log(`[daytrader] breaker stop ${symbol} ${line.toFixed(2)} id=${String(resp.id || "")}`);
+    } catch (err) {
+      console.error(`[daytrader] breaker stop rejected ${symbol}: ${err instanceof Error ? err.message : String(err)}`);
+    }
+  }
+}
+
 /** One CronJob invocation. Exit 0 when the slot is not an RTH tick. */
 export async function runTick(env: TickEnv): Promise<number> {
   const et = nowEt(env.now);
@@ -377,48 +498,53 @@ export async function runTick(env: TickEnv): Promise<number> {
   }
 
   const rules = buildRuleOrders(book, context.quotes, ruleConfigFromEnv());
-  const prompt = buildPrompt({
-    promptsDir: env.promptsDir,
-    asOf,
-    cutoffUtc: cutoffIso,
-    sinceUtc: sinceIso,
-    book,
-    context,
-    orders: rules.orders,
-    ruleNotes: rules.notes,
-    workDir: env.workDir,
-  });
-  fs.writeFileSync(path.join(env.workDir, "prompt.md"), prompt);
-
-  let agentDecision = "rule";
-  let agentReason = rules.notes.join("; ");
-  try {
-    const verdict = await runAgent({
-      workDir: env.workDir,
-      prompt,
-      asOf,
-      modelId: env.modelId,
-      timeoutMs: env.timeoutMs,
-    });
-    if (verdict) {
-      agentDecision = verdict.decision;
-      if (verdict.thesis) agentReason = verdict.thesis;
-    } else {
-      console.log("[daytrader] agent returned no verdict; rules stand");
+  const gap = breakerGap();
+  const symbols = sleeveSymbols();
+  let memory = gap > 0 ? loadBreaker() : { seenSession: null, seenPrior: {}, tripped: {} };
+  const sessionOpen = cutoffUtc(et.day, 9, 30);
+  let filledStops = new Set<string>();
+  if (gap > 0) {
+    try {
+      filledStops = await filledStopSells(sessionOpen);
+    } catch (err) {
+      console.error(`[daytrader] breaker fills unread: ${err instanceof Error ? err.message : String(err)}`);
     }
-  } catch (err) {
-    console.log(
-      `[daytrader] agent skipped: ${err instanceof Error ? err.message : String(err)}; rules stand`,
-    );
   }
-  const orders: Order[] = agentDecision === "reject" ? [] : rules.orders;
+  let planned = planBreaker({
+    sessionDate: session,
+    slot,
+    gap,
+    symbols,
+    quotes: context.quotes,
+    positions: book.positions,
+    orders: rules.orders,
+    memory,
+    filledStops,
+  });
+  memory = planned.memory;
+  if (gap > 0) saveBreaker(memory);
+  const breakerSells = planned.orders.filter(
+    (order) => order.side === "sell" && Boolean(memory.tripped[order.symbol.toUpperCase()]),
+  );
+  let sleeveOrders = planned.orders.filter((order) => !breakerSells.includes(order));
   const sessions = scoredSessions();
   const dryRun = env.dryRun || sessions < minScoredSessions();
+  let breakerFailed = await submitBreakerSells(breakerSells, book, marks, slot, dryRun);
+  let sleeveBook = book;
+  if (breakerSells.length && !dryRun) {
+    try {
+      sleeveBook = sizingBook(await reconcile());
+    } catch (err) {
+      console.error(`[daytrader] breaker reread failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+  }
+  const orders = sleeveOrders;
+  const reason = [...rules.notes, ...planned.notes].filter(Boolean).join("; ");
   console.log(
-    `[daytrader] decision=${agentDecision} orders=${orders.length} scored_sessions=${sessions} dry=${dryRun}`,
+    `[daytrader] orders=${orders.length} breaker=${breakerSells.length} scored_sessions=${sessions} dry=${dryRun}`,
   );
 
-  const verdict = validateOrders(orders, book, marks);
+  const verdict = validateOrders(orders, sleeveBook, marks);
   const accepted = verdict.ok ? (verdict.hold ? [] : orders) : [];
   if (!verdict.ok) {
     console.log(`[daytrader] reject ${verdict.errors.join("; ")}`);
@@ -433,42 +559,66 @@ export async function runTick(env: TickEnv): Promise<number> {
     cash: book.cash_usd,
     positions: book.positions.filter((p) => p.qty > 0).map((p) => ({ symbol: p.symbol, qty: p.qty })),
     marks,
-    orders: accepted,
-    rule_notes: rules.notes,
-    agent_decision: agentDecision,
-    agent_reason: agentReason,
+    orders: [...breakerSells, ...accepted],
+    rule_notes: [...rules.notes, ...planned.notes],
+    agent_decision: "rule",
+    agent_reason: reason,
     dry_run: dryRun || !verdict.ok,
     excess: null,
   });
 
-  if (!verdict.ok) return 0;
+  const arm = async (): Promise<void> => {
+    if (dryRun || !(gap > 0)) return;
+    try {
+      const held = sizingBook(await reconcile());
+      await armCircuitStops(held.positions, context.quotes, memory, gap);
+    } catch (err) {
+      console.error(`[daytrader] breaker stop arm failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+  };
+
+  if (!verdict.ok) {
+    await arm();
+    return breakerFailed ? 1 : 0;
+  }
   if (verdict.hold || accepted.length === 0) {
-    console.log(`[daytrader] hold ${agentReason}`);
-    await notifyDiscord(`Daytrader ${slot} hold`, agentReason || "no orders", true);
-    return 0;
+    console.log(`[daytrader] hold ${reason}`);
+    await notifyDiscord(`Daytrader ${slot} hold`, reason || "no orders", true);
+    await arm();
+    return breakerFailed ? 1 : 0;
   }
   if (dryRun) {
     console.log(`[daytrader] dry-run ${accepted.length} orders`);
     await notifyDiscord(
       `Daytrader ${slot} dry-run`,
-      `${agentReason}\n${JSON.stringify(accepted)}\nscored sessions ${sessions}/${minScoredSessions()}`,
+      `${reason}\n${JSON.stringify(accepted)}\nscored sessions ${sessions}/${minScoredSessions()}`,
       true,
     );
     return 0;
   }
-  let failed = 0;
+  let failed = breakerFailed;
+  const buyIds: string[] = [];
   for (const order of accepted) {
     try {
       const resp = await submitOrder(order);
+      if (order.side === "buy" && resp.id) buyIds.push(String(resp.id));
       console.log(`[daytrader] submitted ${order.side} ${order.symbol} id=${String(resp.id || "")}`);
     } catch (e) {
       failed += 1;
       console.error(`[daytrader] submit failed ${order.symbol}: ${e instanceof Error ? e.message : String(e)}`);
     }
   }
+  for (const id of buyIds) {
+    try {
+      await waitForFill(id);
+    } catch (err) {
+      console.error(`[daytrader] fill wait failed ${id}: ${err instanceof Error ? err.message : String(err)}`);
+    }
+  }
+  await arm();
   await notifyDiscord(
     `Daytrader ${slot} submit`,
-    `${accepted.length - failed} ok, ${failed} failed`,
+    `${accepted.length} rebalance, ${breakerSells.length} breaker, ${failed} failed`,
     failed === 0,
   );
   return failed === 0 ? 0 : 1;

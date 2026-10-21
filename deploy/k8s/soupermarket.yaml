@@ -1,6 +1,6 @@
 # Build from the repo root:
 #   docker build -f apps/soupermarket/Dockerfile -t soupermarket:latest .
-# The site serves filed editions. A new edition is written after 17:00 America/New_York.
+# Read-only day recap. Does not place orders.
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -41,21 +41,20 @@ spec:
             - name: http
               containerPort: 8080
           env:
-            - name: SOUPER_DB
-              value: /data/souper.db
-            - name: NEWSTRACKER_URL
-              value: http://newstracker.daytrade.svc.cluster.local:8080
-            - name: SOUPER_PUBLISH_HOUR_ET
-              value: "17"
-            - name: SOUPER_WORK
-              value: /work
-            - name: SOUPER_MODEL
-              value: composer-2.5
-            - name: CURSOR_API_KEY
+            - name: APCA_API_BASE_URL
+              value: https://api.alpaca.markets
+            - name: SOUPER_DATA_URL
+              value: https://data.alpaca.markets
+            - name: APCA_API_KEY_ID
               valueFrom:
                 secretKeyRef:
                   name: daytrade-secrets
-                  key: CURSOR_API_KEY
+                  key: APCA_API_KEY_ID
+            - name: APCA_API_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: daytrade-secrets
+                  key: APCA_API_SECRET_KEY
             - name: DAYTRADE_DISCORD_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
@@ -81,10 +80,10 @@ spec:
               mountPath: /work
           resources:
             requests:
-              cpu: 100m
-              memory: 512Mi
+              cpu: 50m
+              memory: 64Mi
             limits:
-              memory: 2Gi
+              memory: 256Mi
       volumes:
         - name: data
           persistentVolumeClaim:

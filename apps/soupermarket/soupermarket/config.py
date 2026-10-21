@@ -22,6 +22,10 @@ class Config:
     cursor_api_key: str
     model: str
     work_dir: str
+    alpaca_key: str
+    alpaca_secret: str
+    alpaca_base: str
+    alpaca_data: str
 
 
 def load_config() -> Config:
@@ -37,4 +41,8 @@ def load_config() -> Config:
         cursor_api_key=os.environ.get("CURSOR_API_KEY", "").strip(),
         model=os.environ.get("SOUPER_MODEL", "composer-2.5").strip() or "composer-2.5",
         work_dir=os.environ.get("SOUPER_WORK", "/work"),
+        alpaca_key=os.environ.get("APCA_API_KEY_ID", "").strip(),
+        alpaca_secret=os.environ.get("APCA_API_SECRET_KEY", "").strip(),
+        alpaca_base=os.environ.get("APCA_API_BASE_URL", "https://api.alpaca.markets").rstrip("/"),
+        alpaca_data=os.environ.get("SOUPER_DATA_URL", "https://data.alpaca.markets").rstrip("/"),
     )
